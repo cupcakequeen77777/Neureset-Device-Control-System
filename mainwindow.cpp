@@ -10,6 +10,9 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     ui->btn_off->hide();
     ui->btn_on->show();
+    ui->dateTimeEdit->hide();
+    ui->btn_setDate->hide();
+    ui->control->hide();
 }
 
 MainWindow::~MainWindow()
@@ -45,6 +48,10 @@ void MainWindow::on_btn_disconnectSite_clicked()
 void MainWindow::on_widget_menuOpts_itemActivated(QListWidgetItem *item)
 {
     qDebug ()<< "menuOpts_itemActivated" << item->text();
+    if(item->text() == "TIME AND DATE"){
+        ui->dateTimeEdit->show();
+        ui->btn_setDate->show();
+    }
 }
 
 
@@ -53,6 +60,7 @@ void MainWindow::on_btn_on_clicked()
     qDebug() << "You turned on the  machine";
     ui->btn_on->hide();
     ui->btn_off->show();
+    ui->control->show();
 }
 
 
@@ -61,5 +69,16 @@ void MainWindow::on_btn_off_clicked()
     qDebug() << "You turned off the  machine";
     ui->btn_off->hide();
     ui->btn_on->show();
+    ui->control->hide();
+}
+
+
+void MainWindow::on_btn_setDate_clicked()
+{
+    qDebug() << "The date is now: " << ui->dateTimeEdit->date();
+    qDebug() << "The time is now: " <<ui->dateTimeEdit->time();
+
+    ui->dateTimeEdit->hide();
+    ui->btn_setDate->hide();
 }
 

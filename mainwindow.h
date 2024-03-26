@@ -32,6 +32,8 @@ private slots:
 
     void on_btn_off_clicked();
 
+    void on_btn_setDate_clicked();
+
 private:
     Ui::MainWindow *ui;
 };
