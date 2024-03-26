@@ -81,19 +81,6 @@
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
     </property>
-    <widget class="QPushButton" name="btn_on_off">
-     <property name="geometry">
-      <rect>
-       <x>580</x>
-       <y>10</y>
-       <width>83</width>
-       <height>25</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>ON/OFF</string>
-     </property>
-    </widget>
     <widget class="QTabWidget" name="tabWidget">
      <property name="geometry">
       <rect>
@@ -107,7 +94,7 @@
       <bool>true</bool>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="tab_treatement">
       <attribute name="title">
@@ -310,7 +297,19 @@
       <string/>
      </property>
     </widget>
-    <zorder>btn_on_off</zorder>
+    <widget class="QPushButton" name="btn_on_off">
+     <property name="geometry">
+      <rect>
+       <x>460</x>
+       <y>10</y>
+       <width>83</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>ON/OFF</string>
+     </property>
+    </widget>
     <zorder>btn_pauseTreatement</zorder>
     <zorder>btn_stopTreatement</zorder>
     <zorder>btn_continueTreatment</zorder>
@@ -319,6 +318,7 @@
     <zorder>treatementSignal</zorder>
     <zorder>contactLostSignal</zorder>
     <zorder>tabWidget</zorder>
+    <zorder>btn_on_off</zorder>
    </widget>
   </widget>
  </widget>
