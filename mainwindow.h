@@ -17,7 +17,6 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_pushButton_clicked();
 
     void on_btn_pauseTreatement_clicked();
 
@@ -27,8 +26,7 @@ private slots:
 
     void on_btn_disconnectSite_clicked();
 
-
-    void on_widget_menuOpts_itemClicked(QListWidgetItem *item);
+    void on_widget_menuOpts_itemActivated(QListWidgetItem *item);
 
 private:
     Ui::MainWindow *ui;
