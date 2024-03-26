@@ -297,7 +297,7 @@
       <string/>
      </property>
     </widget>
-    <widget class="QPushButton" name="btn_on_off">
+    <widget class="QPushButton" name="btn_off">
      <property name="geometry">
       <rect>
        <x>460</x>
@@ -307,7 +307,20 @@
       </rect>
      </property>
      <property name="text">
-      <string>ON/OFF</string>
+      <string>OFF</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="btn_on">
+     <property name="geometry">
+      <rect>
+       <x>460</x>
+       <y>10</y>
+       <width>83</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>ON</string>
      </property>
     </widget>
     <zorder>btn_pauseTreatement</zorder>
@@ -318,7 +331,8 @@
     <zorder>treatementSignal</zorder>
     <zorder>contactLostSignal</zorder>
     <zorder>tabWidget</zorder>
-    <zorder>btn_on_off</zorder>
+    <zorder>btn_off</zorder>
+    <zorder>btn_on</zorder>
    </widget>
   </widget>
  </widget>

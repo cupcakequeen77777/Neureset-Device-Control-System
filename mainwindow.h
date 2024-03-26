@@ -28,6 +28,10 @@ private slots:
 
     void on_widget_menuOpts_itemActivated(QListWidgetItem *item);
 
+    void on_btn_on_clicked();
+
+    void on_btn_off_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

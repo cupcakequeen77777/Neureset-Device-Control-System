@@ -8,6 +8,8 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    ui->btn_off->hide();
+    ui->btn_on->show();
 }
 
 MainWindow::~MainWindow()
@@ -42,6 +44,22 @@ void MainWindow::on_btn_disconnectSite_clicked()
 
 void MainWindow::on_widget_menuOpts_itemActivated(QListWidgetItem *item)
 {
-    qDebug ("menuOpts_itemActivated");
+    qDebug ()<< "menuOpts_itemActivated" << item->text();
+}
+
+
+void MainWindow::on_btn_on_clicked()
+{
+    qDebug() << "You turned on the  machine";
+    ui->btn_on->hide();
+    ui->btn_off->show();
+}
+
+
+void MainWindow::on_btn_off_clicked()
+{
+    qDebug() << "You turned off the  machine";
+    ui->btn_off->hide();
+    ui->btn_on->show();
 }
 
