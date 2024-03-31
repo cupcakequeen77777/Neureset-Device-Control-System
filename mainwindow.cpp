@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "defs.h"
 
 #include <QtDebug>
 
@@ -13,6 +14,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->dateTimeEdit->hide();
     ui->btn_setDate->hide();
     ui->control->hide();
+    ui->eegSite->setMaximum(NUM_EEGSITES);
 }
 
 MainWindow::~MainWindow()
@@ -41,7 +43,7 @@ void MainWindow::on_btn_stopTreatement_clicked()
 
 void MainWindow::on_btn_disconnectSite_clicked()
 {
-    qDebug ("disconnect Site");
+    qDebug () << "disconnect Site" <<ui->eegSite->value();
 }
 
 

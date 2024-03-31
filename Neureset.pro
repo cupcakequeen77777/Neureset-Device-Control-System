@@ -15,6 +15,7 @@ SOURCES += \
 
 HEADERS += \
     EEGSite.h \
+    defs.h \
     mainwindow.h
 
 FORMS += \

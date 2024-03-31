@@ -3,8 +3,7 @@
 
 #include <QObject>
 
-class EEGSite
-{
+class EEGSite : public QObject {
     Q_OBJECT
 public:
     EEGSite();
