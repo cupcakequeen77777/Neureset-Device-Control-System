@@ -1,6 +1,5 @@
 #include "EEGSite.h"
 
-EEGSite::EEGSite()
-{
+EEGSite::EEGSite(){
 
 }
