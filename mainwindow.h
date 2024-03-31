@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 #include <QListWidgetItem>
-#include <EEGSite.h>
+#include <NeuresetController.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -41,5 +41,6 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    NeuresetController controller = NeuresetController::getInstance();
 };
 #endif // MAINWINDOW_H

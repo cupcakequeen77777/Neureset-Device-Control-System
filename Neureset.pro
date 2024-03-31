@@ -10,11 +10,13 @@ CONFIG += c++11
 
 SOURCES += \
     EEGSite.cpp \
+    NeuresetController.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
     EEGSite.h \
+    NeuresetController.h \
     defs.h \
     mainwindow.h
 
