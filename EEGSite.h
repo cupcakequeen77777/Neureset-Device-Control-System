@@ -11,8 +11,11 @@ public:
 
     EEGSite(int id);
 
-public slots:
+signals:
     void contactLost();
+
+ public slots:
+    void disconnectSite(int id);
 
 
 private:

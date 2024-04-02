@@ -9,8 +9,10 @@ class NeuresetController : public QObject {
     Q_OBJECT
 public:
     static NeuresetController* getInstance();
+    EEGSite* getEEGSite(int eegId);
 
 public slots:
+
 
 signals:
 

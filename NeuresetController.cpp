@@ -15,3 +15,8 @@ NeuresetController* NeuresetController::getInstance(){
     }
     return control;
 }
+
+
+EEGSite* NeuresetController::getEEGSite(int eegId){
+    return eegSites[eegId];
+}

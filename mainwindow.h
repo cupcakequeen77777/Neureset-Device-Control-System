@@ -4,6 +4,10 @@
 #include <QMainWindow>
 #include <QListWidgetItem>
 #include <NeuresetController.h>
+#include "defs.h"
+#include <QTimer>
+#include <QtDebug>
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -18,7 +22,7 @@ public:
     ~MainWindow();
 
 signals:
-    void disconnectSite(int eegId);
+    void disconnect(int eegId);
 
 
 private slots:

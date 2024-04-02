@@ -1,8 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "defs.h"
-
-#include <QtDebug>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -15,6 +12,12 @@ MainWindow::MainWindow(QWidget *parent)
     ui->btn_setDate->hide();
     ui->control->hide();
     ui->eegSite->setMaximum(NUM_EEGSITES);
+
+
+    for (int i=0; i<NUM_EEGSITES; i++) {
+        connect(this, &MainWindow::disconnect, controller->getEEGSite(i), &EEGSite::disconnectSite);
+    }
+
 }
 
 MainWindow::~MainWindow(){
@@ -36,11 +39,12 @@ void MainWindow::on_btn_stopTreatement_clicked(){
     qDebug ("stop Treatment");
 }
 
-
 void MainWindow::on_btn_disconnectSite_clicked(){
     int eegId = ui->eegSite->value();
     qDebug () << "disconnect Site" << eegId;
-    emit disconnectSite(eegId);
+//    connect(this, &MainWindow::disconnect, controller->getEEGSite(eegId), &EEGSite::disconnectSite);
+    emit disconnect(eegId);
+//    controller->getEEGSite(eegId)->disconnect();
 }
 
 

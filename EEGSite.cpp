@@ -9,6 +9,8 @@ EEGSite::EEGSite(int i){
     isConnected = true;
 }
 
-void EEGSite::contactLost(){
+
+void EEGSite::disconnectSite(int id){
     qDebug() << "contact lost on #" << id;
+    emit contactLost();
 }
