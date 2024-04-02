@@ -16,19 +16,21 @@ brainwave signal is measured again and the offset frequency is added to the new 
 signal, recalculating and repeating the process every 1/16 of a second for the duration of one
 second. */
 void EEGSite::deliverTreatment(){
-    qDebug() << "Treating site #"<< id;
+    qDebug() << "*****\nTreating site #"<< id;
     qDebug() << "Initial baseline: " << baselineFrequency;
     for (int i=0; i<16; i++){
-        qDebug() << "Adding 5hz to the dominant frequency";
-        baselineFrequency += 5;
-        qDebug() << "Frequency is now " << baselineFrequency;
+        //add 5hz to the dominant frequency and recalculate the baselineFrequency
+        baselineFrequency = calcNewBaseline(baselineFrequency+5);
     }
     qDebug() << "Site #"<< id << " has now been treated and has a new dominant frequency of "<<baselineFrequency;
 }
 
 // helper function for deliver treatment that recalculates the brainwave signal after each offset frequency of 5hz is added
+// current logic is the new baseline is +/- 5 from the given frequency
 int EEGSite::calcNewBaseline(int baselineFrequency){
-    return baselineFrequency -1; // fixme: randomize this
+    //generate a random number between -5 and +5
+    int frequencyChange = rand() % 10 - 5;
+    return baselineFrequency + frequencyChange;
 }
 
 void EEGSite::contactLost(){
