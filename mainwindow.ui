@@ -71,6 +71,19 @@
       <number>99</number>
      </property>
     </widget>
+    <widget class="QPushButton" name="btn_disconnectSite_2">
+     <property name="geometry">
+      <rect>
+       <x>300</x>
+       <y>40</y>
+       <width>171</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Fix Connections</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QFrame" name="frame">
     <property name="geometry">
