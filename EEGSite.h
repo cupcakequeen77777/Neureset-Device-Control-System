@@ -10,6 +10,7 @@ public:
     EEGSite();
 
     EEGSite(int id);
+    void deliverTreatment();
 
 public slots:
     void contactLost();
@@ -18,6 +19,9 @@ public slots:
 private:
     int id;
     bool isConnected;
+    int baselineFrequency;
+    int calcNewBaseline(int);
+
 };
 
 #endif // EEGSITE_H
