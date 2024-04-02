@@ -10,12 +10,17 @@ public:
     EEGSite();
 
     EEGSite(int id);
+
+    bool getIsConnected();
+
     void deliverTreatment();
 
     void disconnectSite();
 
+    void reconnectSite();
+
 signals:
-    void contactLost();
+    void contactLost(bool);
 
 
 private:

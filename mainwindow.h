@@ -22,10 +22,10 @@ public:
     ~MainWindow();
 
 public slots:
-    void contactLost();
+    void contactLost(bool);
 
 signals:
-    void disconnect(int eegId);
+
 
 
 private slots:
@@ -45,6 +45,8 @@ private slots:
     void on_btn_off_clicked();
 
     void on_btn_setDate_clicked();
+
+    void on_btn_connectSites_clicked();
 
 private:
     Ui::MainWindow *ui;

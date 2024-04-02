@@ -10,6 +10,10 @@ EEGSite::EEGSite(int i){
     baselineFrequency = 10; //this is a default frequency, but the getBaseline() func will actually calculate the frequency of the site
 }
 
+bool EEGSite::getIsConnected(){
+    return isConnected;
+}
+
 /* An offset frequency of 5hz is added to the dominant frequency. In the
 span of a single second, the offset frequency is added every 1/16 second, whereupon the
 brainwave signal is measured again and the offset frequency is added to the new brainwave
@@ -36,5 +40,12 @@ int EEGSite::calcNewBaseline(int baselineFrequency){
 
 void EEGSite::disconnectSite(){
     qDebug() << "contact lost on #" << id;
-    emit contactLost();
+    isConnected = false;
+    emit contactLost(true);
+}
+
+void EEGSite::reconnectSite(){
+    qDebug() << "contact reconnected on #" << id;
+    isConnected = true;
+    emit contactLost(false);
 }

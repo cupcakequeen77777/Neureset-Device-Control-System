@@ -71,7 +71,10 @@
       <number>99</number>
      </property>
     </widget>
-    <widget class="QPushButton" name="btn_disconnectSite_2">
+    <widget class="QPushButton" name="btn_connectSites">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="geometry">
       <rect>
        <x>300</x>
@@ -151,7 +154,7 @@
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: red</string>
+      <string notr="true">background-color: pink</string>
      </property>
      <property name="text">
       <string/>
