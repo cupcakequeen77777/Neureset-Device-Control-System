@@ -21,6 +21,9 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+public slots:
+    void contactLost();
+
 signals:
     void disconnect(int eegId);
 

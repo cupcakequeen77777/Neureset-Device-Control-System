@@ -13,10 +13,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->control->hide();
     ui->eegSite->setMaximum(NUM_EEGSITES);
 
-
-    for (int i=0; i<NUM_EEGSITES; i++) {
-        connect(this, &MainWindow::disconnect, controller->getEEGSite(i), &EEGSite::disconnectSite);
-    }
+    connect(controller, &NeuresetController::lostContact, this, &MainWindow::contactLost);
 
 }
 
@@ -42,9 +39,7 @@ void MainWindow::on_btn_stopTreatement_clicked(){
 void MainWindow::on_btn_disconnectSite_clicked(){
     int eegId = ui->eegSite->value();
     qDebug () << "disconnect Site" << eegId;
-//    connect(this, &MainWindow::disconnect, controller->getEEGSite(eegId), &EEGSite::disconnectSite);
-    emit disconnect(eegId);
-//    controller->getEEGSite(eegId)->disconnect();
+    controller->disconnectSite(eegId);
 }
 
 
@@ -79,5 +74,11 @@ void MainWindow::on_btn_setDate_clicked(){
 
     ui->dateTimeEdit->hide();
     ui->btn_setDate->hide();
+}
+
+
+void MainWindow::contactLost(){
+    qDebug() << "MainWindow recieves contactLost from controller";
+
 }
 
