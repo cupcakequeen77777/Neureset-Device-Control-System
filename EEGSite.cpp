@@ -34,7 +34,7 @@ int EEGSite::calcNewBaseline(int baselineFrequency){
 }
 
 
-void EEGSite::disconnectSite(int id){
+void EEGSite::disconnectSite(){
     qDebug() << "contact lost on #" << id;
     emit contactLost();
 }

@@ -20,3 +20,7 @@ NeuresetController* NeuresetController::getInstance(){
 EEGSite* NeuresetController::getEEGSite(int eegId){
     return eegSites[eegId];
 }
+
+void NeuresetController::disconnectSite(int eegId){
+    eegSites[eegId-1]->disconnectSite();
+}

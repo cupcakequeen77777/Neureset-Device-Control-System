@@ -12,11 +12,10 @@ public:
     EEGSite(int id);
     void deliverTreatment();
 
+    void disconnectSite();
+
 signals:
     void contactLost();
-
- public slots:
-    void disconnectSite(int id);
 
 
 private:

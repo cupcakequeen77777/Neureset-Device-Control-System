@@ -11,6 +11,8 @@ public:
     static NeuresetController* getInstance();
     EEGSite* getEEGSite(int eegId);
 
+    void disconnectSite(int eegId);
+
 public slots:
 
 
