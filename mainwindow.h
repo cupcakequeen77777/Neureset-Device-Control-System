@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QListWidgetItem>
+#include <NeuresetController.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -15,6 +16,10 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+
+signals:
+    void disconnectSite(int eegId);
+
 
 private slots:
 
@@ -36,5 +41,6 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    NeuresetController* controller = NeuresetController::getInstance();
 };
 #endif // MAINWINDOW_H
