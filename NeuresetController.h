@@ -13,11 +13,13 @@ public:
 
     void disconnectSite(int eegId);
 
+    void reconnectSites();
+
 public slots:
-    void contactLost();
+    void contactLost(bool);
 
 signals:
-    void lostContact();
+    void lostContact(bool);
 
 protected:
     NeuresetController();

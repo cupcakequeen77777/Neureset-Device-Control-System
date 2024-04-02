@@ -43,6 +43,12 @@ void MainWindow::on_btn_disconnectSite_clicked(){
 }
 
 
+void MainWindow::on_btn_connectSites_clicked(){
+    qDebug () << "reconnect Sites";
+    controller->reconnectSites();
+}
+
+
 void MainWindow::on_widget_menuOpts_itemActivated(QListWidgetItem *item){
     qDebug ()<< "menuOpts_itemActivated" << item->text();
     if(item->text() == "TIME AND DATE"){
@@ -74,11 +80,22 @@ void MainWindow::on_btn_setDate_clicked(){
 
     ui->dateTimeEdit->hide();
     ui->btn_setDate->hide();
+
+}
+
+
+void MainWindow::contactLost(bool x){
+    if(x){
+        qDebug() << "MainWindow recieves contactLost from controller";
+        ui->contactLostSignal->setStyleSheet("background-color: red ");
+        ui->btn_connectSites->setEnabled(true);
+    }else{
+        qDebug() << "MainWindow recieves not contactLost from controller";
+        ui->contactLostSignal->setStyleSheet("background-color: pink ");
+        ui->btn_connectSites->setEnabled(false);
+    }
+
 }
 
 
-void MainWindow::contactLost(){
-    qDebug() << "MainWindow recieves contactLost from controller";
-
-}
 

@@ -27,8 +27,21 @@ void NeuresetController::disconnectSite(int eegId){
     eegSites[eegId-1]->disconnectSite();
 }
 
+void NeuresetController::reconnectSites(){
+    for (int i = 0; i< NUM_EEGSITES; i++) {
+        if(!eegSites[i-1]->getIsConnected()){
+            eegSites[i-1]->reconnectSite();
+        }
+    }
 
-void NeuresetController::contactLost(){
-    qDebug() << "NeuresetController recives contactLost from EEG site";
-    emit lostContact();
+}
+
+
+void NeuresetController::contactLost(bool x){
+    if(x){
+        qDebug() << "NeuresetController recives contactLost from EEG site";
+    }else{
+        qDebug() << "NeuresetController recives NOT contactLost from EEG site";
+    }
+    emit lostContact(x);
 }
