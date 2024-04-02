@@ -14,7 +14,27 @@ MainWindow::MainWindow(QWidget *parent)
     ui->eegSite->setMaximum(NUM_EEGSITES);
 
     connect(controller, &NeuresetController::lostContact, this, &MainWindow::contactLost);
+    QLineSeries *series = new QLineSeries();
+    series->append(0, 6);
+    series->append(1, 1);
+    series->append(2, 7);
+    series->append(3, 1);
+    series->append(4, 3);
+    series->append(5, 10);
+    series->append(6, 9);
 
+    QChart *chart = new QChart();
+    chart->legend()->hide();
+    chart->addSeries(series);
+    chart->createDefaultAxes();
+    chart->axes(Qt::Vertical).first()->setRange(0, 10);
+    chart->axes(Qt::Horizontal).first()->setRange(0, 12);
+
+    QChartView *chartView = new QChartView(chart);
+    chartView->setRenderHint(QPainter::Antialiasing);
+    chartView->setMinimumSize(ui->theGraph->size());
+    chartView->setVisible(true);
+    chartView->setParent(ui->theGraph);
 }
 
 MainWindow::~MainWindow(){

@@ -7,6 +7,9 @@
 #include "defs.h"
 #include <QTimer>
 #include <QtDebug>
+#include <QtCharts>
+#include <QChartView>
+#include <QLineSeries>
 
 
 QT_BEGIN_NAMESPACE
