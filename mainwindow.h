@@ -41,6 +41,6 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    NeuresetController controller = NeuresetController::getInstance();
+    NeuresetController* controller = NeuresetController::getInstance();
 };
 #endif // MAINWINDOW_H

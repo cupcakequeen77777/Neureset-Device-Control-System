@@ -1,5 +1,7 @@
 #include "NeuresetController.h"
 
+NeuresetController* NeuresetController::control = 0;
+
 NeuresetController::NeuresetController(){
     for(int i = 0; i < NUM_EEGSITES; i++){
         eegSites[i] = new EEGSite(i+1);
