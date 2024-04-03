@@ -27,7 +27,7 @@ private:
     int id;
     bool isConnected;
     int baselineFrequency;
-    int calcNewBaseline(int);
+    int calcNewBaseline(int, int);
 
 };
 

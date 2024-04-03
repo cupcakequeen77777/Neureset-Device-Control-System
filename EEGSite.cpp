@@ -14,26 +14,36 @@ bool EEGSite::getIsConnected(){
     return isConnected;
 }
 
-/* An offset frequency of 5hz is added to the dominant frequency. In the
-span of a single second, the offset frequency is added every 1/16 second, whereupon the
-brainwave signal is measured again and the offset frequency is added to the new brainwave
-signal, recalculating and repeating the process every 1/16 of a second for the duration of one
-second. */
+//this function delivers treatment to the EEG site in four rounds. Each round increase then offset frequency by 5 and then add that
+//offset frequency 16 times over the span of a second to the baseline frequency and reanalysis/recalcuates the baseline frequency
 void EEGSite::deliverTreatment(){
     qDebug() << "*****\nTreating site #"<< id;
     qDebug() << "Initial baseline: " << baselineFrequency;
-    for (int i=0; i<16; i++){
-        //add 5hz to the dominant frequency and recalculate the baselineFrequency
-        baselineFrequency = calcNewBaseline(baselineFrequency+5);
+    for(int round=5; round <= 20; round+=5){
+        qDebug() << "Beginning round #" << round/5 << " with " << round << "hz offset frequency";
+        for (int i=0; i<16; i++){
+            //add offset frequency to the dominant frequency and recalculate the baselineFrequency
+            baselineFrequency = calcNewBaseline(baselineFrequency, round);
+        }
+        qDebug() << "Round #" << round/5 << " completed, the baseline frequency is now " << baselineFrequency;
     }
     qDebug() << "Site #"<< id << " has now been treated and has a new dominant frequency of "<<baselineFrequency;
 }
 
-// helper function for deliver treatment that recalculates the brainwave signal after each offset frequency of 5hz is added
-// current logic is the new baseline is +/- 5 from the given frequency
-int EEGSite::calcNewBaseline(int baselineFrequency){
-    //generate a random number between -5 and +5
-    int frequencyChange = rand() % 10 - 5;
+// helper function for deliver treatment that recalculates the brainwave signal after each offset frequency is added
+// current logic is the new baseline is the old baseline +/- some value in the range of the offset frequency divided by 5.
+// For example if the offset frequency was 15hz the baseline would be modified by some value in the range (-3, 3)
+int EEGSite::calcNewBaseline(int baselineFrequency, int offsetFrequency){
+    //generate a random number in the range of +/- the offsetFrequency for the given round
+    int frequencyChange = (rand() % (1 + (offsetFrequency/5)*2)) - offsetFrequency/5;
+
+    //edge cases to prevent frequency from going out of bounds
+    if(baselineFrequency + frequencyChange < 0){
+        return 0;
+    }
+    if(baselineFrequency + frequencyChange > 40){
+        return 40;
+    }
     return baselineFrequency + frequencyChange;
 }
 
