@@ -9,6 +9,9 @@ NeuresetController::NeuresetController(): isPaused(false), pausedTime(0), pauseO
 
     timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, &NeuresetController::updateTimer);
+    timerForPausing = new QTimer(this);
+    timerForPausing->setSingleShot(true);
+    connect(timerForPausing, &QTimer::timeout, this, &NeuresetController::handlePauseTimeout);
 }
 
 
@@ -45,6 +48,8 @@ void NeuresetController::pauseTimer() {
         timer->stop(); // Stop the QTimer
         pausedTime = elapsedTime.elapsed(); // record the elapsed time
         isPaused = true;
+
+        timerForPausing->start(5000);
     }
 }
 
@@ -55,6 +60,8 @@ void NeuresetController::resumeTimer() {
         pauseOffset += currentPauseDuration;
         timer->start(1000);
         isPaused = false;
+
+        timerForPausing->stop();
     }
 }
 
@@ -65,5 +72,13 @@ void NeuresetController::stopTimer() {
     pausedTime = 0;
     pauseOffset = 0;
     emit timeUpdated("01:00"); // Reset the display to the initial time
+}
+
+void NeuresetController::handlePauseTimeout() {
+    qDebug() << "Pause timeout reached. Ending session.";
+    stopTimer();
+
+    // emit signal to inform the rest of your application that the session has ended.
+    emit sessionEnded(); // this does nothing for now...
 }
 
