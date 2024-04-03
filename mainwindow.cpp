@@ -13,9 +13,13 @@ MainWindow::MainWindow(QWidget *parent)
     ui->control->hide();
     ui->eegSite->setMaximum(NUM_EEGSITES);
 
+
     connect(controller, &NeuresetController::lostContact, this, &MainWindow::contactLost);
 
     createChart();
+
+    connect(controller, &NeuresetController::timeUpdated, this, &MainWindow::updateTreatmentTime);
+
 }
 
 MainWindow::~MainWindow(){
@@ -55,16 +59,19 @@ void MainWindow::createChart(){
 
 void MainWindow::on_btn_pauseTreatement_clicked(){
     qDebug ("on_btn_pauseTreatement_clicked");
+    controller->pauseTimer();
 }
 
 
 void MainWindow::on_btn_continueTreatment_clicked(){
     qDebug ("continue Treatment");
+    controller->resumeTimer();
 }
 
 
 void MainWindow::on_btn_stopTreatement_clicked(){
     qDebug ("stop Treatment");
+    controller->stopTimer();
 }
 
 void MainWindow::on_btn_disconnectSite_clicked(){
@@ -94,6 +101,9 @@ void MainWindow::on_btn_on_clicked(){
     ui->btn_on->hide();
     ui->btn_off->show();
     ui->control->show();
+
+    //start timing when pressing the on button... (can/will move to "new session" from menu later)
+    controller->startTimer();
 }
 
 
@@ -115,6 +125,7 @@ void MainWindow::on_btn_setDate_clicked(){
 }
 
 
+
 void MainWindow::contactLost(bool x){
     if(x){
         qDebug() << "MainWindow recieves contactLost from controller";
@@ -128,5 +139,9 @@ void MainWindow::contactLost(bool x){
 
 }
 
+
+void MainWindow::updateTreatmentTime(const QString& time) {
+    ui->treamentTime->setText(time);
+}
 
 
