@@ -54,5 +54,7 @@ private slots:
 private:
     Ui::MainWindow *ui;
     NeuresetController* controller = NeuresetController::getInstance();
+    void createChart();
+    int waveformData[60];
 };
 #endif // MAINWINDOW_H
