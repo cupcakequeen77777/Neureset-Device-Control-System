@@ -39,6 +39,10 @@ private slots:
 
     void on_btn_setDate_clicked();
 
+    //slot for recieving signals from controller
+    void updateTreatmentTime(const QString& time);
+
+
 private:
     Ui::MainWindow *ui;
     NeuresetController* controller = NeuresetController::getInstance();

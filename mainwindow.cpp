@@ -15,6 +15,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->btn_setDate->hide();
     ui->control->hide();
     ui->eegSite->setMaximum(NUM_EEGSITES);
+
+    connect(controller, &NeuresetController::timeUpdated, this, &MainWindow::updateTreatmentTime);
 }
 
 MainWindow::~MainWindow(){
@@ -24,16 +26,19 @@ MainWindow::~MainWindow(){
 
 void MainWindow::on_btn_pauseTreatement_clicked(){
     qDebug ("on_btn_pauseTreatement_clicked");
+    controller->pauseTimer();
 }
 
 
 void MainWindow::on_btn_continueTreatment_clicked(){
     qDebug ("continue Treatment");
+    controller->resumeTimer();
 }
 
 
 void MainWindow::on_btn_stopTreatement_clicked(){
     qDebug ("stop Treatment");
+    controller->stopTimer();
 }
 
 
@@ -58,6 +63,9 @@ void MainWindow::on_btn_on_clicked(){
     ui->btn_on->hide();
     ui->btn_off->show();
     ui->control->show();
+
+    //start timing when pressing the on button... (can/will move to "new session" from menu later)
+    controller->startTimer();
 }
 
 
@@ -75,5 +83,9 @@ void MainWindow::on_btn_setDate_clicked(){
 
     ui->dateTimeEdit->hide();
     ui->btn_setDate->hide();
+}
+
+void MainWindow::updateTreatmentTime(const QString& time) {
+    ui->treamentTime->setText(time);
 }
 
