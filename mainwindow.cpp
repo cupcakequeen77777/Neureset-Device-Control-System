@@ -17,12 +17,22 @@ MainWindow::MainWindow(QWidget *parent)
     ui->eegSite->setMaximum(NUM_EEGSITES);
 
     connect(controller, &NeuresetController::timeUpdated, this, &MainWindow::updateTreatmentTime);
+
+    initializeBatteryStuff();
 }
 
 MainWindow::~MainWindow(){
     delete ui;
 }
 
+void MainWindow::initializeBatteryStuff() {
+    batteryInstance = new Battery(this); // Battery instance is a child of MainWindow
+    connect(batteryInstance, &Battery::batteryLevelChanged, this, &MainWindow::updateBatteryLevel);
+    connect(batteryInstance, &Battery::batteryDepleted, this, &MainWindow::handleBatteryDepleted);
+
+    ui->battery->setMaximum(100);
+    ui->battery->setValue(batteryInstance->getBatteryLevel());
+}
 
 void MainWindow::on_btn_pauseTreatement_clicked(){
     qDebug ("on_btn_pauseTreatement_clicked");
@@ -66,6 +76,8 @@ void MainWindow::on_btn_on_clicked(){
 
     //start timing when pressing the on button... (can/will move to "new session" from menu later)
     controller->startTimer();
+    // start the timer for the battery consumption
+    batteryInstance->startBatteryConsumption();
 }
 
 
@@ -89,3 +101,13 @@ void MainWindow::updateTreatmentTime(const QString& time) {
     ui->treamentTime->setText(time);
 }
 
+
+void MainWindow::updateBatteryLevel(int level) {
+    ui->battery->setValue(level);
+    //qDebug() << "Battery level updated to:" << level << "%";
+}
+
+void MainWindow::handleBatteryDepleted() {
+    qDebug() << "Battery depleted. Application will now close.";
+    QApplication::quit();
+}

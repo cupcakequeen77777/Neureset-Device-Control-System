@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QListWidgetItem>
 #include <NeuresetController.h>
+#include "Battery.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -42,9 +43,18 @@ private slots:
     //slot for recieving signals from controller
     void updateTreatmentTime(const QString& time);
 
+    // slot to update the UI based on battery level
+    void updateBatteryLevel(int level);
+
+    // slot to handle battery depletion
+    void handleBatteryDepleted();
+
 
 private:
     Ui::MainWindow *ui;
     NeuresetController* controller = NeuresetController::getInstance();
+
+    Battery* batteryInstance;
+    void initializeBatteryStuff();
 };
 #endif // MAINWINDOW_H
