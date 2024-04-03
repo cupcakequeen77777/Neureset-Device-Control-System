@@ -5,7 +5,9 @@ NeuresetController* NeuresetController::control = 0;
 NeuresetController::NeuresetController(): isPaused(false), pausedTime(0), pauseOffset(0){
     for(int i = 0; i < NUM_EEGSITES; i++){
         eegSites[i] = new EEGSite(i+1);
+        connect(eegSites[i], &EEGSite::contactLost, this, &NeuresetController::contactLost);
      }
+
 
     timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, &NeuresetController::updateTimer);
@@ -22,6 +24,34 @@ NeuresetController* NeuresetController::getInstance(){
     return control;
 }
 
+
+EEGSite* NeuresetController::getEEGSite(int eegId){
+    return eegSites[eegId];
+}
+
+void NeuresetController::disconnectSite(int eegId){
+    eegSites[eegId-1]->disconnectSite();
+}
+
+void NeuresetController::reconnectSites(){
+    for (int i = 0; i< NUM_EEGSITES; i++) {
+        if(!eegSites[i-1]->getIsConnected()){
+            eegSites[i-1]->reconnectSite();
+        }
+    }
+
+}
+
+
+void NeuresetController::contactLost(bool x){
+    if(x){
+        qDebug() << "NeuresetController recives contactLost from EEG site";
+    }else{
+        qDebug() << "NeuresetController recives NOT contactLost from EEG site";
+    }
+    emit lostContact(x);
+}
+=======
 void NeuresetController::startTimer() {
     elapsedTime.start(); // Starts or restarts the elapsed timer
     pausedTime = 0;
@@ -81,4 +111,3 @@ void NeuresetController::handlePauseTimeout() {
     // emit signal to inform the rest of your application that the session has ended.
     emit sessionEnded(); // this does nothing for now...
 }
-

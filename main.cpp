@@ -6,6 +6,8 @@
 using namespace std;
 
 int main(int argc, char *argv[]){
+    //seed for random number generating
+    srand(time(0));
     cout <<"Hello World!";
     cout <<"LeeAnne Here";
     cout <<endl<<"Sara Here"<<endl;

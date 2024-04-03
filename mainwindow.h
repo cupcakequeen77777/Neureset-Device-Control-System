@@ -4,6 +4,13 @@
 #include <QMainWindow>
 #include <QListWidgetItem>
 #include <NeuresetController.h>
+#include "defs.h"
+#include <QTimer>
+#include <QtDebug>
+#include <QtCharts>
+#include <QChartView>
+#include <QLineSeries>
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -17,8 +24,11 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+public slots:
+    void contactLost(bool);
+
 signals:
-    void disconnectSite(int eegId);
+
 
 
 private slots:
@@ -39,12 +49,16 @@ private slots:
 
     void on_btn_setDate_clicked();
 
+
+    void on_btn_connectSites_clicked();
+
     //slot for recieving signals from controller
     void updateTreatmentTime(const QString& time);
-
 
 private:
     Ui::MainWindow *ui;
     NeuresetController* controller = NeuresetController::getInstance();
+    void createChart();
+    int waveformData[60];
 };
 #endif // MAINWINDOW_H
