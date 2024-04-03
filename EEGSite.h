@@ -11,24 +11,13 @@ public:
 
     EEGSite(int id);
 
-    bool getIsConnected();
-
-    void deliverTreatment();
-
-    void disconnectSite();
-
-    void reconnectSite();
-
-signals:
-    void contactLost(bool);
+public slots:
+    void contactLost();
 
 
 private:
     int id;
     bool isConnected;
-    int baselineFrequency;
-    int calcNewBaseline(int, int);
-
 };
 
 #endif // EEGSITE_H
