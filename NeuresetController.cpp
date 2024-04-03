@@ -51,7 +51,7 @@ void NeuresetController::contactLost(bool x){
     }
     emit lostContact(x);
 }
-=======
+
 void NeuresetController::startTimer() {
     elapsedTime.start(); // Starts or restarts the elapsed timer
     pausedTime = 0;
