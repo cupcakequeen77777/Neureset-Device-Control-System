@@ -14,16 +14,21 @@ class NeuresetController : public QObject {
     Q_OBJECT
 public:
     static NeuresetController* getInstance();
+    EEGSite* getEEGSite(int eegId);
+    void disconnectSite(int eegId);
+    void reconnectSites();
     void startTimer();
     void pauseTimer();
     void resumeTimer();
     void stopTimer();
 
 public slots:
+    void contactLost(bool);
     void updateTimer();
     void handlePauseTimeout();
 
 signals:
+    void lostContact(bool);
     void timeUpdated(const QString& timeString);
     void sessionEnded(); //placeholder for session end signal.
 

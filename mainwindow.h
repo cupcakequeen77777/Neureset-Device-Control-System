@@ -5,6 +5,12 @@
 #include <QListWidgetItem>
 #include <NeuresetController.h>
 #include "Battery.h"
+#include "defs.h"
+#include <QTimer>
+#include <QtDebug>
+#include <QtCharts>
+#include <QChartView>
+#include <QLineSeries>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -17,6 +23,9 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+
+public slots:
+    void contactLost(bool);
 
 signals:
     void disconnectSite(int eegId);
@@ -31,6 +40,8 @@ private slots:
     void on_btn_stopTreatement_clicked();
 
     void on_btn_disconnectSite_clicked();
+
+    void on_btn_connectSites_clicked();
 
     void on_widget_menuOpts_itemActivated(QListWidgetItem *item);
 
@@ -56,5 +67,7 @@ private:
 
     Battery* batteryInstance;
     void initializeBatteryStuff();
+    void createChart();
+    int waveformData[60];
 };
 #endif // MAINWINDOW_H
