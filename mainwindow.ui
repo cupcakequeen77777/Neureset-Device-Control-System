@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>606</width>
+    <width>1118</width>
     <height>480</height>
    </rect>
   </property>
@@ -71,6 +71,19 @@
       <number>99</number>
      </property>
     </widget>
+    <widget class="QPushButton" name="btn_connectSites">
+     <property name="geometry">
+      <rect>
+       <x>330</x>
+       <y>40</y>
+       <width>83</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Reconnect</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QFrame" name="frame">
     <property name="geometry">
@@ -100,7 +113,7 @@
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: blue</string>
+      <string notr="true">background-color: #B8D6F5</string>
      </property>
      <property name="text">
       <string/>
@@ -119,7 +132,7 @@
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: green</string>
+      <string notr="true">background-color: #A9E6B3</string>
      </property>
      <property name="text">
       <string/>
@@ -138,7 +151,7 @@
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: red</string>
+      <string notr="true">background-color: pink</string>
      </property>
      <property name="text">
       <string/>
@@ -198,7 +211,7 @@
        <bool>true</bool>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab_treatement">
        <attribute name="title">
@@ -368,6 +381,22 @@
       </property>
      </widget>
     </widget>
+   </widget>
+   <widget class="QFrame" name="theGraph">
+    <property name="geometry">
+     <rect>
+      <x>590</x>
+      <y>20</y>
+      <width>511</width>
+      <height>441</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
    </widget>
   </widget>
  </widget>
