@@ -41,6 +41,15 @@ void NeuresetController::reconnectSites(){
 
 }
 
+void NeuresetController::contactLost(bool x){
+    if(x){
+        qDebug() << "NeuresetController recives contactLost from EEG site";
+    }else{
+        qDebug() << "NeuresetController recives NOT contactLost from EEG site";
+    }
+    emit lostContact(x);
+}
+
 void NeuresetController::startTimer() {
     elapsedTime.start(); // Starts or restarts the elapsed timer
     pausedTime = 0;
