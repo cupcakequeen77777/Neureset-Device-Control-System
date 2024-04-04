@@ -23,6 +23,7 @@ public:
     void stopTimer();
 
 public slots:
+    void contactLost(bool);
     void updateTimer();
     void handlePauseTimeout();
 
