@@ -34,8 +34,8 @@ void NeuresetController::disconnectSite(int eegId){
 
 void NeuresetController::reconnectSites(){
     for (int i = 0; i< NUM_EEGSITES; i++) {
-        if(!eegSites[i-1]->getIsConnected()){
-            eegSites[i-1]->reconnectSite();
+        if(!eegSites[i]->getIsConnected()){
+            eegSites[i]->reconnectSite();
         }
     }
 
