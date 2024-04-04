@@ -21,6 +21,7 @@ public:
     void pauseTimer();
     void resumeTimer();
     void stopTimer();
+    void startNewSession();
 
 public slots:
     void contactLost(bool);

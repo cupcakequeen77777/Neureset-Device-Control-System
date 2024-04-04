@@ -23,6 +23,14 @@ NeuresetController* NeuresetController::getInstance(){
     return control;
 }
 
+void NeuresetController::startNewSession(){
+    qDebug() << "Starting new session";
+    //FIXME: treatment happens instantly, should take a minute...?
+    for (int i=0; i< NUM_EEGSITES; ++i){
+        eegSites[i]->deliverTreatment();
+    }
+}
+
 EEGSite* NeuresetController::getEEGSite(int eegId){
     return eegSites[eegId];
 }

@@ -103,6 +103,12 @@ void MainWindow::on_widget_menuOpts_itemActivated(QListWidgetItem *item){
         ui->dateTimeEdit->show();
         ui->btn_setDate->show();
     }
+    if(item->text() == "NEW SESSION"){
+        controller->startTimer();
+        //switch to session info tab
+        ui->tabWidget->setCurrentIndex(0);
+        controller->startNewSession();
+    }
 }
 
 
@@ -113,7 +119,7 @@ void MainWindow::on_btn_on_clicked(){
     ui->control->show();
 
     //start timing when pressing the on button... (can/will move to "new session" from menu later)
-    controller->startTimer();
+    //controller->startTimer();
     // start the timer for the battery consumption
     batteryInstance->startBatteryConsumption();
 }
