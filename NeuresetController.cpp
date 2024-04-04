@@ -31,7 +31,7 @@ void NeuresetController::disconnectSite(int eegId){
     eegSites[eegId-1]->disconnectSite();
 }
 
-        timerForPausing->start(5000);
+
 void NeuresetController::reconnectSites(){
     for (int i = 0; i< NUM_EEGSITES; i++) {
         if(!eegSites[i-1]->getIsConnected()){
