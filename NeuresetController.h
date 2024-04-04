@@ -28,6 +28,7 @@ public slots:
     void handlePauseTimeout();
 
 signals:
+    void lostContact(bool);
     void timeUpdated(const QString& timeString);
     void sessionEnded(); //placeholder for session end signal.
 
