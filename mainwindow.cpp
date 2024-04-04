@@ -16,9 +16,11 @@ MainWindow::MainWindow(QWidget *parent)
     ui->control->hide();
     ui->eegSite->setMaximum(NUM_EEGSITES);
 
+    connect(controller, &NeuresetController::lostContact, this, &MainWindow::contactLost);
     connect(controller, &NeuresetController::timeUpdated, this, &MainWindow::updateTreatmentTime);
 
     initializeBatteryStuff();
+    createChart();
 }
 
 MainWindow::~MainWindow(){
@@ -32,6 +34,37 @@ void MainWindow::initializeBatteryStuff() {
 
     ui->battery->setMaximum(100);
     ui->battery->setValue(batteryInstance->getBatteryLevel());
+}
+
+//create a graphical representation of the waveform and add it to the GUI
+void MainWindow::createChart(){
+    QLineSeries *series = new QLineSeries();
+    for (int i=0; i<60; ++i){
+        //random number between 1 and 30
+        int randNum = rand() % 30;
+        series->append(i, randNum);
+        waveformData[i] = randNum;
+    }
+
+    QChart *chart = new QChart();
+    chart->legend()->hide();
+    chart->addSeries(series);
+    chart->setTitle("EEG Waveform");
+    QValueAxis *axisX = new QValueAxis();
+    axisX->setRange(0, 60);
+    axisX->setTickCount(4);
+    axisX->setTitleText("time");
+    QValueAxis *axisY = new QValueAxis();
+    axisY->setRange(0, 30);
+    axisY->setTitleText("frequency");
+
+    chart->addAxis(axisX, Qt::AlignBottom);
+    chart->addAxis(axisY, Qt::AlignLeft);
+
+    QChartView *chartView = new QChartView(chart);
+    chartView->setRenderHint(QPainter::Antialiasing);
+    chartView->setMinimumSize(ui->theGraph->size());
+    chartView->setParent(ui->theGraph);
 }
 
 void MainWindow::on_btn_pauseTreatement_clicked(){
@@ -55,7 +88,12 @@ void MainWindow::on_btn_stopTreatement_clicked(){
 void MainWindow::on_btn_disconnectSite_clicked(){
     int eegId = ui->eegSite->value();
     qDebug () << "disconnect Site" << eegId;
-    emit disconnectSite(eegId);
+    controller->disconnectSite(eegId);
+}
+
+void MainWindow::on_btn_connectSites_clicked(){
+    qDebug () << "reconnect Sites";
+    controller->reconnectSites();
 }
 
 
@@ -110,4 +148,19 @@ void MainWindow::updateBatteryLevel(int level) {
 void MainWindow::handleBatteryDepleted() {
     qDebug() << "Battery depleted. Application will now close.";
     QApplication::quit();
+}
+
+void MainWindow::contactLost(bool x){
+    if(x){
+        qDebug() << "MainWindow recieves contactLost from controller";
+        ui->contactLostSignal->setStyleSheet("background-color: red");
+        ui->btn_connectSites->setEnabled(true);
+        ui->contactSignal->setStyleSheet("background-color: #B8D6F5");
+    }else{
+        qDebug() << "MainWindow recieves not contactLost from controller";
+        ui->contactLostSignal->setStyleSheet("background-color: pink");
+        ui->btn_connectSites->setEnabled(false);
+        ui->contactSignal->setStyleSheet("background-color: blue");
+    }
+
 }
