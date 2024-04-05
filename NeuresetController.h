@@ -46,6 +46,8 @@ private:
     static constexpr qint64 treatmentDurationMs = 60000; // 1 minute (in ms)
     QTimer* timerForPausing; //track if pasuing over 5mins
 
+    int numberOfSessions = 0;
+    QDateTime* sessionLog[];
 
 };
 

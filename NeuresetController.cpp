@@ -25,19 +25,16 @@ NeuresetController* NeuresetController::getInstance(){
 
 void NeuresetController::startNewSession(){
     qDebug() << "Starting new session";
-
     QDateTime currentDateTime = QDateTime::currentDateTime();
-    QTime currentTime = currentDateTime.time();
-    QDate date = currentDateTime.date();
-    QString formattedTime = currentTime.toString("HH:mm:ss");
-    qDebug() << "Current time:" << date;
-
-
+    sessionLog[numberOfSessions] = &currentDateTime;
+    numberOfSessions ++;
+    qDebug() << "Current date and time:" << currentDateTime.toString("dd/MM/yy hh:mm AP");
 
     //FIXME: treatment happens instantly, should take a minute...?
     for (int i=0; i< NUM_EEGSITES; ++i){
         eegSites[i]->deliverTreatment();
     }
+
 }
 
 EEGSite* NeuresetController::getEEGSite(int eegId){
