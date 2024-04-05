@@ -21,6 +21,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     initializeBatteryStuff();
     createChart();
+
 }
 
 MainWindow::~MainWindow(){
@@ -108,6 +109,19 @@ void MainWindow::on_widget_menuOpts_itemActivated(QListWidgetItem *item){
         //switch to session info tab
         ui->tabWidget->setCurrentIndex(0);
         controller->startNewSession();
+    }
+    if(item->text() == "SESSION LOG"){
+        QString filename = "Data.txt";
+        QFile file(filename);
+
+        if (file.open(QIODevice::ReadWrite)) {
+            qDebug() << "Writing to file";
+            QTextStream stream(&file);
+            stream << "Session Logs:"; // Write the session logs here
+            file.close(); // Close the file when done
+        } else {
+            qDebug() << "Error opening the file.";
+        }
     }
 }
 
