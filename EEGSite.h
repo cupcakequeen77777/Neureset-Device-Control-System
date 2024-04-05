@@ -16,6 +16,8 @@ public:
 
     bool getIsConnected();
 
+    int getBaseline();
+
     void deliverTreatment(int);
 
     void disconnectSite();

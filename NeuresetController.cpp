@@ -25,16 +25,23 @@ NeuresetController* NeuresetController::getInstance(){
 
 void NeuresetController::startNewSession(){
     qDebug() << "Starting new session";
-    QDateTime currentDateTime = QDateTime::currentDateTime();
-    sessionLog[numberOfSessions] = currentDateTime;
-    numberOfSessions ++;
-    qDebug() << "Current date and time:" << currentDateTime.toString("dd/MM/yy hh:mm:ss AP");
+
 
     //FIXME: treatment happens instantly, should take a minute...?
     for(int round=5; round <= 20; round+=5){
         qInfo() << "Beginning round #" << round/5 << " with " << round << "hz offset frequency";
+
+        QDateTime currentDateTime = QDateTime::currentDateTime();
+        sessionLogDT[numberOfSessions] = currentDateTime;
+        numberOfSessions ++;
+        qDebug() << "Current date and time:" << currentDateTime.toString("dd/MM/yy hh:mm:ss AP")
+                 << "Before baselines: "; // TODO: add and save before baseline
+
         for (int i=0; i< NUM_EEGSITES; ++i){
+            sessionLogB[i] = eegSites[i]->getBaseline();
             eegSites[i]->deliverTreatment(round);
+            sessionLogB[i] = eegSites[i]->getBaseline();
+
         }
         qInfo() << "Round #" << round/5 << " completed\n*****";
     }
@@ -132,10 +139,11 @@ void NeuresetController::handlePauseTimeout() {
 QString NeuresetController::sessionLogToString(){
     QString log;
     for(int i = 0; i < numberOfSessions; i++){
-        log.append(sessionLog[i].toString("dd/MM/yy hh:mm:ss AP"));
-        qInfo() << sessionLog[i].toString("dd/MM/yy hh:mm:ss AP");
+        log.append(sessionLogDT[i].toString("dd/MM/yy hh:mm:ss AP"));
+        qInfo() << sessionLogDT[i].toString("dd/MM/yy hh:mm:ss AP");
         log.append("\n");
     }
+
     return log;
 }
 

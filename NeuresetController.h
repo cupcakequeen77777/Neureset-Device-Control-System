@@ -52,7 +52,9 @@ private:
     QTimer* timerForPausing; //track if pausing over 5mins
 
     int numberOfSessions = 0;
-    QDateTime sessionLog[NUM_EEGSITES]; // TODO: change
+    QDateTime sessionLogDT[NUM_EEGSITES];
+    int sessionLogA[500];
+    int sessionLogB[500];
 
 };
 

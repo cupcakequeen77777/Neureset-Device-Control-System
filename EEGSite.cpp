@@ -7,11 +7,15 @@ EEGSite::EEGSite(){
 EEGSite::EEGSite(int i){
     id = i;
     isConnected = true;
-    baselineFrequency = 10; //this is a default frequency, but the getBaseline() func will actually calculate the frequency of the site
+    baselineFrequency = 10; //this is a default frequency, but the generateBaseline() func will actually calculate the frequency of the site
 }
 
 bool EEGSite::getIsConnected(){
     return isConnected;
+}
+
+int EEGSite::getBaseline(){
+    return baselineFrequency;
 }
 
 //this function delivers treatment to the EEG site in four rounds. Each round increase then offset frequency by 5 and then add that
