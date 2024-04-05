@@ -53,8 +53,8 @@ private:
 
     int numberOfSessions = 0;
     QDateTime sessionLogDT[NUM_EEGSITES];
-    int sessionLogA[500];
-    int sessionLogB[500];
+    int sessionLogA[21][4];
+    int sessionLogB[21][4];
 
 };
 

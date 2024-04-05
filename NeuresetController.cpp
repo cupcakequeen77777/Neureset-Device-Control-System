@@ -27,25 +27,32 @@ void NeuresetController::startNewSession(){
     qDebug() << "Starting new session";
 
 
+//    QDateTime waitTill = QDateTime::currentDateTime();
+//    waitTill = waitTill.addSecs(3);
+
+//    while(waitTill < QDateTime::currentDateTime()){
+
+//    }
+
+
     //FIXME: treatment happens instantly, should take a minute...?
-    for(int round=5; round <= 20; round+=5){
-        qInfo() << "Beginning round #" << round/5 << " with " << round << "hz offset frequency";
+    for(int round=1; round <= 4; round++){
+        qInfo() << "Beginning round #" << round << " with " << round*5 << "hz offset frequency";
 
         QDateTime currentDateTime = QDateTime::currentDateTime();
         sessionLogDT[numberOfSessions] = currentDateTime;
-        numberOfSessions ++;
-        qDebug() << "Current date and time:" << currentDateTime.toString("dd/MM/yy hh:mm:ss AP")
-                 << "Before baselines: "; // TODO: add and save before baseline
+
+        qDebug() << "Current date and time:" << currentDateTime.toString("dd/MM/yy hh:mm:ss AP");
 
         for (int i=0; i< NUM_EEGSITES; ++i){
-            sessionLogB[i] = eegSites[i]->getBaseline();
+            sessionLogB[i][round-1] = eegSites[i]->getBaseline();
             eegSites[i]->deliverTreatment(round);
-            sessionLogB[i] = eegSites[i]->getBaseline();
-
+            sessionLogB[i][round-1] = eegSites[i]->getBaseline();
         }
-        qInfo() << "Round #" << round/5 << " completed\n*****";
+        qInfo() << "Round #" << round << " completed\n*****";
     }
 
+    numberOfSessions ++;
 }
 
 EEGSite* NeuresetController::getEEGSite(int eegId){
