@@ -22,6 +22,7 @@ MainWindow::MainWindow(QWidget *parent)
     initializeBatteryStuff();
     createChart();
 
+    ui->dateTimeEdit->setDateTime(QDateTime::currentDateTime());
 }
 
 MainWindow::~MainWindow(){
@@ -111,6 +112,8 @@ void MainWindow::on_widget_menuOpts_itemActivated(QListWidgetItem *item){
         controller->startNewSession();
     }
     if(item->text() == "SESSION LOG"){
+        qInfo() << "SESSION LOG:";
+        // TODO: LeeAnne working here.
         QString filename = "Data.txt";
         QFile file(filename);
 
@@ -150,6 +153,8 @@ void MainWindow::on_btn_off_clicked(){
 void MainWindow::on_btn_setDate_clicked(){
     qDebug() << "The date is now: " << ui->dateTimeEdit->date();
     qDebug() << "The time is now: " <<ui->dateTimeEdit->time();
+
+    qDebug() << "The date time is now: " <<ui->dateTimeEdit->dateTime();
 
     ui->dateTimeEdit->hide();
     ui->btn_setDate->hide();

@@ -13,6 +13,7 @@
 #include <QLineSeries>
 #include <QFile>
 #include <QTextStream>
+#include <QDateTime>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }

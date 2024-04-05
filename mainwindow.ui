@@ -307,6 +307,12 @@
           <height>26</height>
          </rect>
         </property>
+        <property name="displayFormat">
+         <string>MM/dd/yy hh:mm AP</string>
+        </property>
+        <property name="calendarPopup">
+         <bool>true</bool>
+        </property>
        </widget>
       </widget>
      </widget>
