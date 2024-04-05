@@ -129,6 +129,7 @@ QString NeuresetController::sessionLogToString(){
     QString log;
     for(int i = 0; i < numberOfSessions; i++){
         log.append(sessionLog[i].toString("dd/MM/yy hh:mm:ss AP"));
+        qInfo() << sessionLog[i].toString("dd/MM/yy hh:mm:ss AP");
         log.append("\n");
     }
     return log;

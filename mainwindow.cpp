@@ -114,7 +114,6 @@ void MainWindow::on_widget_menuOpts_itemActivated(QListWidgetItem *item){
     if(item->text() == "SESSION LOG"){
         qInfo() << "SESSION LOG:";
         QString history = controller->sessionLogToString();
-        qInfo() << history;
         QString filename = "Data.txt";
         QFile file(filename);
 
