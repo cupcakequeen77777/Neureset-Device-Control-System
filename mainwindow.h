@@ -71,6 +71,6 @@ private:
     Battery* batteryInstance;
     void initializeBatteryStuff();
     void createChart();
-    int waveformData[60];
+
 };
 #endif // MAINWINDOW_H

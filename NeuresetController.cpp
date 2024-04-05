@@ -139,3 +139,13 @@ QString NeuresetController::sessionLogToString(){
     return log;
 }
 
+QLineSeries* NeuresetController::generateSeries(QLineSeries* series){
+    for (int i=0; i<60; ++i){
+        //random number between 1 and 30
+        int randNum = rand() % 30;
+        series->append(i, randNum);
+        waveformData[i] = randNum;
+    }
+    return series;
+}
+

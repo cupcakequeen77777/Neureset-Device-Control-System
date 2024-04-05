@@ -41,12 +41,8 @@ void MainWindow::initializeBatteryStuff() {
 //create a graphical representation of the waveform and add it to the GUI
 void MainWindow::createChart(){
     QLineSeries *series = new QLineSeries();
-    for (int i=0; i<60; ++i){
-        //random number between 1 and 30
-        int randNum = rand() % 30;
-        series->append(i, randNum);
-        waveformData[i] = randNum;
-    }
+
+    controller->generateSeries(series); // series = controller->generateSeries(series);
 
     QChart *chart = new QChart();
     chart->legend()->hide();
