@@ -26,15 +26,6 @@ NeuresetController* NeuresetController::getInstance(){
 void NeuresetController::startNewSession(){
     qDebug() << "Starting new session";
 
-
-//    QDateTime waitTill = QDateTime::currentDateTime();
-//    waitTill = waitTill.addSecs(3);
-
-//    while(waitTill < QDateTime::currentDateTime()){
-
-//    }
-
-
     //FIXME: treatment happens instantly, should take a minute...?
     for(int round=1; round <= 4; round++){
         qInfo() << "Beginning round #" << round << " with " << round*5 << "hz offset frequency";
@@ -46,9 +37,10 @@ void NeuresetController::startNewSession(){
 
         for (int i=0; i< NUM_EEGSITES; ++i){
             sessionLogB[i][round-1] = eegSites[i]->getBaseline();
-            eegSites[i]->deliverTreatment(round);
+            eegSites[i]->deliverTreatment(round*5);
             sessionLogB[i][round-1] = eegSites[i]->getBaseline();
         }
+        //FIXME: add delay for 15 seconds so the treatment actually takes a minute
         qInfo() << "Round #" << round << " completed\n*****";
     }
 
