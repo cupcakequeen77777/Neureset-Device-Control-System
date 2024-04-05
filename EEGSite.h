@@ -13,7 +13,7 @@ public:
 
     bool getIsConnected();
 
-    void deliverTreatment();
+    void deliverTreatment(int);
 
     void disconnectSite();
 

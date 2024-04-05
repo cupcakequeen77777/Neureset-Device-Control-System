@@ -31,8 +31,12 @@ void NeuresetController::startNewSession(){
     qDebug() << "Current date and time:" << currentDateTime.toString("dd/MM/yy hh:mm:ss AP");
 
     //FIXME: treatment happens instantly, should take a minute...?
-    for (int i=0; i< NUM_EEGSITES; ++i){
-        eegSites[i]->deliverTreatment();
+    for(int round=5; round <= 20; round+=5){
+        qInfo() << "Beginning round #" << round/5 << " with " << round << "hz offset frequency";
+        for (int i=0; i< NUM_EEGSITES; ++i){
+            eegSites[i]->deliverTreatment(round);
+        }
+        qInfo() << "Round #" << round/5 << " completed";
     }
 
 }

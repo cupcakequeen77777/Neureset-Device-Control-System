@@ -16,18 +16,14 @@ bool EEGSite::getIsConnected(){
 
 //this function delivers treatment to the EEG site in four rounds. Each round increase then offset frequency by 5 and then add that
 //offset frequency 16 times over the span of a second to the baseline frequency and reanalysis/recalcuates the baseline frequency
-void EEGSite::deliverTreatment(){
-    qDebug() << "*****\nTreating site #"<< id;
-    qDebug() << "Initial baseline: " << baselineFrequency;
-    for(int round=5; round <= 20; round+=5){
-        qDebug() << "Beginning round #" << round/5 << " with " << round << "hz offset frequency";
+void EEGSite::deliverTreatment(int offsetFrequency){
+    qInfo() << "*****\nTreating site #"<< id;
+    qInfo() << "Starting baseline: " << baselineFrequency;
         for (int i=0; i<16; i++){
             //add offset frequency to the dominant frequency and recalculate the baselineFrequency
-            baselineFrequency = calcNewBaseline(baselineFrequency, round);
+            baselineFrequency = calcNewBaseline(baselineFrequency, offsetFrequency);
         }
-        qDebug() << "Round #" << round/5 << " completed, the baseline frequency is now " << baselineFrequency;
-    }
-    qDebug() << "Site #"<< id << " has now been treated and has a new dominant frequency of "<<baselineFrequency;
+        qInfo() << "Site #"<< id << " has now been treated and has a new dominant frequency of "<<baselineFrequency;
 }
 
 // helper function for deliver treatment that recalculates the brainwave signal after each offset frequency is added
