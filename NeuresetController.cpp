@@ -36,7 +36,7 @@ void NeuresetController::startNewSession(){
         for (int i=0; i< NUM_EEGSITES; ++i){
             eegSites[i]->deliverTreatment(round);
         }
-        qInfo() << "Round #" << round/5 << " completed";
+        qInfo() << "Round #" << round/5 << " completed\n*****";
     }
 
 }
