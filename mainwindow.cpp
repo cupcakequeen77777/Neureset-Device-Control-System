@@ -113,14 +113,14 @@ void MainWindow::on_widget_menuOpts_itemActivated(QListWidgetItem *item){
     }
     if(item->text() == "SESSION LOG"){
         qInfo() << "SESSION LOG:";
-        // TODO: LeeAnne working here.
+        QString history = controller->sessionLogToString();
+        qInfo() << history;
         QString filename = "Data.txt";
         QFile file(filename);
 
         if (file.open(QIODevice::ReadWrite)) {
-            qDebug() << "Writing to file";
             QTextStream stream(&file);
-            stream << "Session Logs:"; // Write the session logs here
+            stream << history; // Write the session logs here
             file.close(); // Close the file when done
         } else {
             qDebug() << "Error opening the file.";

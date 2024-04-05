@@ -22,6 +22,7 @@ public:
     void resumeTimer();
     void stopTimer();
     void startNewSession();
+    QString sessionLogToString();
 
 public slots:
     void contactLost(bool);
@@ -47,7 +48,7 @@ private:
     QTimer* timerForPausing; //track if pasuing over 5mins
 
     int numberOfSessions = 0;
-    QDateTime* sessionLog[];
+    QDateTime sessionLog[NUM_EEGSITES]; // TODO: change
 
 };
 

@@ -26,9 +26,9 @@ NeuresetController* NeuresetController::getInstance(){
 void NeuresetController::startNewSession(){
     qDebug() << "Starting new session";
     QDateTime currentDateTime = QDateTime::currentDateTime();
-    sessionLog[numberOfSessions] = &currentDateTime;
+    sessionLog[numberOfSessions] = currentDateTime;
     numberOfSessions ++;
-    qDebug() << "Current date and time:" << currentDateTime.toString("dd/MM/yy hh:mm AP");
+    qDebug() << "Current date and time:" << currentDateTime.toString("dd/MM/yy hh:mm:ss AP");
 
     //FIXME: treatment happens instantly, should take a minute...?
     for (int i=0; i< NUM_EEGSITES; ++i){
@@ -123,5 +123,14 @@ void NeuresetController::handlePauseTimeout() {
 
     // emit signal to inform the rest of your application that the session has ended.
     emit sessionEnded(); // this does nothing for now...
+}
+
+QString NeuresetController::sessionLogToString(){
+    QString log;
+    for(int i = 0; i < numberOfSessions; i++){
+        log.append(sessionLog[i].toString("dd/MM/yy hh:mm:ss AP"));
+        log.append("\n");
+    }
+    return log;
 }
 
