@@ -142,6 +142,9 @@ void MainWindow::on_btn_off_clicked(){
     ui->btn_off->hide();
     ui->btn_on->show();
     ui->control->hide();
+
+    //stoped the timer when turning off the machine
+    controller->stopTimer();
 }
 
 
