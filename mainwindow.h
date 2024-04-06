@@ -18,6 +18,7 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+
 signals:
     void disconnectSite(int eegId);
 
@@ -48,6 +49,7 @@ private slots:
 
     // slot to handle battery depletion
     void handleBatteryDepleted();
+
 
 
 private:

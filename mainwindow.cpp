@@ -3,6 +3,8 @@
 #include "defs.h"
 
 #include <QtDebug>
+#include <QApplication>
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -86,6 +88,10 @@ void MainWindow::on_btn_off_clicked(){
     ui->btn_off->hide();
     ui->btn_on->show();
     ui->control->hide();
+
+    // stop the battery consumption timer
+    batteryInstance->stopBatteryConsumption();
+
 }
 
 
@@ -109,5 +115,6 @@ void MainWindow::updateBatteryLevel(int level) {
 
 void MainWindow::handleBatteryDepleted() {
     qDebug() << "Battery depleted. Application will now close.";
-    QApplication::quit();
+    on_btn_off_clicked();
 }
+
