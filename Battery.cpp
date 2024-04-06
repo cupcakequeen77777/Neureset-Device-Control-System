@@ -27,6 +27,7 @@ void Battery::consumePower() {
     }
     emit batteryLevelChanged(batteryLevel);
     qDebug() << "Battery level is now at" << batteryLevel << "%";
+    qDebug() << "Testing push at the vm";
 }
 
 
