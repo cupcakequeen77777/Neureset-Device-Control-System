@@ -15,12 +15,18 @@ MainWindow::MainWindow(QWidget *parent)
     ui->btn_setDate->hide();
     ui->control->hide();
     ui->eegSite->setMaximum(NUM_EEGSITES);
+    ui->AdminView->hide();
+    ui->theGraph->hide();
 
     connect(controller, &NeuresetController::lostContact, this, &MainWindow::contactLost);
     connect(controller, &NeuresetController::timeUpdated, this, &MainWindow::updateTreatmentTime);
 
+    connect(controller, &NeuresetController::updatedProgressBar, this, &MainWindow::updateProgressBar);
+
     initializeBatteryStuff();
     createChart();
+
+    ui->dateTimeEdit->setDateTime(QDateTime::currentDateTime());
 }
 
 MainWindow::~MainWindow(){
@@ -39,12 +45,11 @@ void MainWindow::initializeBatteryStuff() {
 //create a graphical representation of the waveform and add it to the GUI
 void MainWindow::createChart(){
     QLineSeries *series = new QLineSeries();
-    for (int i=0; i<60; ++i){
-        //random number between 1 and 30
-        int randNum = rand() % 30;
-        series->append(i, randNum);
-        waveformData[i] = randNum;
-    }
+
+    controller->generateSeries(series); // series = controller->generateSeries(series);
+    controller->setBaseline(); // sets baseline for all the EEG censor
+    // TEST
+    //qDebug()<<"The Baseline value of EEG 10 is"<< controller->getEEGSite(10)->getBaselineFrequency();
 
     QChart *chart = new QChart();
     chart->legend()->hide();
@@ -89,11 +94,16 @@ void MainWindow::on_btn_disconnectSite_clicked(){
     int eegId = ui->eegSite->value();
     qDebug () << "disconnect Site" << eegId;
     controller->disconnectSite(eegId);
+
+    //also pause the timer after disconnected.
+    controller->pauseTimer();
 }
 
 void MainWindow::on_btn_connectSites_clicked(){
     qDebug () << "reconnect Sites";
     controller->reconnectSites();
+
+    controller->resumeTimer();
 }
 
 
@@ -103,6 +113,31 @@ void MainWindow::on_widget_menuOpts_itemActivated(QListWidgetItem *item){
         ui->dateTimeEdit->show();
         ui->btn_setDate->show();
     }
+    if(item->text() == "NEW SESSION"){
+        controller->startTimer();
+        // Enable the admin box
+        ui->eegSite->setEnabled(true);
+        ui->btn_disconnectSite->setEnabled(true);
+
+        //switch to session info tab
+        ui->tabWidget->setCurrentIndex(0);
+        ui->contactSignal->setStyleSheet("background-color: blue");
+        controller->startNewSession();
+    }
+    if(item->text() == "SESSION LOG"){
+        qInfo() << "SESSION LOG:";
+        QString history = controller->sessionLogToString();
+        QString filename = "Data.txt";
+        QFile file(filename);
+
+        if (file.open(QIODevice::ReadWrite)) {
+            QTextStream stream(&file);
+            stream << history; // Write the session logs here
+            file.close(); // Close the file when done
+        } else {
+            qDebug() << "Error opening the file.";
+        }
+    }
 }
 
 
@@ -111,9 +146,11 @@ void MainWindow::on_btn_on_clicked(){
     ui->btn_on->hide();
     ui->btn_off->show();
     ui->control->show();
+    ui->theGraph->show();
+    ui->AdminView->show();
 
-    //start timing when pressing the on button... (can/will move to "new session" from menu later)
-    controller->startTimer();
+
+
     // start the timer for the battery consumption
     batteryInstance->startBatteryConsumption();
 }
@@ -124,12 +161,28 @@ void MainWindow::on_btn_off_clicked(){
     ui->btn_off->hide();
     ui->btn_on->show();
     ui->control->hide();
+    ui->theGraph->hide();
+
+    // Enable the admin box
+    ui->btn_connectSites->setEnabled(false);
+    ui->eegSite->setEnabled(false);
+    ui->btn_disconnectSite->setEnabled(false);
+
+
+    ui->contactSignal->setStyleSheet("background-color: #B8D6F5");
+    ui->contactLostSignal->setStyleSheet("background-color: pink");
+    ui->treatementSignal->setStyleSheet("background-color: #A9E6B3");
+
+    //stoped the timer when turning off the machine
+    controller->stopTimer();
 }
 
 
 void MainWindow::on_btn_setDate_clicked(){
     qDebug() << "The date is now: " << ui->dateTimeEdit->date();
     qDebug() << "The time is now: " <<ui->dateTimeEdit->time();
+
+    qDebug() << "The date time is now: " <<ui->dateTimeEdit->dateTime();
 
     ui->dateTimeEdit->hide();
     ui->btn_setDate->hide();
@@ -164,3 +217,8 @@ void MainWindow::contactLost(bool x){
     }
 
 }
+
+void MainWindow::updateProgressBar(int progress) {
+    ui->treatementProgress->setValue(progress);
+}
+

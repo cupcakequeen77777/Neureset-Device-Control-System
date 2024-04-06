@@ -7,27 +7,36 @@ EEGSite::EEGSite(){
 EEGSite::EEGSite(int i){
     id = i;
     isConnected = true;
-    baselineFrequency = 10; //this is a default frequency, but the getBaseline() func will actually calculate the frequency of the site
+    baselineFrequency = 10; //this is a default frequency, but the generateBaseline() func will actually calculate the frequency of the site
 }
 
 bool EEGSite::getIsConnected(){
     return isConnected;
 }
 
+int EEGSite::getBaselineFrequency(){
+    return baselineFrequency;
+}
+
+int EEGSite::calculateBaseline(int* data){
+    int sum = 0;
+    for (int i=0; i<60; ++i){
+        sum += data[i];
+    }
+    baselineFrequency = sum / 60;
+
+    return baselineFrequency;
+}
+
 //this function delivers treatment to the EEG site in four rounds. Each round increase then offset frequency by 5 and then add that
 //offset frequency 16 times over the span of a second to the baseline frequency and reanalysis/recalcuates the baseline frequency
-void EEGSite::deliverTreatment(){
-    qDebug() << "*****\nTreating site #"<< id;
-    qDebug() << "Initial baseline: " << baselineFrequency;
-    for(int round=5; round <= 20; round+=5){
-        qDebug() << "Beginning round #" << round/5 << " with " << round << "hz offset frequency";
+void EEGSite::deliverTreatment(int offsetFrequency){
+    int initialBaseline = baselineFrequency;
         for (int i=0; i<16; i++){
             //add offset frequency to the dominant frequency and recalculate the baselineFrequency
-            baselineFrequency = calcNewBaseline(baselineFrequency, round);
+            baselineFrequency = calcNewBaseline(baselineFrequency, offsetFrequency);
         }
-        qDebug() << "Round #" << round/5 << " completed, the baseline frequency is now " << baselineFrequency;
-    }
-    qDebug() << "Site #"<< id << " has now been treated and has a new dominant frequency of "<<baselineFrequency;
+        qInfo() << "Site #"<< id << " has now been treated and has gone from " <<initialBaseline << "hz to "<<baselineFrequency << "hz";
 }
 
 // helper function for deliver treatment that recalculates the brainwave signal after each offset frequency is added

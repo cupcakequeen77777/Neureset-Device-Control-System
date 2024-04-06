@@ -10,3 +10,9 @@ UML Diagram ideas: https://docs.google.com/document/d/1H1BTiKu_DU6aSuwCK_lR6ixSC
 UMLClassDiagram: https://app.diagrams.net/#G1U_uGlqUB_pKur55CiLl19oXB0XhYVOi1#%7B%22pageId%22%3A%227F_M8fbziYKd2tRbxRzO%22%7D
 
 Before running the code please install the QT Charts module by running `sudo apt install libqt5charts5-dev` in the terminal
+
+Your submission should contain a README file that has:
+
+Team members,
+What each member did, and
+Organization of the submission.

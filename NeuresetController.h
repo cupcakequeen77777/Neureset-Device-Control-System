@@ -9,6 +9,8 @@
 #include <QElapsedTimer>
 #include <QString>
 #include <QtDebug>
+#include <QtCharts>
+#include <QLineSeries>
 
 class NeuresetController : public QObject {
     Q_OBJECT
@@ -21,6 +23,10 @@ public:
     void pauseTimer();
     void resumeTimer();
     void stopTimer();
+    void startNewSession();
+    void setBaseline();
+    QString sessionLogToString();
+    QLineSeries* generateSeries(QLineSeries* series);
 
 public slots:
     void contactLost(bool);
@@ -31,20 +37,26 @@ signals:
     void lostContact(bool);
     void timeUpdated(const QString& timeString);
     void sessionEnded(); //placeholder for session end signal.
+    void updatedProgressBar(int progress); // signal for the progress bar
 
 protected:
     NeuresetController();
 private:
     static NeuresetController* control;
     EEGSite* eegSites[NUM_EEGSITES];
+    int waveformData[60];
     QTimer* timer; //keep track treatment time
     QElapsedTimer elapsedTime;
     bool isPaused;
     qint64 pausedTime;
     qint64 pauseOffset;
     static constexpr qint64 treatmentDurationMs = 60000; // 1 minute (in ms)
-    QTimer* timerForPausing; //track if pasuing over 5mins
+    QTimer* timerForPausing; //track if pausing over 5mins
 
+    int numberOfSessions = 0;
+    QDateTime sessionLogDT[NUM_EEGSITES];
+    int sessionLogA[21][4];
+    int sessionLogB[21][4];
 
 };
 

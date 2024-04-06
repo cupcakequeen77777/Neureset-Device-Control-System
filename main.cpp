@@ -6,12 +6,6 @@
 using namespace std;
 
 int main(int argc, char *argv[]){
-    cout <<"Hello World!";
-    cout <<"LeeAnne Here";
-    cout <<endl<<"Sara Here"<<endl;
-    cout << "Emrehan test!" << endl;
-    cout << "Knox's saying hello to everyone!" << endl;
-    
     QApplication a(argc, argv);
     MainWindow w;
     w.show();

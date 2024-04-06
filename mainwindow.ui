@@ -30,6 +30,9 @@
      <enum>QFrame::Raised</enum>
     </property>
     <widget class="QPushButton" name="btn_disconnectSite">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="geometry">
       <rect>
        <x>30</x>
@@ -56,6 +59,9 @@
      </property>
     </widget>
     <widget class="QSpinBox" name="eegSite">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="geometry">
       <rect>
        <x>210</x>
@@ -72,6 +78,9 @@
      </property>
     </widget>
     <widget class="QPushButton" name="btn_connectSites">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="geometry">
       <rect>
        <x>330</x>
@@ -211,7 +220,7 @@
        <bool>true</bool>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab_treatement">
        <attribute name="title">
@@ -306,6 +315,12 @@
           <width>151</width>
           <height>26</height>
          </rect>
+        </property>
+        <property name="displayFormat">
+         <string>dd/MM/yy hh:mm AP</string>
+        </property>
+        <property name="calendarPopup">
+         <bool>true</bool>
         </property>
        </widget>
       </widget>

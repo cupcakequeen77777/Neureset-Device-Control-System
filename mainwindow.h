@@ -11,6 +11,9 @@
 #include <QtCharts>
 #include <QChartView>
 #include <QLineSeries>
+#include <QFile>
+#include <QTextStream>
+#include <QDateTime>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -60,6 +63,9 @@ private slots:
     // slot to handle battery depletion
     void handleBatteryDepleted();
 
+    //update progress bar.
+    void updateProgressBar(int progress);
+
 
 private:
     Ui::MainWindow *ui;
@@ -68,6 +74,6 @@ private:
     Battery* batteryInstance;
     void initializeBatteryStuff();
     void createChart();
-    int waveformData[60];
+
 };
 #endif // MAINWINDOW_H
