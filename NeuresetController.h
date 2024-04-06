@@ -37,6 +37,7 @@ signals:
     void lostContact(bool);
     void timeUpdated(const QString& timeString);
     void sessionEnded(); //placeholder for session end signal.
+    void updatedProgressBar(int progress); // signal for the progress bar
 
 protected:
     NeuresetController();

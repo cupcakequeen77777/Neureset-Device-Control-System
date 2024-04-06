@@ -93,7 +93,11 @@ void NeuresetController::updateTimer() {
     qint64 remainingSeconds = timeRemainingMs / 1000;
     QTime remainingTime = QTime(0, 0).addSecs(remainingSeconds);
     emit timeUpdated(remainingTime.toString("mm:ss"));
+
+    int progress = 100 - static_cast<int>((timeRemainingMs * 100) / treatmentDurationMs);
+    emit updatedProgressBar(progress); // Emit signal with the calculated progress
 }
+
 
 
 void NeuresetController::pauseTimer() {
@@ -125,6 +129,9 @@ void NeuresetController::stopTimer() {
     pausedTime = 0;
     pauseOffset = 0;
     emit timeUpdated("01:00"); // Reset the display to the initial time
+
+    //reset the progress bar.
+    emit updatedProgressBar(0);
 }
 
 void NeuresetController::handlePauseTimeout() {

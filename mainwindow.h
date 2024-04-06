@@ -63,6 +63,9 @@ private slots:
     // slot to handle battery depletion
     void handleBatteryDepleted();
 
+    //update progress bar.
+    void updateProgressBar(int progress);
+
 
 private:
     Ui::MainWindow *ui;

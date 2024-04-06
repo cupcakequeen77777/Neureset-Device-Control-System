@@ -19,6 +19,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(controller, &NeuresetController::lostContact, this, &MainWindow::contactLost);
     connect(controller, &NeuresetController::timeUpdated, this, &MainWindow::updateTreatmentTime);
 
+    connect(controller, &NeuresetController::updatedProgressBar, this, &MainWindow::updateProgressBar);
+
     initializeBatteryStuff();
     createChart();
 
@@ -190,3 +192,8 @@ void MainWindow::contactLost(bool x){
     }
 
 }
+
+void MainWindow::updateProgressBar(int progress) {
+    ui->treatementProgress->setValue(progress);
+}
+
