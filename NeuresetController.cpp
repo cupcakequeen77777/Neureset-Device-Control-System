@@ -36,9 +36,9 @@ void NeuresetController::startNewSession(){
         qDebug() << "Current date and time:" << currentDateTime.toString("dd/MM/yy hh:mm:ss AP");
 
         for (int i=0; i< NUM_EEGSITES; ++i){
-            sessionLogB[i][round-1] = eegSites[i]->getBaseline();
+            sessionLogB[i][round-1] = eegSites[i]->getBaselineFrequency();
             eegSites[i]->deliverTreatment(round*5);
-            sessionLogB[i][round-1] = eegSites[i]->getBaseline();
+            sessionLogB[i][round-1] = eegSites[i]->getBaselineFrequency();
         }
         //FIXME: add delay for 15 seconds so the treatment actually takes a minute
         qInfo() << "Round #" << round << " completed\n*****";
@@ -135,6 +135,14 @@ void NeuresetController::handlePauseTimeout() {
     emit sessionEnded(); // this does nothing for now...
 }
 
+
+void NeuresetController::setBaseline(){
+    for(int i=0; i<NUM_EEGSITES; i++){
+        EEGSite *sensor = getEEGSite(i);
+        sensor->calculateBaseline(waveformData);
+    }
+}
+
 QString NeuresetController::sessionLogToString(){
     QString log;
     for(int i = 0; i < numberOfSessions; i++){
@@ -153,6 +161,6 @@ QLineSeries* NeuresetController::generateSeries(QLineSeries* series){
         series->append(i, randNum);
         waveformData[i] = randNum;
     }
+
     return series;
 }
-

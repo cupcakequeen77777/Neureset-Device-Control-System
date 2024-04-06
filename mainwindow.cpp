@@ -43,6 +43,9 @@ void MainWindow::createChart(){
     QLineSeries *series = new QLineSeries();
 
     controller->generateSeries(series); // series = controller->generateSeries(series);
+    controller->setBaseline(); // sets baseline for all the EEG censor
+    // TEST
+    //qDebug()<<"The Baseline value of EEG 10 is"<< controller->getEEGSite(10)->getBaselineFrequency();
 
     QChart *chart = new QChart();
     chart->legend()->hide();

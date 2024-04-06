@@ -16,7 +16,9 @@ public:
 
     bool getIsConnected();
 
-    int getBaseline();
+    int getBaselineFrequency();
+
+    int calculateBaseline(int* data);
 
     void deliverTreatment(int);
 

@@ -14,7 +14,17 @@ bool EEGSite::getIsConnected(){
     return isConnected;
 }
 
-int EEGSite::getBaseline(){
+int EEGSite::getBaselineFrequency(){
+    return baselineFrequency;
+}
+
+int EEGSite::calculateBaseline(int* data){
+    int sum = 0;
+    for (int i=0; i<60; ++i){
+        sum += data[i];
+    }
+    baselineFrequency = sum / 60;
+
     return baselineFrequency;
 }
 

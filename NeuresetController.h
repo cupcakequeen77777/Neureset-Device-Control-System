@@ -24,6 +24,7 @@ public:
     void resumeTimer();
     void stopTimer();
     void startNewSession();
+    void setBaseline();
     QString sessionLogToString();
     QLineSeries* generateSeries(QLineSeries* series);
 
