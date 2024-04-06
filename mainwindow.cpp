@@ -92,11 +92,16 @@ void MainWindow::on_btn_disconnectSite_clicked(){
     int eegId = ui->eegSite->value();
     qDebug () << "disconnect Site" << eegId;
     controller->disconnectSite(eegId);
+
+    //also pause the timer after disconnected.
+    controller->pauseTimer();
 }
 
 void MainWindow::on_btn_connectSites_clicked(){
     qDebug () << "reconnect Sites";
     controller->reconnectSites();
+
+    controller->resumeTimer();
 }
 
 
