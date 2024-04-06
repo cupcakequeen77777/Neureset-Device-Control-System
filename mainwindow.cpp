@@ -15,6 +15,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->btn_setDate->hide();
     ui->control->hide();
     ui->eegSite->setMaximum(NUM_EEGSITES);
+    ui->AdminView->hide();
+    ui->theGraph->hide();
 
     connect(controller, &NeuresetController::lostContact, this, &MainWindow::contactLost);
     connect(controller, &NeuresetController::timeUpdated, this, &MainWindow::updateTreatmentTime);
@@ -113,8 +115,13 @@ void MainWindow::on_widget_menuOpts_itemActivated(QListWidgetItem *item){
     }
     if(item->text() == "NEW SESSION"){
         controller->startTimer();
+        // Enable the admin box
+        ui->eegSite->setEnabled(true);
+        ui->btn_disconnectSite->setEnabled(true);
+
         //switch to session info tab
         ui->tabWidget->setCurrentIndex(0);
+        ui->contactSignal->setStyleSheet("background-color: blue");
         controller->startNewSession();
     }
     if(item->text() == "SESSION LOG"){
@@ -139,9 +146,11 @@ void MainWindow::on_btn_on_clicked(){
     ui->btn_on->hide();
     ui->btn_off->show();
     ui->control->show();
+    ui->theGraph->show();
+    ui->AdminView->show();
 
-    //start timing when pressing the on button... (can/will move to "new session" from menu later)
-    //controller->startTimer();
+
+
     // start the timer for the battery consumption
     batteryInstance->startBatteryConsumption();
 }
@@ -152,6 +161,17 @@ void MainWindow::on_btn_off_clicked(){
     ui->btn_off->hide();
     ui->btn_on->show();
     ui->control->hide();
+    ui->theGraph->hide();
+
+    // Enable the admin box
+    ui->btn_connectSites->setEnabled(false);
+    ui->eegSite->setEnabled(false);
+    ui->btn_disconnectSite->setEnabled(false);
+
+
+    ui->contactSignal->setStyleSheet("background-color: #B8D6F5");
+    ui->contactLostSignal->setStyleSheet("background-color: pink");
+    ui->treatementSignal->setStyleSheet("background-color: #A9E6B3");
 
     //stoped the timer when turning off the machine
     controller->stopTimer();
