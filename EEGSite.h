@@ -25,6 +25,7 @@ public:
     void disconnectSite();
 
     void reconnectSite();
+    int* getWaveform();
 
 signals:
     void contactLost(bool);
@@ -33,7 +34,9 @@ private:
     int id;
     bool isConnected;
     int baselineFrequency;
+    int waveForm[60];
     int calcNewBaseline(int, int);
+    void generateWaveForm();
 };
 
 #endif // EEGSITE_H

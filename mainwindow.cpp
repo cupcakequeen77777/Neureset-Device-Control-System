@@ -15,6 +15,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->btn_setDate->hide();
     ui->control->hide();
     ui->eegSite->setMaximum(NUM_EEGSITES);
+    ui->eegSiteWave->setMaximum(NUM_EEGSITES);
     ui->AdminView->hide();
     ui->theGraph->hide();
 
@@ -44,29 +45,12 @@ void MainWindow::initializeBatteryStuff() {
 
 //create a graphical representation of the waveform and add it to the GUI
 void MainWindow::createChart(){
-    QLineSeries *series = new QLineSeries();
-
-    controller->generateSeries(series); // series = controller->generateSeries(series);
+    QChart *c = controller->generateChart(-1); // series = controller->generateSeries(series);
     controller->setBaseline(); // sets baseline for all the EEG censor
     // TEST
     //qDebug()<<"The Baseline value of EEG 10 is"<< controller->getEEGSite(10)->getBaselineFrequency();
 
-    QChart *chart = new QChart();
-    chart->legend()->hide();
-    chart->addSeries(series);
-    chart->setTitle("EEG Waveform");
-    QValueAxis *axisX = new QValueAxis();
-    axisX->setRange(0, 60);
-    axisX->setTickCount(4);
-    axisX->setTitleText("time");
-    QValueAxis *axisY = new QValueAxis();
-    axisY->setRange(0, 30);
-    axisY->setTitleText("frequency");
-
-    chart->addAxis(axisX, Qt::AlignBottom);
-    chart->addAxis(axisY, Qt::AlignLeft);
-
-    QChartView *chartView = new QChartView(chart);
+    QChartView *chartView = new QChartView(c);
     chartView->setRenderHint(QPainter::Antialiasing);
     chartView->setMinimumSize(ui->theGraph->size());
     chartView->setParent(ui->theGraph);
@@ -220,5 +204,15 @@ void MainWindow::contactLost(bool x){
 
 void MainWindow::updateProgressBar(int progress) {
     ui->treatementProgress->setValue(progress);
+}
+
+
+void MainWindow::on_btn_seeEEGWave_clicked(){
+    QChart *c = controller->generateChart(ui->eegSiteWave->value());
+
+    QChartView *chartView = new QChartView(c);
+    chartView->setRenderHint(QPainter::Antialiasing);
+    //opens chart in a new window. FIXME: get resize window to not be so small
+    chartView->show();
 }
 

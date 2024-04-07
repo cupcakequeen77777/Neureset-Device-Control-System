@@ -67,6 +67,8 @@ private slots:
     void updateProgressBar(int progress);
 
 
+    void on_btn_seeEEGWave_clicked();
+
 private:
     Ui::MainWindow *ui;
     NeuresetController* controller = NeuresetController::getInstance();

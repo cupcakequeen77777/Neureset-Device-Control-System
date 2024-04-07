@@ -19,7 +19,7 @@
      <rect>
       <x>30</x>
       <y>380</y>
-      <width>551</width>
+      <width>1071</width>
       <height>81</height>
      </rect>
     </property>
@@ -83,14 +83,40 @@
      </property>
      <property name="geometry">
       <rect>
-       <x>330</x>
+       <x>280</x>
        <y>40</y>
-       <width>83</width>
+       <width>121</width>
        <height>25</height>
       </rect>
      </property>
      <property name="text">
-      <string>Reconnect</string>
+      <string>Reconnect Sites</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="btn_seeEEGWave">
+     <property name="geometry">
+      <rect>
+       <x>580</x>
+       <y>40</y>
+       <width>191</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>View waveform for EEG Site</string>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="eegSiteWave">
+     <property name="geometry">
+      <rect>
+       <x>780</x>
+       <y>40</y>
+       <width>45</width>
+       <height>26</height>
+      </rect>
+     </property>
+     <property name="minimum">
+      <number>1</number>
      </property>
     </widget>
    </widget>
@@ -403,7 +429,7 @@
       <x>590</x>
       <y>20</y>
       <width>511</width>
-      <height>441</height>
+      <height>341</height>
      </rect>
     </property>
     <property name="frameShape">

@@ -8,6 +8,13 @@ EEGSite::EEGSite(int i){
     id = i;
     isConnected = true;
     baselineFrequency = 10; //this is a default frequency, but the generateBaseline() func will actually calculate the frequency of the site
+    generateWaveForm();
+}
+
+void EEGSite::generateWaveForm(){
+    for(int i=0; i<60; ++i){
+        waveForm[i] = id+i;
+    }
 }
 
 bool EEGSite::getIsConnected(){
@@ -67,4 +74,8 @@ void EEGSite::reconnectSite(){
     qDebug() << "contact reconnected on #" << id;
     isConnected = true;
     emit contactLost(false);
+}
+
+int* EEGSite::getWaveform(){
+    return waveForm;
 }

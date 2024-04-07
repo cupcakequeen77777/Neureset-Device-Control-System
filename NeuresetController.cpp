@@ -161,13 +161,40 @@ QString NeuresetController::sessionLogToString(){
     return log;
 }
 
-QLineSeries* NeuresetController::generateSeries(QLineSeries* series){
-    for (int i=0; i<60; ++i){
-        //random number between 1 and 30
-        int randNum = rand() % 30;
-        series->append(i, randNum);
-        waveformData[i] = randNum;
+QChart* NeuresetController::generateChart(int eegSite){
+    QLineSeries *series = new QLineSeries();
+    QChart *chart = new QChart();
+
+    //special case, generating the average chart for all eeg sites
+    if (eegSite == -1){
+        for (int i=0; i<60; ++i){
+            //random number between 1 and 30
+            int randNum = rand() % 30;
+            series->append(i, randNum);
+            waveformData[i] = randNum;
+        }
+        chart->setTitle("Average EEG Waveform");
+    }
+    else{
+        int *data = eegSites[eegSite-1]->getWaveform();
+        for (int i=0; i<60; ++i){
+            series->append(i, data[i]);
+        }
+        QString chartName = "EEG Waveform #";
+        chart->setTitle(chartName.append(QString::number(eegSite)));
     }
 
-    return series;
+    chart->legend()->hide();
+    chart->addSeries(series);
+    QValueAxis *axisX = new QValueAxis();
+    axisX->setRange(0, 60);
+    axisX->setTickCount(4);
+    axisX->setTitleText("time");
+    QValueAxis *axisY = new QValueAxis();
+    axisY->setRange(0, 30);
+    axisY->setTitleText("frequency");
+
+    chart->addAxis(axisX, Qt::AlignBottom);
+    chart->addAxis(axisY, Qt::AlignLeft);
+    return chart;
 }

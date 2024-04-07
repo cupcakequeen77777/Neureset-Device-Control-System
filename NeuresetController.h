@@ -26,7 +26,7 @@ public:
     void startNewSession();
     void setBaseline();
     QString sessionLogToString();
-    QLineSeries* generateSeries(QLineSeries* series);
+    QChart* generateChart(int);
 
 public slots:
     void contactLost(bool);
