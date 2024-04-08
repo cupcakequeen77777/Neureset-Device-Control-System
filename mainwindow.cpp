@@ -3,6 +3,8 @@
 #include "defs.h"
 
 #include <QtDebug>
+#include <QApplication>
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -161,6 +163,10 @@ void MainWindow::on_btn_off_clicked(){
 
     //stoped the timer when turning off the machine
     controller->stopTimer();
+    
+    // stop the battery consumption timer
+    batteryInstance->stopBatteryConsumption();
+
 }
 
 
@@ -181,13 +187,23 @@ void MainWindow::updateTreatmentTime(const QString& time) {
 
 void MainWindow::updateBatteryLevel(int level) {
     ui->battery->setValue(level);
-    //qDebug() << "Battery level updated to:" << level << "%";
+
+    if (level < 20) {
+        // Change the batteryLabel's appearance to indicate low battery
+        ui->batteryLabel->setStyleSheet("QLabel { color: white; background-color: red; }");
+        ui->batteryLabel->setText("Low Battery!");
+    } else {
+        // reset the batteryLabel appearance when the battery is not low
+        ui->batteryLabel->setStyleSheet("");
+        ui->batteryLabel->setText("");
+    }
 }
 
 void MainWindow::handleBatteryDepleted() {
     qDebug() << "Battery depleted. Application will now close.";
-    QApplication::quit();
+    on_btn_off_clicked();
 }
+
 
 void MainWindow::contactLost(bool x){
     if(x){

@@ -32,6 +32,7 @@ public slots:
 
     void treatmentDelivered(bool);
 
+
 signals:
     void disconnectSite(int eegId);
 
@@ -70,6 +71,7 @@ private slots:
 
 
     void on_btn_seeEEGWave_clicked();
+
 
 private:
     Ui::MainWindow *ui;
