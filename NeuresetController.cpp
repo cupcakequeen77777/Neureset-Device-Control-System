@@ -203,7 +203,7 @@ void NeuresetController::stopTimer() {
     elapsedTime.restart();
     isPaused = false;
     pausedTime = 0;
-    pauseOffset = 0;`
+    pauseOffset = 0;
     emit timeUpdated("01:00"); // Reset the display to the initial time
 
     treatmentTimer->stop();

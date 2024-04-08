@@ -245,7 +245,8 @@ void MainWindow::on_btn_seeEEGWave_clicked(){
 
     QChartView *chartView = new QChartView(c);
     chartView->setRenderHint(QPainter::Antialiasing);
-    //opens chart in a new window. FIXME: get resize window to not be so small
+    chartView->setMinimumSize(QSize(400, 300));
+    //opens chart in a new window
     chartView->show();
 }
 
