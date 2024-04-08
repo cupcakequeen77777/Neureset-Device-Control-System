@@ -99,11 +99,11 @@ void NeuresetController::handleTreatmentRound() {
     // Treatment logic for each EEG site
     for (int i=0; i< NUM_EEGSITES; ++i){
         sessionLogB[i][currentRound-1] = eegSites[i]->getBaselineFrequency();
-        qDebug() << "Flash on";
+        qDebug() << "Flash on"; // FIXME: remove once there is a delay so the lights flash
         emit treatmentDelivered(true);
         eegSites[i]->deliverTreatment(currentRound*5);
         emit treatmentDelivered(false);
-        qDebug() << "Flash off";
+        qDebug() << "Flash off"; // FIXME: remove once there is a delay so the lights flash
         sessionLogA[i][currentRound-1] = eegSites[i]->getBaselineFrequency();
     }
 
