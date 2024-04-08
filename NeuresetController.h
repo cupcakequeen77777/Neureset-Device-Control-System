@@ -32,12 +32,12 @@ public slots:
     void contactLost(bool);
     void updateTimer();
     void handlePauseTimeout();
+    void handleTreatmentRound();
 
 signals:
     void lostContact(bool);
     void treatmentDelivered(bool);
     void timeUpdated(const QString& timeString);
-    void sessionEnded(); //placeholder for session end signal.
     void updatedProgressBar(int progress); // signal for the progress bar
 
 protected:
@@ -58,6 +58,12 @@ private:
     QDateTime sessionLogDT[NUM_EEGSITES];
     int sessionLogA[21][4];
     int sessionLogB[21][4];
+
+    //timer for treatment.
+    QTimer* treatmentTimer; // Timer to manage treatment rounds
+    int currentRound = 0; // Current treatment round
+    static constexpr int totalRounds = 4; // Total number of rounds
+    bool isResumed = false;
 
 };
 

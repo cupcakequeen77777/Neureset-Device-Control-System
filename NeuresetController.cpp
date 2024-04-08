@@ -13,6 +13,12 @@ NeuresetController::NeuresetController(): isPaused(false), pausedTime(0), pauseO
     timerForPausing = new QTimer(this);
     timerForPausing->setSingleShot(true);
     connect(timerForPausing, &QTimer::timeout, this, &NeuresetController::handlePauseTimeout);
+
+    //timer for treatment
+    treatmentTimer = new QTimer(this);
+    treatmentTimer->setInterval(15000); // Set interval to 15 seconds for each round
+    treatmentTimer->setSingleShot(false); // Make sure the timer repeats
+    connect(treatmentTimer, &QTimer::timeout, this, &NeuresetController::handleTreatmentRound);
 }
 
 
@@ -23,6 +29,51 @@ NeuresetController* NeuresetController::getInstance(){
     return control;
 }
 
+//void NeuresetController::startNewSession() {
+//    qDebug() << "Starting new session";
+//    currentRound = 1; // Reset current round
+//    treatmentTimer->start(); // Start the treatment rounds
+//}
+
+//void NeuresetController::handleTreatmentRound() {
+//    qInfo() << "Beginning round #" << currentRound << " with " << currentRound * 5 << "Hz offset frequency";
+
+//    // Log the date and time at the start of the first round or if you need it logged at every round
+//    if (currentRound == 1) {
+//        QDateTime currentDateTime = QDateTime::currentDateTime();
+//        sessionLogDT[numberOfSessions] = currentDateTime;
+//        qDebug() << "Current date and time:" << currentDateTime.toString("dd/MM/yy hh:mm:ss AP");
+//    }
+
+//    // Treatment logic for each EEG site
+//    for (int i = 0; i < NUM_EEGSITES; ++i) {
+//        sessionLogB[i][currentRound - 1] = eegSites[i]->getBaselineFrequency();
+//        eegSites[i]->deliverTreatment(currentRound * 5);
+//        sessionLogB[i][currentRound - 1] = eegSites[i]->getBaselineFrequency();
+//    }
+
+//    qInfo() << "Round #" << currentRound << " completed\n*****";
+
+//    if (isResumed && treatmentTimer->interval() != 15000) {
+//        treatmentTimer->start(15000); // Reset to normal interval for next rounds
+//        isResumed = false; // Reset the flag after handling the resumed round
+//    }
+
+//    if (currentRound == totalRounds) {
+//        treatmentTimer->stop(); // Stop the timer if all rounds are completed
+//        qDebug() << "Treatment session completed";
+
+//        // Increment the session count now that treatment is complete.
+//        numberOfSessions++;
+
+//        return;
+//    }
+
+//    currentRound++; // Prepare for the next round
+//}
+
+
+//old version, please confirms if the timer logic makes sense
 void NeuresetController::startNewSession(){
     qDebug() << "Starting new session";
 
@@ -37,11 +88,7 @@ void NeuresetController::startNewSession(){
 
         for (int i=0; i< NUM_EEGSITES; ++i){
             sessionLogB[i][round-1] = eegSites[i]->getBaselineFrequency();
-            qDebug() << "Flash on";
-            emit treatmentDelivered(true);
             eegSites[i]->deliverTreatment(round*5);
-            emit treatmentDelivered(false);
-            qDebug() << "Flash off";
             sessionLogB[i][round-1] = eegSites[i]->getBaselineFrequency();
         }
         //FIXME: add delay for 15 seconds so the treatment actually takes a minute
@@ -107,6 +154,7 @@ void NeuresetController::updateTimer() {
 void NeuresetController::pauseTimer() {
     if (!isPaused) {
         timer->stop(); // Stop the QTimer
+        treatmentTimer->stop(); //stop the treatment timer.
         pausedTime = elapsedTime.elapsed(); // record the elapsed time
         isPaused = true;
 
@@ -119,12 +167,21 @@ void NeuresetController::resumeTimer() {
     if (isPaused) {
         qint64 currentPauseDuration = elapsedTime.elapsed() - pausedTime;
         pauseOffset += currentPauseDuration;
+
         timer->start(1000);
         isPaused = false;
-
         timerForPausing->stop();
+
+        // Calculate how much time had elapsed in the current round at pause
+        qint64 timeInCurrentRound = currentPauseDuration % 15000; // Modulo gives time in the current round
+        qint64 remainingTimeForRound = 15000 - timeInCurrentRound; // Time left to finish the round
+
+        isResumed = true;
+        // Restart the treatment timer for the remaining time of the current round
+        treatmentTimer->start(remainingTimeForRound);
     }
 }
+
 
 void NeuresetController::stopTimer() {
     timer->stop();
@@ -134,6 +191,9 @@ void NeuresetController::stopTimer() {
     pauseOffset = 0;
     emit timeUpdated("01:00"); // Reset the display to the initial time
 
+    treatmentTimer->stop();
+    currentRound = 0;
+
     //reset the progress bar.
     emit updatedProgressBar(0);
 }
@@ -141,9 +201,6 @@ void NeuresetController::stopTimer() {
 void NeuresetController::handlePauseTimeout() {
     qDebug() << "Pause timeout reached. Ending session.";
     stopTimer();
-
-    // emit signal to inform the rest of your application that the session has ended.
-    emit sessionEnded(); // this does nothing for now...
 }
 
 
