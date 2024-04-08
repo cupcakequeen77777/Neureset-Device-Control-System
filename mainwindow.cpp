@@ -99,6 +99,10 @@ void MainWindow::on_widget_menuOpts_itemActivated(QListWidgetItem *item){
         ui->dateTimeEdit->show();
         ui->btn_setDate->show();
     }
+    else{
+        ui->dateTimeEdit->hide();
+        ui->btn_setDate->hide();
+    }
     if(item->text() == "NEW SESSION"){
         controller->startTimer();
         // Enable the admin box
@@ -136,6 +140,8 @@ void MainWindow::on_btn_on_clicked(){
     ui->control->show();
     ui->theGraph->show();
     ui->AdminView->show();
+    ui->btn_seeEEGWave->setEnabled(true);
+    ui->eegSiteWave->setEnabled(true);
 
 
 
@@ -155,6 +161,8 @@ void MainWindow::on_btn_off_clicked(){
     ui->btn_connectSites->setEnabled(false);
     ui->eegSite->setEnabled(false);
     ui->btn_disconnectSite->setEnabled(false);
+    ui->btn_seeEEGWave->setEnabled(false);
+    ui->eegSiteWave->setEnabled(false);
 
 
     ui->contactSignal->setStyleSheet("background-color: #B8D6F5");

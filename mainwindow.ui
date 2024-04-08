@@ -95,7 +95,7 @@
     </widget>
     <widget class="QPushButton" name="btn_seeEEGWave">
      <property name="enabled">
-      <bool>true</bool>
+      <bool>false</bool>
      </property>
      <property name="geometry">
       <rect>
@@ -110,6 +110,9 @@
      </property>
     </widget>
     <widget class="QSpinBox" name="eegSiteWave">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="geometry">
       <rect>
        <x>780</x>
