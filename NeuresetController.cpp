@@ -104,7 +104,7 @@ void NeuresetController::handleTreatmentRound() {
         eegSites[i]->deliverTreatment(currentRound*5);
         emit treatmentDelivered(false);
         qDebug() << "Flash off";
-        sessionLogB[i][currentRound-1] = eegSites[i]->getBaselineFrequency();
+        sessionLogA[i][currentRound-1] = eegSites[i]->getBaselineFrequency();
     }
 
     qInfo() << "Round #" << currentRound << " completed\n*****";
