@@ -38,11 +38,16 @@ NeuresetController* NeuresetController::getInstance(){
 void NeuresetController::startNewSession(){
     qDebug() << "Starting new session";
     currentRound = 1; // Reset current round
+    qDebug() << "Flash on"; // FIXME: remove once there is a delay so the lights flash
+    emit treatmentDelivered(true);
     treatmentTimer->start(); // Start the treatment rounds
+
 }
 
 void NeuresetController::handleTreatmentRound() {
     qInfo() << "Beginning round #" << currentRound << " with " << currentRound * 5 << "Hz offset frequency";
+
+
 
     // Log the date and time at the start of the first round or if you need it logged at every round?
     if (currentRound == 1) {
@@ -54,11 +59,8 @@ void NeuresetController::handleTreatmentRound() {
     // Treatment logic for each EEG site
     for (int i=0; i< NUM_EEGSITES; ++i){
         sessionLogB[i][currentRound-1] = eegSites[i]->getBaselineFrequency();
-        qDebug() << "Flash on"; // FIXME: remove once there is a delay so the lights flash
-        emit treatmentDelivered(true);
+
         eegSites[i]->deliverTreatment(currentRound*5);
-        emit treatmentDelivered(false);
-        qDebug() << "Flash off"; // FIXME: remove once there is a delay so the lights flash
         sessionLogA[i][currentRound-1] = eegSites[i]->getBaselineFrequency();
     }
 
@@ -75,6 +77,8 @@ void NeuresetController::handleTreatmentRound() {
 
         // Increment the session count now that treatment is complete.
         numberOfSessions++;
+        emit treatmentDelivered(false);
+        qDebug() << "Flash off"; // FIXME: remove once there is a delay so the lights flash
 
         return;
     }
