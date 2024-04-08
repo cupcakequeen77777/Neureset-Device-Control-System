@@ -273,9 +273,9 @@ QString NeuresetController::sessionLogToString(int session){
             QString baseline;
             qDebug() << "Before:" << sessionLogB[j][session] << "hz, After:" << sessionLogA[j][session] << "hz";
             log.append("Before:");
-            log.append(sessionLogB[j][session]);
+            log.append(QString::number(sessionLogB[j][session]));
             log.append("hz, After:");
-            log.append(sessionLogA[j][session]);
+            log.append(QString::number(sessionLogA[j][session]));
             log.append("hz\n");
         }
 
