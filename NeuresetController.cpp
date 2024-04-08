@@ -34,9 +34,7 @@ NeuresetController* NeuresetController::getInstance(){
     return control;
 }
 
-<<<<<<< Updated upstream
-void NeuresetController::startNewSession() {
-=======
+
 //void NeuresetController::startNewSession() {
 //    qDebug() << "Starting new session";
 //    currentRound = 1; // Reset current round
@@ -83,7 +81,6 @@ void NeuresetController::startNewSession() {
 
 //old version, please confirms if the timer logic makes sense
 void NeuresetController::startNewSession(){
->>>>>>> Stashed changes
     qDebug() << "Starting new session";
     currentRound = 1; // Reset current round
     treatmentTimer->start(); // Start the treatment rounds
@@ -152,18 +149,7 @@ void NeuresetController::handleTreatmentRound() {
 //        //FIXME: add delay for 15 seconds so the treatment actually takes a minute
 //        qInfo() << "Round #" << round << " completed\n*****";
 //    }
-        for (int i=0; i< NUM_EEGSITES; ++i){
-            sessionLogB[i][round-1] = eegSites[i]->getBaselineFrequency();
-            qDebug() << "Flash on"; // FIXME: remove once each treatment has delay
-            emit treatmentDelivered(true);
-            eegSites[i]->deliverTreatment(round*5);
-            emit treatmentDelivered(false);
-            qDebug() << "Flash off";  // FIXME: remove once each treatment has delay
-            sessionLogA[i][round-1] = eegSites[i]->getBaselineFrequency();
-        }
-        //FIXME: add delay for 15 seconds so the treatment actually takes a minute
-        qInfo() << "Round #" << round << " completed\n*****";
-    }
+
 
 //    numberOfSessions ++;
 //}
