@@ -203,7 +203,7 @@ void NeuresetController::stopTimer() {
     elapsedTime.restart();
     isPaused = false;
     pausedTime = 0;
-    pauseOffset = 0;
+    pauseOffset = 0;`
     emit timeUpdated("01:00"); // Reset the display to the initial time
 
     treatmentTimer->stop();
@@ -223,6 +223,34 @@ void NeuresetController::setBaseline(){
     for(int i=0; i<NUM_EEGSITES; i++){
         EEGSite *sensor = getEEGSite(i);
         sensor->calculateBaseline(waveformData);
+    }
+}
+
+void NeuresetController::getAlphaFrequency(){
+    for(int i=0; i<NUM_EEGSITES; i++){
+        EEGSite *sensor = getEEGSite(i);
+        sensor->listenAlphaFrequencies(alpha);
+    }
+}
+
+void NeuresetController::getBetaFrequency(){
+    for(int i=0; i<NUM_EEGSITES; i++){
+        EEGSite *sensor = getEEGSite(i);
+        sensor->listenAlphaFrequencies(beta);
+    }
+}
+
+void NeuresetController::getDeltaFrequency(){
+    for(int i=0; i<NUM_EEGSITES; i++){
+        EEGSite *sensor = getEEGSite(i);
+        sensor->listenAlphaFrequencies(delta);
+    }
+}
+
+void NeuresetController::getThetaFrequency(){
+    for(int i=0; i<NUM_EEGSITES; i++){
+        EEGSite *sensor = getEEGSite(i);
+        sensor->listenAlphaFrequencies(theta);
     }
 }
 

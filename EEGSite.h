@@ -20,6 +20,14 @@ public:
 
     int calculateBaseline(int* data);
 
+    void listenAlphaFrequencies(int * data);
+
+    void listenBetaFrequencies(int * data);
+
+    void listenDeltaFrequencies(int * data);
+
+    void listenThetaFrequencies(int * data);
+
     void deliverTreatment(int);
 
     void disconnectSite();

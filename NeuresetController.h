@@ -25,6 +25,10 @@ public:
     void stopTimer();
     void startNewSession();
     void setBaseline();
+    void getAlphaFrequency();
+    void getBetaFrequency();
+    void getDeltaFrequency();
+    void getThetaFrequency();
     QString sessionLogToString(int);
     QString history();
     QChart* generateChart(int);
@@ -46,7 +50,15 @@ protected:
 private:
     static NeuresetController* control;
     EEGSite* eegSites[NUM_EEGSITES];
+
+    //Frequency Data
     int waveformData[60];
+    int alpha[60];
+    int beta[60];
+    int delta[60];
+    int theta[60];
+
+
     QTimer* timer; //keep track treatment time
     QElapsedTimer elapsedTime;
     bool isPaused;

@@ -35,6 +35,30 @@ int EEGSite::calculateBaseline(int* data){
     return baselineFrequency;
 }
 
+void EEGSite::listenAlphaFrequencies(int *data){
+    for (int i=0; i<60; i++){
+        data[i] = rand() % 5 + 8;
+    }
+}
+
+void EEGSite::listenBetaFrequencies(int *data){
+    for (int i=0; i<60; i++){
+        data[i] = rand() % 19 + 12;
+    }
+}
+
+void EEGSite::listenDeltaFrequencies(int *data){
+    for (int i=0; i<60; i++){
+        data[i] = rand() % 4 + 1;
+    }
+}
+
+void EEGSite::listenThetaFrequencies(int *data){
+    for (int i=0; i<60; i++){
+        data[i] = rand() % 4 + 4;
+    }
+}
+
 //this function delivers treatment to the EEG site in four rounds. Each round increase then offset frequency by 5 and then add that
 //offset frequency 16 times over the span of a second to the baseline frequency and reanalysis/recalcuates the baseline frequency
 void EEGSite::deliverTreatment(int offsetFrequency){
