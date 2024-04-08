@@ -94,6 +94,9 @@
      </property>
     </widget>
     <widget class="QPushButton" name="btn_seeEEGWave">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
      <property name="geometry">
       <rect>
        <x>580</x>

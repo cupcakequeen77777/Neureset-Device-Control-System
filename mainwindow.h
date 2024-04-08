@@ -30,6 +30,8 @@ public:
 public slots:
     void contactLost(bool);
 
+    void treatmentDelivered(bool);
+
 signals:
     void disconnectSite(int eegId);
 

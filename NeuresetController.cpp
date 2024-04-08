@@ -37,7 +37,11 @@ void NeuresetController::startNewSession(){
 
         for (int i=0; i< NUM_EEGSITES; ++i){
             sessionLogB[i][round-1] = eegSites[i]->getBaselineFrequency();
+            qDebug() << "Flash on";
+            emit treatmentDelivered(true);
             eegSites[i]->deliverTreatment(round*5);
+            emit treatmentDelivered(false);
+            qDebug() << "Flash off";
             sessionLogB[i][round-1] = eegSites[i]->getBaselineFrequency();
         }
         //FIXME: add delay for 15 seconds so the treatment actually takes a minute

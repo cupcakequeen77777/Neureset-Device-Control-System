@@ -19,6 +19,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->theGraph->hide();
 
     connect(controller, &NeuresetController::lostContact, this, &MainWindow::contactLost);
+    connect(controller, &NeuresetController::treatmentDelivered, this, &MainWindow::treatmentDelivered);
     connect(controller, &NeuresetController::timeUpdated, this, &MainWindow::updateTreatmentTime);
 
     connect(controller, &NeuresetController::updatedProgressBar, this, &MainWindow::updateProgressBar);
@@ -198,7 +199,14 @@ void MainWindow::contactLost(bool x){
         ui->btn_connectSites->setEnabled(false);
         ui->contactSignal->setStyleSheet("background-color: blue");
     }
+}
 
+void MainWindow::treatmentDelivered(bool lightOn){
+    if(lightOn){
+        ui->treatementSignal->setStyleSheet("background-color: green");
+    }else{
+        ui->treatementSignal->setStyleSheet("background-color: #A9E6B3");
+    }
 }
 
 void MainWindow::updateProgressBar(int progress) {
