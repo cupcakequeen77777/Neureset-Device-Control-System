@@ -25,7 +25,8 @@ public:
     void stopTimer();
     void startNewSession();
     void setBaseline();
-    QString sessionLogToString();
+    QString sessionLogToString(int);
+    QString history();
     QChart* generateChart(int);
 
 public slots:
@@ -56,8 +57,8 @@ private:
 
     int numberOfSessions = 0;
     QDateTime sessionLogDT[NUM_EEGSITES];
-    int sessionLogA[21][4];
-    int sessionLogB[21][4];
+    int sessionLogA[NUM_EEGSITES][MAX_NUM_SESSIONS];
+    int sessionLogB[NUM_EEGSITES][MAX_NUM_SESSIONS];
 
 };
 

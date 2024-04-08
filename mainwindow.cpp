@@ -107,12 +107,14 @@ void MainWindow::on_widget_menuOpts_itemActivated(QListWidgetItem *item){
         ui->tabWidget->setCurrentIndex(0);
         ui->contactSignal->setStyleSheet("background-color: blue");
         controller->startNewSession();
+        controller->history();
     }
     if(item->text() == "SESSION LOG"){
         qInfo() << "SESSION LOG:";
-        QString history = controller->sessionLogToString();
+        QString history = controller->history();
         QString filename = "Data.txt";
         QFile file(filename);
+
 
         if (file.open(QIODevice::ReadWrite)) {
             QTextStream stream(&file);
