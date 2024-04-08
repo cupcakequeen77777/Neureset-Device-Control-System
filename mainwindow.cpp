@@ -16,7 +16,6 @@ MainWindow::MainWindow(QWidget *parent)
     ui->control->hide();
     ui->eegSite->setMaximum(NUM_EEGSITES);
     ui->eegSiteWave->setMaximum(NUM_EEGSITES);
-    ui->AdminView->hide();
     ui->theGraph->hide();
 
     connect(controller, &NeuresetController::lostContact, this, &MainWindow::contactLost);
