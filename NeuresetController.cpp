@@ -229,7 +229,7 @@ void NeuresetController::resumeTimer() {
         timerForPausing->stop();
 
         // Calculate how much time had elapsed in the current round at pause
-        qint64 timeInCurrentRound = currentPauseDuration % 15000; // Modulo gives time in the current round
+        qint64 timeInCurrentRound = (elapsedTime.elapsed() - pauseOffset) % 15000; // Modulo gives time in the current round
         qint64 remainingTimeForRound = 15000 - timeInCurrentRound; // Time left to finish the round
 
         isResumed = true;
