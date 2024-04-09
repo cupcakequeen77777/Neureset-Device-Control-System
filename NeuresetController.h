@@ -30,7 +30,7 @@ public:
     void getDeltaFrequency();
     void getThetaFrequency();
     QString sessionLogToString(int);
-    QString history();
+    QString sessionLog();
     QChart* generateChart(int, char);
 
 public slots:
@@ -72,6 +72,7 @@ private:
     QDateTime sessionLogDT[NUM_EEGSITES];
     int sessionLogA[NUM_EEGSITES][MAX_NUM_SESSIONS];
     int sessionLogB[NUM_EEGSITES][MAX_NUM_SESSIONS];
+    QString history;
 
     //timer for treatment.
     QTimer* treatmentTimer; // Timer to manage treatment rounds

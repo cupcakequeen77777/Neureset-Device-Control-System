@@ -124,7 +124,7 @@ void MainWindow::on_widget_menuOpts_itemActivated(QListWidgetItem *item){
 
     }
     if(item->text() == "SESSION LOG"){
-        controller->history();
+        controller->sessionLog();
     }
 }
 
@@ -214,9 +214,12 @@ void MainWindow::contactLost(bool x){
 void MainWindow::treatmentDelivered(bool delivered){
     if(delivered){
         ui->treatementSignal->setStyleSheet("background-color: #A9E6B3");
-        history = controller->history();
+        history = controller->sessionLog();
         QString filename = "Session_Log.txt";
+        QFile fileOld(filename);
+        fileOld.remove();
         QFile file(filename);
+
 
         if (file.open(QIODevice::ReadWrite)) {
             QTextStream stream(&file);
