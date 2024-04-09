@@ -21,7 +21,7 @@ NeuresetController::NeuresetController(): isPaused(false), pausedTime(0), pauseO
 
     //timer for treatment
     treatmentTimer = new QTimer(this);
-    treatmentTimer->setInterval(15000); // Set interval to 15 seconds for each round
+    treatmentTimer->setInterval(ROUND_TIME); // Set interval to 15 seconds for each round
     treatmentTimer->setSingleShot(false); // Make sure the timer repeats
     connect(treatmentTimer, &QTimer::timeout, this, &NeuresetController::handleTreatmentRound);
 }
@@ -64,8 +64,8 @@ void NeuresetController::handleTreatmentRound() {
 
     qInfo() << "Round #" << currentRound << " completed\n*****";
 
-    if (isResumed && treatmentTimer->interval() != 15000) {
-        treatmentTimer->start(15000); // Reset to normal interval for next rounds
+    if (isResumed && treatmentTimer->interval() != ROUND_TIME) {
+        treatmentTimer->start(ROUND_TIME); // Reset to normal interval for next rounds
         isResumed = false; // Reset the flag after handling the resumed round
 
     }
@@ -187,8 +187,8 @@ void NeuresetController::resumeTimer() {
         timerForPausing->stop();
 
         // Calculate how much time had elapsed in the current round at pause
-        qint64 timeInCurrentRound = (elapsedTime.elapsed() - pauseOffset) % 15000; // Modulo gives time in the current round
-        qint64 remainingTimeForRound = 15000 - timeInCurrentRound; // Time left to finish the round
+        qint64 timeInCurrentRound = (elapsedTime.elapsed() - pauseOffset) % ROUND_TIME; // Modulo gives time in the current round
+        qint64 remainingTimeForRound = ROUND_TIME - timeInCurrentRound; // Time left to finish the round
 
         isResumed = true;
         // Restart the treatment timer for the remaining time of the current round
@@ -228,7 +228,7 @@ void NeuresetController::setBaseline(){
 QString NeuresetController::sessionLogToString(int session){
     QString log;
     log.append(sessionLogDT[session].toString("dd/MM/yy hh:mm:ss AP"));
-    qInfo() << "Current date and time:" << sessionLogDT[session].toString("dd/MM/yy hh:mm:ss AP");
+    qInfo() << sessionLogDT[session].toString("dd/MM/yy hh:mm:ss AP");
     for(int j = 0; j < NUM_EEGSITES; j++){
         QString baseline;
         qInfo() << "Before:" << sessionLogB[j][session] << "hz, After:" << sessionLogA[j][session] << "hz";
