@@ -201,11 +201,13 @@ void MainWindow::contactLost(bool x){
         ui->contactLostSignal->setStyleSheet("background-color: red");
         ui->btn_connectSites->setEnabled(true);
         ui->contactSignal->setStyleSheet("background-color: #B8D6F5");
+        ui->treatementSignal->setStyleSheet("background-color: #A9E6B3");
     }else{
         qDebug() << "MainWindow recieves not contactLost from controller";
         ui->contactLostSignal->setStyleSheet("background-color: pink");
         ui->btn_connectSites->setEnabled(false);
         ui->contactSignal->setStyleSheet("background-color: blue");
+        ui->treatementSignal->setStyleSheet("background-color: green");
     }
 }
 
@@ -234,8 +236,8 @@ void MainWindow::updateProgressBar(int progress) {
 
 
 void MainWindow::on_btn_seeEEGWave_clicked(){
-    char type = ui->band->currentText().toLower().toStdString().front();
-    QChart *c = controller->generateChart(ui->eegSiteWave->value(), type);
+    qDebug() << "test " << ui->band->itemData(ui->band->currentIndex());
+    QChart *c = controller->generateChart(ui->eegSiteWave->value(), 'a');
 
     QChartView *chartView = new QChartView(c);
     chartView->setRenderHint(QPainter::Antialiasing);

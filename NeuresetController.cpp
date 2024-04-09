@@ -237,10 +237,12 @@ QString NeuresetController::sessionLogToString(int session){
 
     for(int i = 0; i < NUM_EEGSITES; i++){
         QString baseline;
-        qInfo() << "EEG site #" << i+1 << ":" << sessionLogB[i][session] << "hz ->" << sessionLogA[i][currentRound] << "hz";
-        log.append("Before:");
+        qInfo() << "EEG site #" << i+1 << ":" << sessionLogB[i][session] << "hz ->" << sessionLogA[i][session] << "hz";
+        log.append("EEG site #");
+        log.append(QString::number(i+1));
+        log.append(": ");
         log.append(QString::number(sessionLogB[i][session]));
-        log.append("hz, After:");
+        log.append("hz -> ");
         log.append(QString::number(sessionLogA[i][session]));
         log.append("hz\n");
     }
@@ -249,7 +251,11 @@ QString NeuresetController::sessionLogToString(int session){
 }
 
 QString NeuresetController::history(){
-    QString history;
+    QString history = "";
+
+    if(numberOfSessions==0){
+        return history;
+    }
 
 
     history.append(sessionLogDT[numberOfSessions-1].toString("dd/MM/yy hh:mm:ss AP\n"));
@@ -258,12 +264,6 @@ QString NeuresetController::history(){
     for(int i = 0; i < numberOfSessions; i++){
         history.append(sessionLogToString(i));
     }
-
-
-    for(int i = 0; i < NUM_EEGSITES; i++){
-        qDebug() << sessionLogA[i][numberOfSessions-1] << "Here";
-    }
-
 
     return history;
 }
