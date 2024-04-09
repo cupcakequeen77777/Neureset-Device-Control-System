@@ -31,7 +31,7 @@ public:
     void getThetaFrequency();
     QString sessionLogToString(int);
     QString history();
-    QChart* generateChart(int);
+    QChart* generateChart(int, char);
 
 public slots:
     void contactLost(bool);

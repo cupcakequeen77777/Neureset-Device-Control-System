@@ -45,7 +45,7 @@ void MainWindow::initializeBatteryStuff() {
 
 //create a graphical representation of the waveform and add it to the GUI
 void MainWindow::createChart(){
-    QChart *c = controller->generateChart(-1); // series = controller->generateSeries(series);
+    QChart *c = controller->generateChart(-1, 'x'); // series = controller->generateSeries(series);
     controller->setBaseline(); // sets baseline for all the EEG censor
     // TEST
     //qDebug()<<"The Baseline value of EEG 10 is"<< controller->getEEGSite(10)->getBaselineFrequency();
@@ -107,6 +107,10 @@ void MainWindow::on_widget_menuOpts_itemActivated(QListWidgetItem *item){
         ui->dateTimeEdit->show();
         ui->btn_setDate->show();
     }
+    else{
+            ui->dateTimeEdit->hide();
+            ui->btn_setDate->hide();
+    }
     if(item->text() == "NEW SESSION"){
         controller->startTimer();
         // Enable the admin box
@@ -131,6 +135,10 @@ void MainWindow::on_btn_on_clicked(){
     ui->btn_off->show();
     ui->control->show();
     ui->theGraph->show();
+    ui->btn_seeEEGWave->setEnabled(true);
+    ui->eegSiteWave->setEnabled(true);
+    ui->band->setEnabled(true);
+
 
     // start the timer for the battery consumption
     batteryInstance->startBatteryConsumption();
@@ -148,6 +156,9 @@ void MainWindow::on_btn_off_clicked(){
     ui->btn_connectSites->setEnabled(false);
     ui->eegSite->setEnabled(false);
     ui->btn_disconnectSite->setEnabled(false);
+    ui->btn_seeEEGWave->setEnabled(false);
+    ui->eegSiteWave->setEnabled(false);
+    ui->band->setEnabled(false);
 
 
     ui->contactSignal->setStyleSheet("background-color: #B8D6F5");
@@ -223,11 +234,13 @@ void MainWindow::updateProgressBar(int progress) {
 
 
 void MainWindow::on_btn_seeEEGWave_clicked(){
-    QChart *c = controller->generateChart(ui->eegSiteWave->value());
+    qDebug() << "test " << ui->band->itemData(ui->band->currentIndex());
+    QChart *c = controller->generateChart(ui->eegSiteWave->value(), 'a');
 
     QChartView *chartView = new QChartView(c);
     chartView->setRenderHint(QPainter::Antialiasing);
-    //opens chart in a new window. FIXME: get resize window to not be so small
+    chartView->setMinimumSize(QSize(400, 300));
+    //opens chart in a new window
     chartView->show();
 }
 

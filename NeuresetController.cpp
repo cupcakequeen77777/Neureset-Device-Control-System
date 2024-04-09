@@ -252,7 +252,7 @@ QString NeuresetController::history(){
     return history;
 }
 
-QChart* NeuresetController::generateChart(int eegSite){
+QChart* NeuresetController::generateChart(int eegSite, char type){
     QLineSeries *series = new QLineSeries();
     QChart *chart = new QChart();
 
@@ -267,12 +267,13 @@ QChart* NeuresetController::generateChart(int eegSite){
         chart->setTitle("Average EEG Waveform");
     }
     else{
-        int *data = eegSites[eegSite-1]->getWaveform();
+        int *data = eegSites[eegSite-1]->getWaveform(type);
+
         for (int i=0; i<60; ++i){
             series->append(i, data[i]);
         }
         QString chartName = "EEG Waveform #";
-        chart->setTitle(chartName.append(QString::number(eegSite)));
+        chart->setTitle(chartName.append(QString::number(eegSite)).append(type));
     }
 
     chart->legend()->hide();

@@ -15,6 +15,10 @@ void EEGSite::generateWaveForm(){
     for(int i=0; i<60; ++i){
         waveForm[i] = id+i;
     }
+    listenAlphaFrequencies(alpha);
+    listenBetaFrequencies(beta);
+    listenDeltaFrequencies(delta);
+    listenThetaFrequencies(theta);
 }
 
 bool EEGSite::getIsConnected(){
@@ -100,6 +104,17 @@ void EEGSite::reconnectSite(){
     emit contactLost(false);
 }
 
-int* EEGSite::getWaveform(){
-    return waveForm;
+int* EEGSite::getWaveform(char type){
+    if(type == 'a'){
+        return alpha;
+    }
+    else if (type == 'b'){
+        return beta;
+    }
+    else if(type == 'd'){
+        return delta;
+    }
+    else{
+        return theta;
+    }
 }
