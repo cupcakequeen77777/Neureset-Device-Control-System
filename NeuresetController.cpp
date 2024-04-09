@@ -227,7 +227,7 @@ void NeuresetController::setBaseline(){
 
 QString NeuresetController::sessionLogToString(int session){
     QString log;
-    log.append(sessionLogDT[session].toString("dd/MM/yy hh:mm:ss AP"));
+    log.append(sessionLogDT[session].toString("dd/MM/yy hh:mm:ss AP\n"));
     qInfo() << sessionLogDT[session].toString("dd/MM/yy hh:mm:ss AP");
     for(int j = 0; j < NUM_EEGSITES; j++){
         QString baseline;
