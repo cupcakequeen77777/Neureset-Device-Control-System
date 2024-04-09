@@ -117,12 +117,16 @@ void MainWindow::on_widget_menuOpts_itemActivated(QListWidgetItem *item){
         ui->tabWidget->setCurrentIndex(0);
         ui->contactSignal->setStyleSheet("background-color: blue");
         controller->startNewSession();
-        controller->history();
+        history = controller->history();
+        qInfo() << "SESSION LOG:";
+        qInfo() << history;
     }
     if(item->text() == "SESSION LOG"){
         qInfo() << "SESSION LOG:";
-        QString history = controller->history();
-        QString filename = "Data.txt";
+        history = controller->history();
+        qInfo() << "SESSION LOG:";
+        qInfo() << history;
+        QString filename = "Session_Log.txt";
         QFile file(filename);
 
 
