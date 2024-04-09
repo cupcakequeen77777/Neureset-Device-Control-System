@@ -52,7 +52,6 @@ void NeuresetController::handleTreatmentRound() {
     if (currentRound == 1) {
         QDateTime currentDateTime = QDateTime::currentDateTime();
         sessionLogDT[numberOfSessions] = currentDateTime;
-        qDebug() << "Current date and time:" << currentDateTime.toString("dd/MM/yy hh:mm:ss AP");
     }
 
     // Treatment logic for each EEG site
@@ -228,9 +227,11 @@ void NeuresetController::setBaseline(){
 
 QString NeuresetController::sessionLogToString(int session){
     QString log;
+    log.append(sessionLogDT[session].toString("dd/MM/yy hh:mm:ss AP"));
+    qInfo() << "Current date and time:" << sessionLogDT[session].toString("dd/MM/yy hh:mm:ss AP");
     for(int j = 0; j < NUM_EEGSITES; j++){
         QString baseline;
-        qDebug() << "Before:" << sessionLogB[j][session] << "hz, After:" << sessionLogA[j][session] << "hz";
+        qInfo() << "Before:" << sessionLogB[j][session] << "hz, After:" << sessionLogA[j][session] << "hz";
         log.append("Before:");
         log.append(QString::number(sessionLogB[j][session]));
         log.append("hz, After:");
@@ -244,6 +245,7 @@ QString NeuresetController::sessionLogToString(int session){
 QString NeuresetController::history(){
     QString history;
     qInfo() << "SESSION LOG:";
+
     for(int i = 0; i < numberOfSessions; i++){
         history.append(sessionLogToString(i));
     }
