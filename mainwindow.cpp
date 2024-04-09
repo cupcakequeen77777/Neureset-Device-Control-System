@@ -16,7 +16,6 @@ MainWindow::MainWindow(QWidget *parent)
     ui->control->hide();
     ui->eegSite->setMaximum(NUM_EEGSITES);
     ui->eegSiteWave->setMaximum(NUM_EEGSITES);
-    ui->theGraph->hide();
 
     connect(controller, &NeuresetController::lostContact, this, &MainWindow::contactLost);
     connect(controller, &NeuresetController::treatmentDelivered, this, &MainWindow::treatmentDelivered);
@@ -25,7 +24,6 @@ MainWindow::MainWindow(QWidget *parent)
     connect(controller, &NeuresetController::updatedProgressBar, this, &MainWindow::updateProgressBar);
 
     initializeBatteryStuff();
-    createChart();
 
     ui->dateTimeEdit->setDateTime(QDateTime::currentDateTime());
 }
@@ -41,19 +39,6 @@ void MainWindow::initializeBatteryStuff() {
 
     ui->battery->setMaximum(100);
     ui->battery->setValue(batteryInstance->getBatteryLevel());
-}
-
-//create a graphical representation of the waveform and add it to the GUI
-void MainWindow::createChart(){
-    QChart *c = controller->generateChart(-1, 'x'); // series = controller->generateSeries(series);
-    controller->setBaseline(); // sets baseline for all the EEG censor
-    // TEST
-    //qDebug()<<"The Baseline value of EEG 10 is"<< controller->getEEGSite(10)->getBaselineFrequency();
-
-    QChartView *chartView = new QChartView(c);
-    chartView->setRenderHint(QPainter::Antialiasing);
-    chartView->setMinimumSize(ui->theGraph->size());
-    chartView->setParent(ui->theGraph);
 }
 
 void MainWindow::on_btn_pauseTreatement_clicked(){
@@ -134,7 +119,6 @@ void MainWindow::on_btn_on_clicked(){
     ui->btn_on->hide();
     ui->btn_off->show();
     ui->control->show();
-    ui->theGraph->show();
     ui->btn_seeEEGWave->setEnabled(true);
     ui->eegSiteWave->setEnabled(true);
     ui->band->setEnabled(true);
@@ -150,7 +134,6 @@ void MainWindow::on_btn_off_clicked(){
     ui->btn_off->hide();
     ui->btn_on->show();
     ui->control->hide();
-    ui->theGraph->hide();
 
     // Disable the admin box
     ui->btn_connectSites->setEnabled(false);

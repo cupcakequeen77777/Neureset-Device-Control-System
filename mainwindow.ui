@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1118</width>
-    <height>480</height>
+    <width>610</width>
+    <height>518</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,8 +19,8 @@
      <rect>
       <x>30</x>
       <y>380</y>
-      <width>1071</width>
-      <height>81</height>
+      <width>551</width>
+      <height>121</height>
      </rect>
     </property>
     <property name="frameShape">
@@ -37,7 +37,7 @@
       <rect>
        <x>30</x>
        <y>40</y>
-       <width>171</width>
+       <width>191</width>
        <height>25</height>
       </rect>
      </property>
@@ -64,7 +64,7 @@
      </property>
      <property name="geometry">
       <rect>
-       <x>210</x>
+       <x>230</x>
        <y>40</y>
        <width>45</width>
        <height>26</height>
@@ -83,7 +83,7 @@
      </property>
      <property name="geometry">
       <rect>
-       <x>280</x>
+       <x>290</x>
        <y>40</y>
        <width>121</width>
        <height>25</height>
@@ -99,8 +99,8 @@
      </property>
      <property name="geometry">
       <rect>
-       <x>580</x>
-       <y>40</y>
+       <x>30</x>
+       <y>80</y>
        <width>191</width>
        <height>25</height>
       </rect>
@@ -115,8 +115,8 @@
      </property>
      <property name="geometry">
       <rect>
-       <x>780</x>
-       <y>40</y>
+       <x>230</x>
+       <y>80</y>
        <width>45</width>
        <height>26</height>
       </rect>
@@ -131,9 +131,9 @@
      </property>
      <property name="geometry">
       <rect>
-       <x>840</x>
-       <y>40</y>
-       <width>86</width>
+       <x>290</x>
+       <y>80</y>
+       <width>121</width>
        <height>25</height>
       </rect>
      </property>
@@ -474,22 +474,6 @@
       </property>
      </widget>
     </widget>
-   </widget>
-   <widget class="QFrame" name="theGraph">
-    <property name="geometry">
-     <rect>
-      <x>590</x>
-      <y>20</y>
-      <width>511</width>
-      <height>341</height>
-     </rect>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::StyledPanel</enum>
-    </property>
-    <property name="frameShadow">
-     <enum>QFrame::Raised</enum>
-    </property>
    </widget>
   </widget>
  </widget>
