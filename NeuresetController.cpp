@@ -289,20 +289,15 @@ QChart* NeuresetController::generateChart(int eegSite, char type){
             series->append(i, data[i]);
         }
         QString chartName = "EEG Waveform #";
-        chart->setTitle(chartName.append(QString::number(eegSite)).append(type));
+        chart->setTitle(chartName.append(QString::number(eegSite)));
     }
 
     chart->legend()->hide();
     chart->addSeries(series);
-    QValueAxis *axisX = new QValueAxis();
-    axisX->setRange(0, 60);
-    axisX->setTickCount(4);
-    axisX->setTitleText("time");
-    QValueAxis *axisY = new QValueAxis();
-    axisY->setRange(0, 30);
-    axisY->setTitleText("frequency");
-
-    chart->addAxis(axisX, Qt::AlignBottom);
-    chart->addAxis(axisY, Qt::AlignLeft);
+    chart->createDefaultAxes();
+    chart->axes(Qt::Horizontal).back()->setRange(0, 60);
+    chart->axes(Qt::Vertical).back()->setRange(0, 30);
+    chart->axes(Qt::Horizontal).back()->setTitleText("time");
+    chart->axes(Qt::Vertical).back()->setTitleText("frequency");
     return chart;
 }

@@ -234,8 +234,8 @@ void MainWindow::updateProgressBar(int progress) {
 
 
 void MainWindow::on_btn_seeEEGWave_clicked(){
-    qDebug() << "test " << ui->band->itemData(ui->band->currentIndex());
-    QChart *c = controller->generateChart(ui->eegSiteWave->value(), 'a');
+    char type = ui->band->currentText().toLower().toStdString().front();
+    QChart *c = controller->generateChart(ui->eegSiteWave->value(), type);
 
     QChartView *chartView = new QChartView(c);
     chartView->setRenderHint(QPainter::Antialiasing);
