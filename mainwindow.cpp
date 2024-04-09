@@ -3,8 +3,6 @@
 #include "defs.h"
 
 #include <QtDebug>
-#include <QApplication>
-
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -72,6 +70,16 @@ void MainWindow::on_btn_continueTreatment_clicked(){
 
 void MainWindow::on_btn_stopTreatement_clicked(){
     qDebug ("stop Treatment");
+    // Disable the admin box
+    ui->btn_connectSites->setEnabled(false);
+    ui->eegSite->setEnabled(false);
+    ui->btn_disconnectSite->setEnabled(false);
+
+
+    ui->contactSignal->setStyleSheet("background-color: #B8D6F5");
+    ui->contactLostSignal->setStyleSheet("background-color: pink");
+    ui->treatementSignal->setStyleSheet("background-color: #A9E6B3");
+
     controller->stopTimer();
 }
 
@@ -98,10 +106,6 @@ void MainWindow::on_widget_menuOpts_itemActivated(QListWidgetItem *item){
     if(item->text() == "TIME AND DATE"){
         ui->dateTimeEdit->show();
         ui->btn_setDate->show();
-    }
-    else{
-        ui->dateTimeEdit->hide();
-        ui->btn_setDate->hide();
     }
     if(item->text() == "NEW SESSION"){
         controller->startTimer();
@@ -139,9 +143,6 @@ void MainWindow::on_btn_on_clicked(){
     ui->btn_off->show();
     ui->control->show();
     ui->theGraph->show();
-    ui->AdminView->show();
-    ui->btn_seeEEGWave->setEnabled(true);
-    ui->eegSiteWave->setEnabled(true);
 
 
 
@@ -157,12 +158,10 @@ void MainWindow::on_btn_off_clicked(){
     ui->control->hide();
     ui->theGraph->hide();
 
-    // Enable the admin box
+    // Disable the admin box
     ui->btn_connectSites->setEnabled(false);
     ui->eegSite->setEnabled(false);
     ui->btn_disconnectSite->setEnabled(false);
-    ui->btn_seeEEGWave->setEnabled(false);
-    ui->eegSiteWave->setEnabled(false);
 
 
     ui->contactSignal->setStyleSheet("background-color: #B8D6F5");
@@ -171,10 +170,6 @@ void MainWindow::on_btn_off_clicked(){
 
     //stoped the timer when turning off the machine
     controller->stopTimer();
-    
-    // stop the battery consumption timer
-    batteryInstance->stopBatteryConsumption();
-
 }
 
 
@@ -195,23 +190,13 @@ void MainWindow::updateTreatmentTime(const QString& time) {
 
 void MainWindow::updateBatteryLevel(int level) {
     ui->battery->setValue(level);
-
-    if (level < 20) {
-        // Change the batteryLabel's appearance to indicate low battery
-        ui->batteryLabel->setStyleSheet("QLabel { color: white; background-color: red; }");
-        ui->batteryLabel->setText("Low Battery!");
-    } else {
-        // reset the batteryLabel appearance when the battery is not low
-        ui->batteryLabel->setStyleSheet("");
-        ui->batteryLabel->setText("");
-    }
+    //qDebug() << "Battery level updated to:" << level << "%";
 }
 
 void MainWindow::handleBatteryDepleted() {
     qDebug() << "Battery depleted. Application will now close.";
-    on_btn_off_clicked();
+    QApplication::quit();
 }
-
 
 void MainWindow::contactLost(bool x){
     if(x){
@@ -245,8 +230,7 @@ void MainWindow::on_btn_seeEEGWave_clicked(){
 
     QChartView *chartView = new QChartView(c);
     chartView->setRenderHint(QPainter::Antialiasing);
-    chartView->setMinimumSize(QSize(400, 300));
-    //opens chart in a new window
+    //opens chart in a new window. FIXME: get resize window to not be so small
     chartView->show();
 }
 
