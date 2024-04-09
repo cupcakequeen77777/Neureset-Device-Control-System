@@ -45,6 +45,7 @@ signals:
     void timeUpdated(const QString& timeString);
     void updatedProgressBar(int progress); // signal for the progress bar
 
+
 protected:
     NeuresetController();
 private:

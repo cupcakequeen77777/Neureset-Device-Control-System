@@ -41,7 +41,6 @@ void NeuresetController::startNewSession(){
     qDebug() << "Flash on"; // FIXME: remove once there is a delay so the lights flash
     emit treatmentDelivered(true);
     treatmentTimer->start(); // Start the treatment rounds
-
 }
 
 void NeuresetController::handleTreatmentRound() {
@@ -69,6 +68,7 @@ void NeuresetController::handleTreatmentRound() {
     if (isResumed && treatmentTimer->interval() != 15000) {
         treatmentTimer->start(15000); // Reset to normal interval for next rounds
         isResumed = false; // Reset the flag after handling the resumed round
+
     }
 
     if (currentRound == totalRounds) {
@@ -226,55 +226,25 @@ void NeuresetController::setBaseline(){
     }
 }
 
-void NeuresetController::getAlphaFrequency(){
-    for(int i=0; i<NUM_EEGSITES; i++){
-        EEGSite *sensor = getEEGSite(i);
-        sensor->listenAlphaFrequencies(alpha);
-    }
-}
-
-void NeuresetController::getBetaFrequency(){
-    for(int i=0; i<NUM_EEGSITES; i++){
-        EEGSite *sensor = getEEGSite(i);
-        sensor->listenAlphaFrequencies(beta);
-    }
-}
-
-void NeuresetController::getDeltaFrequency(){
-    for(int i=0; i<NUM_EEGSITES; i++){
-        EEGSite *sensor = getEEGSite(i);
-        sensor->listenAlphaFrequencies(delta);
-    }
-}
-
-void NeuresetController::getThetaFrequency(){
-    for(int i=0; i<NUM_EEGSITES; i++){
-        EEGSite *sensor = getEEGSite(i);
-        sensor->listenAlphaFrequencies(theta);
-    }
-}
-
 QString NeuresetController::sessionLogToString(int session){
     QString log;
-        for(int j = 0; j < NUM_EEGSITES; j++){
-            QString baseline;
-            qDebug() << "Before:" << sessionLogB[j][session] << "hz, After:" << sessionLogA[j][session] << "hz";
-            log.append("Before:");
-            log.append(QString::number(sessionLogB[j][session]));
-            log.append("hz, After:");
-            log.append(QString::number(sessionLogA[j][session]));
-            log.append("hz\n");
-        }
+    for(int j = 0; j < NUM_EEGSITES; j++){
+        QString baseline;
+        qDebug() << "Before:" << sessionLogB[j][session] << "hz, After:" << sessionLogA[j][session] << "hz";
+        log.append("Before:");
+        log.append(QString::number(sessionLogB[j][session]));
+        log.append("hz, After:");
+        log.append(QString::number(sessionLogA[j][session]));
+        log.append("hz\n");
+    }
 
     return log;
 }
 
 QString NeuresetController::history(){
     QString history;
+    qInfo() << "SESSION LOG:";
     for(int i = 0; i < numberOfSessions; i++){
-        history.append(sessionLogDT[i].toString("dd/MM/yy hh:mm:ss AP"));
-        qDebug() << sessionLogDT[i].toString("dd/MM/yy hh:mm:ss AP");
-        history.append("\n");
         history.append(sessionLogToString(i));
     }
     return history;

@@ -117,26 +117,10 @@ void MainWindow::on_widget_menuOpts_itemActivated(QListWidgetItem *item){
         ui->tabWidget->setCurrentIndex(0);
         ui->contactSignal->setStyleSheet("background-color: blue");
         controller->startNewSession();
-        history = controller->history();
-        qInfo() << "SESSION LOG:";
-        qInfo() << history;
+
     }
     if(item->text() == "SESSION LOG"){
-        qInfo() << "SESSION LOG:";
-        history = controller->history();
-        qInfo() << "SESSION LOG:";
-        qInfo() << history;
-        QString filename = "Session_Log.txt";
-        QFile file(filename);
-
-
-        if (file.open(QIODevice::ReadWrite)) {
-            QTextStream stream(&file);
-            stream << history; // Write the session logs here
-            file.close(); // Close the file when done
-        } else {
-            qDebug() << "Error opening the file.";
-        }
+        controller->history();
     }
 }
 
@@ -147,8 +131,6 @@ void MainWindow::on_btn_on_clicked(){
     ui->btn_off->show();
     ui->control->show();
     ui->theGraph->show();
-
-
 
     // start the timer for the battery consumption
     batteryInstance->startBatteryConsumption();
@@ -221,6 +203,17 @@ void MainWindow::treatmentDelivered(bool lightOn){
         ui->treatementSignal->setStyleSheet("background-color: green");
     }else{
         ui->treatementSignal->setStyleSheet("background-color: #A9E6B3");
+        history = controller->history();
+        QString filename = "Session_Log.txt";
+        QFile file(filename);
+
+        if (file.open(QIODevice::ReadWrite)) {
+            QTextStream stream(&file);
+            stream << history; // Write the session logs here
+            file.close(); // Close the file when done
+        } else {
+            qDebug() << "Error opening the file.";
+        }
     }
 }
 
