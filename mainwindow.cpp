@@ -209,10 +209,8 @@ void MainWindow::contactLost(bool x){
     }
 }
 
-void MainWindow::treatmentDelivered(bool lightOn){
-    if(lightOn){
-        ui->treatementSignal->setStyleSheet("background-color: green");
-    }else{
+void MainWindow::treatmentDelivered(bool delivered){
+    if(delivered){
         ui->treatementSignal->setStyleSheet("background-color: #A9E6B3");
         history = controller->history();
         QString filename = "Session_Log.txt";
@@ -225,6 +223,8 @@ void MainWindow::treatmentDelivered(bool lightOn){
         } else {
             qDebug() << "Error opening the file.";
         }
+    }else{
+        ui->treatementSignal->setStyleSheet("background-color: green");
     }
 }
 

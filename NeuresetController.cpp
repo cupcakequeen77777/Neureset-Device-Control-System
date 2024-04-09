@@ -38,8 +38,11 @@ NeuresetController* NeuresetController::getInstance(){
 void NeuresetController::startNewSession(){
     qDebug() << "Starting new session";
     currentRound = 1; // Reset current round
+    for (int i=0; i< NUM_EEGSITES; ++i){
+        sessionLogB[i][numberOfSessions] = eegSites[i]->getBaselineFrequency();
+    }
     qDebug() << "Flash on"; // FIXME: remove once there is a delay so the lights flash
-    emit treatmentDelivered(true);
+    emit treatmentDelivered(false);
     treatmentTimer->start(); // Start the treatment rounds
 }
 
@@ -75,8 +78,12 @@ void NeuresetController::handleTreatmentRound() {
         qDebug() << "Treatment session completed";
 
         // Increment the session count now that treatment is complete.
+        for (int i=0; i< NUM_EEGSITES; ++i){
+            sessionLogA[i][numberOfSessions] = eegSites[i]->getBaselineFrequency();
+        }
         numberOfSessions++;
-        emit treatmentDelivered(false);
+
+        emit treatmentDelivered(true);
         qDebug() << "Flash off"; // FIXME: remove once there is a delay so the lights flash
 
         return;
@@ -227,11 +234,10 @@ void NeuresetController::setBaseline(){
 
 QString NeuresetController::sessionLogToString(int session){
     QString log;
-    log.append(sessionLogDT[session].toString("dd/MM/yy hh:mm:ss AP\n"));
-    qInfo() << sessionLogDT[session].toString("dd/MM/yy hh:mm:ss AP");
+
     for(int j = 0; j < NUM_EEGSITES; j++){
         QString baseline;
-        qInfo() << "Before:" << sessionLogB[j][session] << "hz, After:" << sessionLogA[j][session] << "hz";
+        qInfo() << "Before:" << sessionLogB[j][session] << "hz, After:" << sessionLogA[j][currentRound] << "hz";
         log.append("Before:");
         log.append(QString::number(sessionLogB[j][session]));
         log.append("hz, After:");
@@ -244,11 +250,14 @@ QString NeuresetController::sessionLogToString(int session){
 
 QString NeuresetController::history(){
     QString history;
-    qInfo() << "SESSION LOG:";
+    history.append(sessionLogDT[currentRound].toString("dd/MM/yy hh:mm:ss AP\n"));
+    qInfo() << sessionLogDT[currentRound].toString("dd/MM/yy hh:mm:ss AP");
 
-    for(int i = 0; i < numberOfSessions; i++){
-        history.append(sessionLogToString(i));
-    }
+    history.append(sessionLogToString(numberOfSessions));
+
+//    for(int i = 0; i < 4; i++){
+//        history.append(sessionLogToString(i));
+//    }
     return history;
 }
 
