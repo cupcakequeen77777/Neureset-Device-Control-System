@@ -49,12 +49,15 @@ void MainWindow::initializeBatteryStuff() {
 void MainWindow::on_btn_pauseTreatement_clicked(){
     qDebug ("on_btn_pauseTreatement_clicked");
     controller->pauseTimer();
+    ui->treatementSignal->setStyleSheet("background-color: #A9E6B3");
 }
 
 
 void MainWindow::on_btn_continueTreatment_clicked(){
     qDebug ("continue Treatment");
     controller->resumeTimer();
+    ui->treatementSignal->setStyleSheet("background-color: green");
+
 }
 
 
@@ -75,6 +78,10 @@ void MainWindow::on_btn_stopTreatement_clicked(){
 
 
 void MainWindow::on_btn_disconnectSite_clicked(){
+
+    ui->btn_pauseTreatement->setEnabled(false);
+    ui->btn_continueTreatment->setEnabled(false);
+
     int eegId = ui->eegSite->value();
     qDebug () << "disconnect Site" << eegId;
     controller->disconnectSite(eegId);
@@ -84,6 +91,10 @@ void MainWindow::on_btn_disconnectSite_clicked(){
 }
 
 void MainWindow::on_btn_connectSites_clicked(){
+
+    ui->btn_pauseTreatement->setEnabled(true);
+    ui->btn_continueTreatment->setEnabled(true);
+
     qDebug () << "reconnect Sites";
     controller->reconnectSites();
 
@@ -106,6 +117,10 @@ void MainWindow::on_widget_menuOpts_itemActivated(QListWidgetItem *item){
         // Enable the admin box
         ui->eegSite->setEnabled(true);
         ui->btn_disconnectSite->setEnabled(true);
+        ui->btn_pauseTreatement->setEnabled(true);
+        ui->btn_continueTreatment->setEnabled(true);
+        ui->btn_stopTreatement->setEnabled(true);
+
 
         //switch to session info tab
         ui->tabWidget->setCurrentIndex(0);
