@@ -26,6 +26,11 @@ MainWindow::MainWindow(QWidget *parent)
     initializeBatteryStuff();
 
     ui->dateTimeEdit->setDateTime(QDateTime::currentDateTime());
+
+    // removing the old file
+    QString filename = "Session_Log.txt";
+    QFile fileOld(filename);
+    fileOld.remove();
 }
 
 MainWindow::~MainWindow(){
@@ -201,8 +206,6 @@ void MainWindow::treatmentDelivered(bool delivered){
         ui->contactSignal->setStyleSheet("background-color: #B8D6F5");
         history = controller->sessionLog();
         QString filename = "Session_Log.txt";
-        QFile fileOld(filename);
-        fileOld.remove();
         QFile file(filename);
 
 
