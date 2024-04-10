@@ -16,3 +16,21 @@ Your submission should contain a README file that has:
 Team members,
 What each member did, and
 Organization of the submission.
+
+
+## Team 45:
+
+Knox Kan
+
+Emrehan Sagin
+
+Sara Francis 101234656
+* UML Class diagram
+* GUI design
+* Treatment logic
+* Graphical representation of EEG waveforms
+* Traceability Matrix
+
+LeeAnne King
+
+Burak Yildirim
