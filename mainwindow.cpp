@@ -17,6 +17,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->eegSite->setMaximum(NUM_EEGSITES);
     ui->eegSiteWave->setMaximum(NUM_EEGSITES);
 
+    reset();
+
     connect(controller, &NeuresetController::lostContact, this, &MainWindow::contactLost);
     connect(controller, &NeuresetController::treatmentDelivered, this, &MainWindow::treatmentDelivered);
     connect(controller, &NeuresetController::reset, this, &MainWindow::reset);
@@ -64,16 +66,7 @@ void MainWindow::on_btn_continueTreatment_clicked(){
 
 void MainWindow::on_btn_stopTreatement_clicked(){
     qDebug ("stop Treatment");
-    // Disable the admin box
-    ui->btn_connectSites->setEnabled(false);
-    ui->eegSite->setEnabled(false);
-    ui->btn_disconnectSite->setEnabled(false);
-
-
-    ui->contactSignal->setStyleSheet("background-color: #B8D6F5");
-    ui->contactLostSignal->setStyleSheet("background-color: pink");
-    ui->treatementSignal->setStyleSheet("background-color: #A9E6B3");
-
+    reset();
     controller->stopTimer();
 }
 
@@ -157,18 +150,13 @@ void MainWindow::on_btn_off_clicked(){
     ui->btn_on->show();
     ui->control->hide();
 
-    // Disable the admin box
-    ui->btn_connectSites->setEnabled(false);
-    ui->eegSite->setEnabled(false);
-    ui->btn_disconnectSite->setEnabled(false);
+    reset();
     ui->btn_seeEEGWave->setEnabled(false);
     ui->eegSiteWave->setEnabled(false);
     ui->band->setEnabled(false);
 
 
-    ui->contactSignal->setStyleSheet("background-color: #B8D6F5");
-    ui->contactLostSignal->setStyleSheet("background-color: pink");
-    ui->treatementSignal->setStyleSheet("background-color: #A9E6B3");
+
 
     //stoped the timer when turning off the machine
     controller->stopTimer();
@@ -244,6 +232,10 @@ void MainWindow::reset(){
     ui->contactLostSignal->setStyleSheet("background-color: pink");
     ui->btn_connectSites->setEnabled(false);
     ui->btn_disconnectSite->setEnabled(false);
+    ui->btn_pauseTreatement->setEnabled(false);
+    ui->btn_continueTreatment->setEnabled(false);
+    ui->btn_stopTreatement->setEnabled(false);
+    ui->eegSite->setEnabled(false);
 
 }
 
