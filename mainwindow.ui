@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1118</width>
-    <height>480</height>
+    <width>610</width>
+    <height>518</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,7 +20,7 @@
       <x>30</x>
       <y>380</y>
       <width>551</width>
-      <height>81</height>
+      <height>121</height>
      </rect>
     </property>
     <property name="frameShape">
@@ -37,7 +37,7 @@
       <rect>
        <x>30</x>
        <y>40</y>
-       <width>171</width>
+       <width>191</width>
        <height>25</height>
       </rect>
      </property>
@@ -64,7 +64,7 @@
      </property>
      <property name="geometry">
       <rect>
-       <x>210</x>
+       <x>230</x>
        <y>40</y>
        <width>45</width>
        <height>26</height>
@@ -83,15 +83,80 @@
      </property>
      <property name="geometry">
       <rect>
-       <x>330</x>
+       <x>290</x>
        <y>40</y>
-       <width>83</width>
+       <width>121</width>
        <height>25</height>
       </rect>
      </property>
      <property name="text">
-      <string>Reconnect</string>
+      <string>Reconnect Sites</string>
      </property>
+    </widget>
+    <widget class="QPushButton" name="btn_seeEEGWave">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>80</y>
+       <width>191</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>View waveform for EEG Site</string>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="eegSiteWave">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>230</x>
+       <y>80</y>
+       <width>45</width>
+       <height>26</height>
+      </rect>
+     </property>
+     <property name="minimum">
+      <number>1</number>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="band">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>290</x>
+       <y>80</y>
+       <width>121</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <item>
+      <property name="text">
+       <string>Alpha</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Beta</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Delta</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Theta</string>
+      </property>
+     </item>
     </widget>
    </widget>
    <widget class="QFrame" name="frame">
@@ -220,7 +285,7 @@
        <bool>true</bool>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab_treatement">
        <attribute name="title">
@@ -368,7 +433,7 @@
       <property name="geometry">
        <rect>
         <x>480</x>
-        <y>190</y>
+        <y>180</y>
         <width>21</width>
         <height>71</height>
        </rect>
@@ -395,23 +460,20 @@
        <string notr="true">%p%</string>
       </property>
      </widget>
+     <widget class="QLabel" name="batteryLabel">
+      <property name="geometry">
+       <rect>
+        <x>420</x>
+        <y>150</y>
+        <width>91</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
     </widget>
-   </widget>
-   <widget class="QFrame" name="theGraph">
-    <property name="geometry">
-     <rect>
-      <x>590</x>
-      <y>20</y>
-      <width>511</width>
-      <height>441</height>
-     </rect>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::StyledPanel</enum>
-    </property>
-    <property name="frameShadow">
-     <enum>QFrame::Raised</enum>
-    </property>
    </widget>
   </widget>
  </widget>

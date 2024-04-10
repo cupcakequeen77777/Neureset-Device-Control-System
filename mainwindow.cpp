@@ -15,18 +15,24 @@ MainWindow::MainWindow(QWidget *parent)
     ui->btn_setDate->hide();
     ui->control->hide();
     ui->eegSite->setMaximum(NUM_EEGSITES);
-    ui->AdminView->hide();
-    ui->theGraph->hide();
+    ui->eegSiteWave->setMaximum(NUM_EEGSITES);
+
+    reset();
 
     connect(controller, &NeuresetController::lostContact, this, &MainWindow::contactLost);
+    connect(controller, &NeuresetController::treatmentDelivered, this, &MainWindow::treatmentDelivered);
+    connect(controller, &NeuresetController::reset, this, &MainWindow::reset);
     connect(controller, &NeuresetController::timeUpdated, this, &MainWindow::updateTreatmentTime);
-
     connect(controller, &NeuresetController::updatedProgressBar, this, &MainWindow::updateProgressBar);
 
     initializeBatteryStuff();
-    createChart();
 
     ui->dateTimeEdit->setDateTime(QDateTime::currentDateTime());
+
+    // removing the old file
+    QString filename = "Session_Log.txt";
+    QFile fileOld(filename);
+    fileOld.remove();
 }
 
 MainWindow::~MainWindow(){
@@ -42,55 +48,33 @@ void MainWindow::initializeBatteryStuff() {
     ui->battery->setValue(batteryInstance->getBatteryLevel());
 }
 
-//create a graphical representation of the waveform and add it to the GUI
-void MainWindow::createChart(){
-    QLineSeries *series = new QLineSeries();
-
-    controller->generateSeries(series); // series = controller->generateSeries(series);
-    controller->setBaseline(); // sets baseline for all the EEG censor
-    // TEST
-    //qDebug()<<"The Baseline value of EEG 10 is"<< controller->getEEGSite(10)->getBaselineFrequency();
-
-    QChart *chart = new QChart();
-    chart->legend()->hide();
-    chart->addSeries(series);
-    chart->setTitle("EEG Waveform");
-    QValueAxis *axisX = new QValueAxis();
-    axisX->setRange(0, 60);
-    axisX->setTickCount(4);
-    axisX->setTitleText("time");
-    QValueAxis *axisY = new QValueAxis();
-    axisY->setRange(0, 30);
-    axisY->setTitleText("frequency");
-
-    chart->addAxis(axisX, Qt::AlignBottom);
-    chart->addAxis(axisY, Qt::AlignLeft);
-
-    QChartView *chartView = new QChartView(chart);
-    chartView->setRenderHint(QPainter::Antialiasing);
-    chartView->setMinimumSize(ui->theGraph->size());
-    chartView->setParent(ui->theGraph);
-}
-
 void MainWindow::on_btn_pauseTreatement_clicked(){
     qDebug ("on_btn_pauseTreatement_clicked");
     controller->pauseTimer();
+    ui->treatementSignal->setStyleSheet("background-color: #A9E6B3");
 }
 
 
 void MainWindow::on_btn_continueTreatment_clicked(){
     qDebug ("continue Treatment");
     controller->resumeTimer();
+    ui->treatementSignal->setStyleSheet("background-color: green");
+
 }
 
 
 void MainWindow::on_btn_stopTreatement_clicked(){
     qDebug ("stop Treatment");
+    reset();
     controller->stopTimer();
 }
 
 
 void MainWindow::on_btn_disconnectSite_clicked(){
+
+    ui->btn_pauseTreatement->setEnabled(false);
+    ui->btn_continueTreatment->setEnabled(false);
+
     int eegId = ui->eegSite->value();
     qDebug () << "disconnect Site" << eegId;
     controller->disconnectSite(eegId);
@@ -101,8 +85,9 @@ void MainWindow::on_btn_disconnectSite_clicked(){
 
 void MainWindow::on_btn_connectSites_clicked(){
     qDebug () << "reconnect Sites";
+    ui->btn_pauseTreatement->setEnabled(true);
+    ui->btn_continueTreatment->setEnabled(true);
     controller->reconnectSites();
-
     controller->resumeTimer();
 }
 
@@ -113,30 +98,27 @@ void MainWindow::on_widget_menuOpts_itemActivated(QListWidgetItem *item){
         ui->dateTimeEdit->show();
         ui->btn_setDate->show();
     }
+    else{
+            ui->dateTimeEdit->hide();
+            ui->btn_setDate->hide();
+    }
     if(item->text() == "NEW SESSION"){
         controller->startTimer();
         // Enable the admin box
         ui->eegSite->setEnabled(true);
         ui->btn_disconnectSite->setEnabled(true);
+        ui->btn_pauseTreatement->setEnabled(true);
+        ui->btn_continueTreatment->setEnabled(true);
+        ui->btn_stopTreatement->setEnabled(true);
 
         //switch to session info tab
         ui->tabWidget->setCurrentIndex(0);
         ui->contactSignal->setStyleSheet("background-color: blue");
-        controller->startNewSession();
+        char type = ui->band->currentText().toLower().toStdString().front();
+        controller->startNewSession(type);
     }
     if(item->text() == "SESSION LOG"){
-        qInfo() << "SESSION LOG:";
-        QString history = controller->sessionLogToString();
-        QString filename = "Data.txt";
-        QFile file(filename);
-
-        if (file.open(QIODevice::ReadWrite)) {
-            QTextStream stream(&file);
-            stream << history; // Write the session logs here
-            file.close(); // Close the file when done
-        } else {
-            qDebug() << "Error opening the file.";
-        }
+        controller->sessionLog();
     }
 }
 
@@ -146,10 +128,9 @@ void MainWindow::on_btn_on_clicked(){
     ui->btn_on->hide();
     ui->btn_off->show();
     ui->control->show();
-    ui->theGraph->show();
-    ui->AdminView->show();
-
-
+    ui->btn_seeEEGWave->setEnabled(true);
+    ui->eegSiteWave->setEnabled(true);
+    ui->band->setEnabled(true);
 
     // start the timer for the battery consumption
     batteryInstance->startBatteryConsumption();
@@ -158,20 +139,13 @@ void MainWindow::on_btn_on_clicked(){
 
 void MainWindow::on_btn_off_clicked(){
     qDebug() << "You turned off the  machine";
+    reset();
     ui->btn_off->hide();
     ui->btn_on->show();
     ui->control->hide();
-    ui->theGraph->hide();
-
-    // Enable the admin box
-    ui->btn_connectSites->setEnabled(false);
-    ui->eegSite->setEnabled(false);
-    ui->btn_disconnectSite->setEnabled(false);
-
-
-    ui->contactSignal->setStyleSheet("background-color: #B8D6F5");
-    ui->contactLostSignal->setStyleSheet("background-color: pink");
-    ui->treatementSignal->setStyleSheet("background-color: #A9E6B3");
+    ui->btn_seeEEGWave->setEnabled(false);
+    ui->eegSiteWave->setEnabled(false);
+    ui->band->setEnabled(false);
 
     //stoped the timer when turning off the machine
     controller->stopTimer();
@@ -209,16 +183,61 @@ void MainWindow::contactLost(bool x){
         ui->contactLostSignal->setStyleSheet("background-color: red");
         ui->btn_connectSites->setEnabled(true);
         ui->contactSignal->setStyleSheet("background-color: #B8D6F5");
+        ui->treatementSignal->setStyleSheet("background-color: #A9E6B3");
     }else{
         qDebug() << "MainWindow recieves not contactLost from controller";
         ui->contactLostSignal->setStyleSheet("background-color: pink");
         ui->btn_connectSites->setEnabled(false);
         ui->contactSignal->setStyleSheet("background-color: blue");
+        ui->treatementSignal->setStyleSheet("background-color: green");
     }
+}
 
+void MainWindow::treatmentDelivered(bool delivered){
+    if(delivered){
+        ui->treatementSignal->setStyleSheet("background-color: #A9E6B3");
+        ui->contactSignal->setStyleSheet("background-color: #B8D6F5");
+        history = controller->sessionLog();
+        QString filename = "Session_Log.txt";
+        QFile file(filename);
+        if (file.open(QIODevice::ReadWrite)) {
+            QTextStream stream(&file);
+            stream << history; // Write the session logs here
+            file.close(); // Close the file when done
+        } else {
+            qDebug() << "Error opening the file.";
+        }
+    }else{
+        ui->treatementSignal->setStyleSheet("background-color: green");
+    }
+}
+
+
+void MainWindow::reset(){
+    ui->treatementSignal->setStyleSheet("background-color: #A9E6B3");
+    ui->contactSignal->setStyleSheet("background-color: #B8D6F5");
+    ui->contactLostSignal->setStyleSheet("background-color: pink");
+    ui->btn_connectSites->setEnabled(false);
+    ui->btn_disconnectSite->setEnabled(false);
+    ui->btn_pauseTreatement->setEnabled(false);
+    ui->btn_continueTreatment->setEnabled(false);
+    ui->btn_stopTreatement->setEnabled(false);
+    ui->eegSite->setEnabled(false);
 }
 
 void MainWindow::updateProgressBar(int progress) {
     ui->treatementProgress->setValue(progress);
+}
+
+
+void MainWindow::on_btn_seeEEGWave_clicked(){
+    char type = ui->band->currentText().toLower().toStdString().front();
+    QChart *c = controller->generateChart(ui->eegSiteWave->value(), type);
+
+    QChartView *chartView = new QChartView(c);
+    chartView->setRenderHint(QPainter::Antialiasing);
+    chartView->setMinimumSize(QSize(400, 300));
+    //opens chart in a new window
+    chartView->show();
 }
 

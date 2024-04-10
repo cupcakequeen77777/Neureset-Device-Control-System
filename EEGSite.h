@@ -20,11 +20,20 @@ public:
 
     int calculateBaseline(int* data);
 
+    void listenAlphaFrequencies(int * data);
+
+    void listenBetaFrequencies(int * data);
+
+    void listenDeltaFrequencies(int * data);
+
+    void listenThetaFrequencies(int * data);
+
     void deliverTreatment(int);
 
     void disconnectSite();
 
     void reconnectSite();
+    int* getWaveform(char);
 
 signals:
     void contactLost(bool);
@@ -33,7 +42,13 @@ private:
     int id;
     bool isConnected;
     int baselineFrequency;
+    int waveForm[60];
+    int alpha[60];
+    int beta[60];
+    int theta[60];
+    int delta[60];
     int calcNewBaseline(int, int);
+    void generateWaveForm();
 };
 
 #endif // EEGSITE_H

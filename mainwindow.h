@@ -30,6 +30,11 @@ public:
 public slots:
     void contactLost(bool);
 
+    void treatmentDelivered(bool);
+
+    void reset();
+
+
 signals:
     void disconnectSite(int eegId);
 
@@ -67,6 +72,9 @@ private slots:
     void updateProgressBar(int progress);
 
 
+    void on_btn_seeEEGWave_clicked();
+
+
 private:
     Ui::MainWindow *ui;
     NeuresetController* controller = NeuresetController::getInstance();
@@ -74,6 +82,7 @@ private:
     Battery* batteryInstance;
     void initializeBatteryStuff();
     void createChart();
+    QString history;
 
 };
 #endif // MAINWINDOW_H

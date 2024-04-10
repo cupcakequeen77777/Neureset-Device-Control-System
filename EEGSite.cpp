@@ -8,6 +8,17 @@ EEGSite::EEGSite(int i){
     id = i;
     isConnected = true;
     baselineFrequency = 10; //this is a default frequency, but the generateBaseline() func will actually calculate the frequency of the site
+    generateWaveForm();
+}
+
+void EEGSite::generateWaveForm(){
+    for(int i=0; i<60; ++i){
+        waveForm[i] = id+i;
+    }
+    listenAlphaFrequencies(alpha);
+    listenBetaFrequencies(beta);
+    listenDeltaFrequencies(delta);
+    listenThetaFrequencies(theta);
 }
 
 bool EEGSite::getIsConnected(){
@@ -26,6 +37,30 @@ int EEGSite::calculateBaseline(int* data){
     baselineFrequency = sum / 60;
 
     return baselineFrequency;
+}
+
+void EEGSite::listenAlphaFrequencies(int *data){
+    for (int i=0; i<60; i++){
+        data[i] = rand() % 5 + 8;
+    }
+}
+
+void EEGSite::listenBetaFrequencies(int *data){
+    for (int i=0; i<60; i++){
+        data[i] = rand() % 19 + 12;
+    }
+}
+
+void EEGSite::listenDeltaFrequencies(int *data){
+    for (int i=0; i<60; i++){
+        data[i] = rand() % 4 + 1;
+    }
+}
+
+void EEGSite::listenThetaFrequencies(int *data){
+    for (int i=0; i<60; i++){
+        data[i] = rand() % 4 + 4;
+    }
 }
 
 //this function delivers treatment to the EEG site in four rounds. Each round increase then offset frequency by 5 and then add that
@@ -67,4 +102,19 @@ void EEGSite::reconnectSite(){
     qDebug() << "contact reconnected on #" << id;
     isConnected = true;
     emit contactLost(false);
+}
+
+int* EEGSite::getWaveform(char type){
+    if(type == 'a'){
+        return alpha;
+    }
+    else if (type == 'b'){
+        return beta;
+    }
+    else if(type == 'd'){
+        return delta;
+    }
+    else{
+        return theta;
+    }
 }

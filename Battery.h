@@ -12,6 +12,7 @@ public:
     ~Battery();
 
     void startBatteryConsumption();
+    void stopBatteryConsumption();
     int getBatteryLevel() const;
 
 signals:
