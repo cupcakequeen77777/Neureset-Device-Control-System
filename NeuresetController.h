@@ -23,7 +23,7 @@ public:
     void pauseTimer();
     void resumeTimer();
     void stopTimer();
-    void startNewSession();
+    void startNewSession(char);
     void setBaseline();
     void getAlphaFrequency();
     void getBetaFrequency();

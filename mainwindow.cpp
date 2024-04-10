@@ -105,7 +105,8 @@ void MainWindow::on_widget_menuOpts_itemActivated(QListWidgetItem *item){
         //switch to session info tab
         ui->tabWidget->setCurrentIndex(0);
         ui->contactSignal->setStyleSheet("background-color: blue");
-        controller->startNewSession();
+        char type = ui->band->currentText().toLower().toStdString().front();
+        controller->startNewSession(type);
 
     }
     if(item->text() == "SESSION LOG"){
@@ -222,8 +223,8 @@ void MainWindow::updateProgressBar(int progress) {
 
 
 void MainWindow::on_btn_seeEEGWave_clicked(){
-    qDebug() << "test " << ui->band->itemData(ui->band->currentIndex());
-    QChart *c = controller->generateChart(ui->eegSiteWave->value(), 'a');
+    char type = ui->band->currentText().toLower().toStdString().front();
+    QChart *c = controller->generateChart(ui->eegSiteWave->value(), type);
 
     QChartView *chartView = new QChartView(c);
     chartView->setRenderHint(QPainter::Antialiasing);

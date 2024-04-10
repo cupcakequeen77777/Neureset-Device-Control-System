@@ -35,11 +35,11 @@ NeuresetController* NeuresetController::getInstance(){
 }
 
 //please confirms if the timer logic makes sense
-void NeuresetController::startNewSession(){
+void NeuresetController::startNewSession(char type){
     qDebug() << "Starting new session";
     currentRound = 1; // Reset current round
     for (int i=0; i< NUM_EEGSITES; ++i){
-        sessionLogB[i][numberOfSessions] = eegSites[i]->getBaselineFrequency();
+        sessionLogB[i][numberOfSessions] = eegSites[i]->calculateBaseline(eegSites[i]->getWaveform(type));
     }
     qDebug() << "Flash on"; // FIXME: remove once there is a delay so the lights flash
     emit treatmentDelivered(false);
