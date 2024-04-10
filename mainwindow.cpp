@@ -23,7 +23,6 @@ MainWindow::MainWindow(QWidget *parent)
     connect(controller, &NeuresetController::treatmentDelivered, this, &MainWindow::treatmentDelivered);
     connect(controller, &NeuresetController::reset, this, &MainWindow::reset);
     connect(controller, &NeuresetController::timeUpdated, this, &MainWindow::updateTreatmentTime);
-
     connect(controller, &NeuresetController::updatedProgressBar, this, &MainWindow::updateProgressBar);
 
     initializeBatteryStuff();
@@ -85,13 +84,10 @@ void MainWindow::on_btn_disconnectSite_clicked(){
 }
 
 void MainWindow::on_btn_connectSites_clicked(){
-
+    qDebug () << "reconnect Sites";
     ui->btn_pauseTreatement->setEnabled(true);
     ui->btn_continueTreatment->setEnabled(true);
-
-    qDebug () << "reconnect Sites";
     controller->reconnectSites();
-
     controller->resumeTimer();
 }
 
@@ -120,7 +116,6 @@ void MainWindow::on_widget_menuOpts_itemActivated(QListWidgetItem *item){
         ui->contactSignal->setStyleSheet("background-color: blue");
         char type = ui->band->currentText().toLower().toStdString().front();
         controller->startNewSession(type);
-
     }
     if(item->text() == "SESSION LOG"){
         controller->sessionLog();
@@ -205,8 +200,6 @@ void MainWindow::treatmentDelivered(bool delivered){
         history = controller->sessionLog();
         QString filename = "Session_Log.txt";
         QFile file(filename);
-
-
         if (file.open(QIODevice::ReadWrite)) {
             QTextStream stream(&file);
             stream << history; // Write the session logs here
@@ -230,7 +223,6 @@ void MainWindow::reset(){
     ui->btn_continueTreatment->setEnabled(false);
     ui->btn_stopTreatement->setEnabled(false);
     ui->eegSite->setEnabled(false);
-
 }
 
 void MainWindow::updateProgressBar(int progress) {
