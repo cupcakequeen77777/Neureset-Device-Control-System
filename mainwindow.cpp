@@ -198,6 +198,7 @@ void MainWindow::contactLost(bool x){
 void MainWindow::treatmentDelivered(bool delivered){
     if(delivered){
         ui->treatementSignal->setStyleSheet("background-color: #A9E6B3");
+        ui->contactSignal->setStyleSheet("background-color: #B8D6F5");
         history = controller->sessionLog();
         QString filename = "Session_Log.txt";
         QFile fileOld(filename);
