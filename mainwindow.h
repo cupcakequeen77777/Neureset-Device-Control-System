@@ -32,6 +32,8 @@ public slots:
 
     void treatmentDelivered(bool);
 
+    void reset();
+
 
 signals:
     void disconnectSite(int eegId);

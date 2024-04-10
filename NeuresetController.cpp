@@ -227,6 +227,7 @@ void NeuresetController::stopTimer() {
 void NeuresetController::handlePauseTimeout() {
     qDebug() << "Pause timeout reached. Ending session.";
     stopTimer();
+    emit reset();
 }
 
 

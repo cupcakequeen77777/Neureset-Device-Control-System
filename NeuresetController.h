@@ -44,7 +44,7 @@ signals:
     void treatmentDelivered(bool);
     void timeUpdated(const QString& timeString);
     void updatedProgressBar(int progress); // signal for the progress bar
-
+    void reset();
 
 protected:
     NeuresetController();
