@@ -251,6 +251,7 @@ QString NeuresetController::sessionLogToString(int session){
         log.append(QString::number(sessionLogA[i][session]));
         log.append("hz\n");
     }
+    log.append("\n");
 
     return log;
 }
@@ -264,11 +265,10 @@ QString NeuresetController::sessionLog(){
 
     for(int i = 0; i < numberOfSessions; i++){
         history.append("Session #");
-        qInfo() << "Session #";
-        history.append(QString::number(numberOfSessions+1));
+        qInfo() << "\nSession #" << (i+1) << "At:" << sessionLogDT[i].toString("dd/MM/yy hh:mm:ss AP");
+        history.append(QString::number(i+1));
         history.append(", At:");
-        history.append(sessionLogDT[numberOfSessions-1].toString("dd/MM/yy hh:mm:ss AP\n"));
-        qInfo() << sessionLogDT[numberOfSessions-1].toString("dd/MM/yy hh:mm:ss AP");
+        history.append(sessionLogDT[i].toString("dd/MM/yy hh:mm:ss AP\n"));
         history.append(sessionLogToString(i));
     }
 
