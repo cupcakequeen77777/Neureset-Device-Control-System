@@ -115,7 +115,6 @@ void MainWindow::on_widget_menuOpts_itemActivated(QListWidgetItem *item){
         ui->btn_continueTreatment->setEnabled(true);
         ui->btn_stopTreatement->setEnabled(true);
 
-
         //switch to session info tab
         ui->tabWidget->setCurrentIndex(0);
         ui->contactSignal->setStyleSheet("background-color: blue");
@@ -138,7 +137,6 @@ void MainWindow::on_btn_on_clicked(){
     ui->eegSiteWave->setEnabled(true);
     ui->band->setEnabled(true);
 
-
     // start the timer for the battery consumption
     batteryInstance->startBatteryConsumption();
 }
@@ -146,17 +144,13 @@ void MainWindow::on_btn_on_clicked(){
 
 void MainWindow::on_btn_off_clicked(){
     qDebug() << "You turned off the  machine";
+    reset();
     ui->btn_off->hide();
     ui->btn_on->show();
     ui->control->hide();
-
-    reset();
     ui->btn_seeEEGWave->setEnabled(false);
     ui->eegSiteWave->setEnabled(false);
     ui->band->setEnabled(false);
-
-
-
 
     //stoped the timer when turning off the machine
     controller->stopTimer();
