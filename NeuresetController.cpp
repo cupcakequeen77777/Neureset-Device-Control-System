@@ -2,7 +2,7 @@
 
 NeuresetController* NeuresetController::control = 0;
 
-NeuresetController::NeuresetController(): isPaused(false), pausedTime(0), pauseOffset(0){
+NeuresetController::NeuresetController(): isPaused(false), pausedTime(0), pauseOffset(0), isStarted(false){
     for(int i = 0; i < NUM_EEGSITES; i++){
         eegSites[i] = new EEGSite(i+1);
         connect(eegSites[i], &EEGSite::contactLost, this, &NeuresetController::contactLost);
@@ -152,6 +152,7 @@ void NeuresetController::startTimer() {
     pauseOffset = 0;
     isPaused = false;
     timer->start(1000); // Start the timer with a 1-second interval
+    isStarted = true;
 }
 
 
@@ -173,7 +174,7 @@ void NeuresetController::updateTimer() {
 
 
 void NeuresetController::pauseTimer() {
-    if (!isPaused) {
+    if (!isPaused && isStarted) {
         timer->stop(); // Stop the QTimer
         treatmentTimer->stop(); //stop the treatment timer.
         pausedTime = elapsedTime.elapsed(); // record the elapsed time
@@ -185,7 +186,7 @@ void NeuresetController::pauseTimer() {
 
 
 void NeuresetController::resumeTimer() {
-    if (isPaused) {
+    if (isPaused && isStarted) {
         qint64 currentPauseDuration = elapsedTime.elapsed() - pausedTime;
         pauseOffset += currentPauseDuration;
 
@@ -205,18 +206,22 @@ void NeuresetController::resumeTimer() {
 
 
 void NeuresetController::stopTimer() {
-    timer->stop();
-    elapsedTime.restart();
-    isPaused = false;
-    pausedTime = 0;
-    pauseOffset = 0;
-    emit timeUpdated("01:00"); // Reset the display to the initial time
+    if (isStarted) {
+        timer->stop();
+        elapsedTime.restart();
+        isPaused = false;
+        pausedTime = 0;
+        pauseOffset = 0;
+        emit timeUpdated("01:00"); // Reset the display to the initial time
 
-    treatmentTimer->stop();
-    currentRound = 0;
+        treatmentTimer->stop();
+        currentRound = 0;
 
-    //reset the progress bar.
-    emit updatedProgressBar(0);
+        isStarted = false;
+
+        //reset the progress bar.
+        emit updatedProgressBar(0);
+    }
 }
 
 void NeuresetController::handlePauseTimeout() {

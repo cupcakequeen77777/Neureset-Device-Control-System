@@ -80,6 +80,9 @@ private:
     static constexpr int totalRounds = 4; // Total number of rounds
     bool isResumed = false;
 
+    //to control the timer behaviour
+    bool isStarted;
+
 };
 
 #endif // NEURESETCONTROLLER_H
