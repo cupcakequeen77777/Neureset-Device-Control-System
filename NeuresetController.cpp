@@ -215,7 +215,6 @@ void NeuresetController::handlePauseTimeout() {
 void NeuresetController::handleTreatmentRound() {
     qInfo() << "Beginning round #" << currentRound << " with " << currentRound * 5 << "Hz offset frequency";
 
-    // Log the date and time at the start of the first round or if you need it logged at every round?
     if (currentRound == 1) {
         QDateTime currentDateTime = QDateTime::currentDateTime();
         sessionLogDT[numberOfSessions] = currentDateTime;
@@ -224,7 +223,6 @@ void NeuresetController::handleTreatmentRound() {
     // Treatment logic for each EEG site
     for (int i=0; i< NUM_EEGSITES; ++i){
         sessionLogB[i][currentRound-1] = eegSites[i]->getBaselineFrequency();
-
         eegSites[i]->deliverTreatment(currentRound*5);
         sessionLogA[i][currentRound-1] = eegSites[i]->getBaselineFrequency();
     }
@@ -234,7 +232,6 @@ void NeuresetController::handleTreatmentRound() {
     if (isResumed && treatmentRoundTimer->interval() != ROUND_TIME) {
         treatmentRoundTimer->start(ROUND_TIME); // Reset to normal interval for next rounds
         isResumed = false; // Reset the flag after handling the resumed round
-
     }
 
     if (currentRound == totalRounds) {
