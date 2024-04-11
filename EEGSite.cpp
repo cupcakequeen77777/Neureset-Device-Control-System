@@ -7,14 +7,11 @@ EEGSite::EEGSite(){
 EEGSite::EEGSite(int i){
     id = i;
     isConnected = true;
-    baselineFrequency = 10; //this is a default frequency, but the generateBaseline() func will actually calculate the frequency of the site
+    baselineFrequency = -1;
     generateWaveForm();
 }
 
 void EEGSite::generateWaveForm(){
-    for(int i=0; i<60; ++i){
-        waveForm[i] = id+i;
-    }
     listenAlphaFrequencies(alpha);
     listenBetaFrequencies(beta);
     listenDeltaFrequencies(delta);
@@ -27,6 +24,10 @@ bool EEGSite::getIsConnected(){
 
 int EEGSite::getBaselineFrequency(){
     return baselineFrequency;
+}
+
+void EEGSite::setBaseline(int baseline){
+    baselineFrequency = baseline;
 }
 
 int EEGSite::calculateBaseline(int* data){
@@ -63,8 +64,7 @@ void EEGSite::listenThetaFrequencies(int *data){
     }
 }
 
-//this function delivers treatment to the EEG site in four rounds. Each round increase then offset frequency by 5 and then add that
-//offset frequency 16 times over the span of a second to the baseline frequency and reanalysis/recalcuates the baseline frequency
+//this function delivers treatment to the EEG site and then reanalysis/recalcuates the baseline frequency
 void EEGSite::deliverTreatment(int offsetFrequency){
     int initialBaseline = baselineFrequency;
         for (int i=0; i<16; i++){
@@ -75,8 +75,6 @@ void EEGSite::deliverTreatment(int offsetFrequency){
 }
 
 // helper function for deliver treatment that recalculates the brainwave signal after each offset frequency is added
-// current logic is the new baseline is the old baseline +/- some value in the range of the offset frequency divided by 5.
-// For example if the offset frequency was 15hz the baseline would be modified by some value in the range (-3, 3)
 int EEGSite::calcNewBaseline(int baselineFrequency, int offsetFrequency){
     //generate a random number in the range of +/- the offsetFrequency for the given round
     int frequencyChange = (rand() % (1 + (offsetFrequency/5)*2)) - offsetFrequency/5;

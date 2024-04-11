@@ -39,7 +39,9 @@ void NeuresetController::startNewSession(char type){
     qDebug() << "Starting new session";
     currentRound = 1; // Reset current round
     for (int i=0; i< NUM_EEGSITES; ++i){
-        sessionLogB[i][numberOfSessions] = eegSites[i]->calculateBaseline(eegSites[i]->getWaveform(type));
+        int baseline = eegSites[i]->calculateBaseline(eegSites[i]->getWaveform(type));
+        eegSites[i]->setBaseline(baseline);
+        sessionLogB[i][numberOfSessions] = baseline;
     }
     qDebug() << "Flash on"; // FIXME: remove once there is a delay so the lights flash
     emit treatmentDelivered(false);
@@ -91,33 +93,6 @@ void NeuresetController::handleTreatmentRound() {
 
     currentRound++; // Prepare for the next round
 }
-
-
-//old version, please confirms if the timer logic makes sense
-//void NeuresetController::startNewSession(){
-//    qDebug() << "Starting new session";
-
-//    //FIXME: treatment happens instantly, should take a minute...?
-//    for(int round=1; round <= 4; round++){
-//        qInfo() << "Beginning round #" << round << " with " << round*5 << "hz offset frequency";
-
-//        QDateTime currentDateTime = QDateTime::currentDateTime();
-//        sessionLogDT[numberOfSessions] = currentDateTime;
-
-//        qDebug() << "Current date and time:" << currentDateTime.toString("dd/MM/yy hh:mm:ss AP");
-
-//        for (int i=0; i< NUM_EEGSITES; ++i){
-//            sessionLogB[i][round-1] = eegSites[i]->getBaselineFrequency();
-//            eegSites[i]->deliverTreatment(round*5);
-//            sessionLogB[i][round-1] = eegSites[i]->getBaselineFrequency();
-//        }
-//        //FIXME: add delay for 15 seconds so the treatment actually takes a minute
-//        qInfo() << "Round #" << round << " completed\n*****";
-//    }
-
-
-//    numberOfSessions ++;
-//}
 
 EEGSite* NeuresetController::getEEGSite(int eegId){
     return eegSites[eegId];
@@ -231,12 +206,13 @@ void NeuresetController::handlePauseTimeout() {
 }
 
 
-void NeuresetController::setBaseline(){
-    for(int i=0; i<NUM_EEGSITES; i++){
-        EEGSite *sensor = getEEGSite(i);
-        sensor->calculateBaseline(waveformData);
-    }
-}
+//Pretty sure this function isn't used
+//void NeuresetController::setBaseline(){
+//    for(int i=0; i<NUM_EEGSITES; i++){
+//        EEGSite *sensor = getEEGSite(i);
+//        sensor->calculateBaseline(waveformData);
+//    }
+//}
 
 QString NeuresetController::sessionLogToString(int session){
     QString log;
@@ -276,29 +252,17 @@ QString NeuresetController::sessionLog(){
     return history;
 }
 
+//this function generates and returns a QChart for the given eeg site and band
 QChart* NeuresetController::generateChart(int eegSite, char type){
     QLineSeries *series = new QLineSeries();
     QChart *chart = new QChart();
+    int *data = eegSites[eegSite-1]->getWaveform(type);
 
-    //special case, generating the average chart for all eeg sites
-    if (eegSite == -1){
-        for (int i=0; i<60; ++i){
-            //random number between 1 and 30
-            int randNum = rand() % 30;
-            series->append(i, randNum);
-            waveformData[i] = randNum;
-        }
-        chart->setTitle("Average EEG Waveform");
+    for (int i=0; i<60; ++i){
+        series->append(i, data[i]);
     }
-    else{
-        int *data = eegSites[eegSite-1]->getWaveform(type);
-
-        for (int i=0; i<60; ++i){
-            series->append(i, data[i]);
-        }
-        QString chartName = "EEG Waveform #";
-        chart->setTitle(chartName.append(QString::number(eegSite)));
-    }
+    QString chartName = "EEG Waveform #";
+    chart->setTitle(chartName.append(QString::number(eegSite)));
 
     chart->legend()->hide();
     chart->addSeries(series);

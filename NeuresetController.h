@@ -24,7 +24,7 @@ public:
     void resumeTimer();
     void stopTimer();
     void startNewSession(char);
-    void setBaseline();
+//    void setBaseline();
     void getAlphaFrequency();
     void getBetaFrequency();
     void getDeltaFrequency();
@@ -53,7 +53,7 @@ private:
     EEGSite* eegSites[NUM_EEGSITES];
 
     //Frequency Data
-    int waveformData[60];
+//    int waveformData[60];
     int alpha[60];
     int beta[60];
     int delta[60];

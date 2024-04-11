@@ -11,27 +11,17 @@ class EEGSite : public QObject {
     Q_OBJECT
 public:
     EEGSite();
-
     EEGSite(int id);
-
     bool getIsConnected();
-
     int getBaselineFrequency();
-
+    void setBaseline(int);
     int calculateBaseline(int* data);
-
     void listenAlphaFrequencies(int * data);
-
     void listenBetaFrequencies(int * data);
-
     void listenDeltaFrequencies(int * data);
-
     void listenThetaFrequencies(int * data);
-
     void deliverTreatment(int);
-
     void disconnectSite();
-
     void reconnectSite();
     int* getWaveform(char);
 
@@ -42,7 +32,6 @@ private:
     int id;
     bool isConnected;
     int baselineFrequency;
-    int waveForm[60];
     int alpha[60];
     int beta[60];
     int theta[60];
