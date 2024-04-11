@@ -91,7 +91,7 @@ void NeuresetController::resumeTimer() {
 
 void NeuresetController::stopTimer() {
     if (isStarted) {
-        timer->stop();
+        treatmentTimer->stop();
         elapsedTime.restart();
         isPaused = false;
         pausedTime = 0;
