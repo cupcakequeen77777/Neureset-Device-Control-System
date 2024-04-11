@@ -81,7 +81,6 @@ private:
 
     Battery* batteryInstance;
     void initializeBatteryStuff();
-    void createChart();
     QString history;
 
 };
