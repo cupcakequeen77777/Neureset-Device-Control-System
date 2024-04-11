@@ -205,15 +205,6 @@ void NeuresetController::handlePauseTimeout() {
     emit reset();
 }
 
-
-//Pretty sure this function isn't used
-//void NeuresetController::setBaseline(){
-//    for(int i=0; i<NUM_EEGSITES; i++){
-//        EEGSite *sensor = getEEGSite(i);
-//        sensor->calculateBaseline(waveformData);
-//    }
-//}
-
 QString NeuresetController::sessionLogToString(int session){
     QString log;
 
