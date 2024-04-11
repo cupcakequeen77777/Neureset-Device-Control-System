@@ -23,6 +23,11 @@ Organization of the submission.
 Knox Kan
 
 Emrehan Sagin
+* Use cases
+* State Diagrams
+* Battery implementation
+* Tracibility matrix
+* Documentation
 
 Sara Francis 101234656
 * UML Class diagram
