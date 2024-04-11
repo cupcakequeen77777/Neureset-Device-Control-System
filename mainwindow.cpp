@@ -160,12 +160,21 @@ void MainWindow::updateTreatmentTime(const QString& time) {
 
 void MainWindow::updateBatteryLevel(int level) {
     ui->battery->setValue(level);
-    //qDebug() << "Battery level updated to:" << level << "%";
+
+    if (level < 20) {
+        // Change the batteryLabel's appearance to indicate low battery
+        ui->batteryLabel->setStyleSheet("QLabel { color: white; background-color: red; }");
+        ui->batteryLabel->setText("Low Battery!");
+    } else {
+        // reset the batteryLabel appearance when the battery is not low
+        ui->batteryLabel->setStyleSheet("");
+        ui->batteryLabel->setText("");
+    }
 }
 
 void MainWindow::handleBatteryDepleted() {
     qDebug() << "Battery depleted. Application will now close.";
-    QApplication::quit();
+    on_btn_off_clicked();
 }
 
 void MainWindow::contactLost(bool x){
