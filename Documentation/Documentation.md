@@ -1,5 +1,7 @@
 # Final Project Documentation
 
+Preview on Vs Code or GitHub for best viewing experience  
+
 ## UML Class Diagrams
 
 UMLDiagrams/UMLClassDiagram.png
