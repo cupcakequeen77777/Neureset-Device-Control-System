@@ -32,5 +32,11 @@ Sara Francis 101234656
 * Traceability Matrix
 
 LeeAnne King
+* UML Class diagram
+* GUI design
+* Traceability Matrix
+* Connection loss between electrodes and the device
+* Logging of treatment sessions
+* Green, red and blue light for device status
 
 Burak Yildirim
