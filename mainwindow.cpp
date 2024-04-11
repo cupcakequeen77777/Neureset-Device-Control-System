@@ -143,6 +143,10 @@ void MainWindow::on_btn_off_clicked(){
 
     //stoped the timer when turning off the machine
     controller->stopTimer();
+
+    // stop the battery consumption timer
+    batteryInstance->stopBatteryConsumption();
+    qDebug() << "Battery consumption stopped.";
 }
 
 
