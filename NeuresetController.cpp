@@ -2,7 +2,7 @@
 
 NeuresetController* NeuresetController::control = 0;
 
-NeuresetController::NeuresetController(): isPaused(false), pausedTime(0), pauseOffset(0), isStarted(false){
+NeuresetController::NeuresetController(): isPaused(false), isStarted(false), pausedTime(0), pauseOffset(0) {
     for(int i = 0; i < NUM_EEGSITES; i++){
         eegSites[i] = new EEGSite(i+1);
         connect(eegSites[i], &EEGSite::contactLost, this, &NeuresetController::contactLost);
