@@ -46,7 +46,7 @@ Video going through the sequence diagrams: https://www.youtube.com/watch?v=nU5da
 * Design Decisions for 1, 2 and 3
 * Design Patterns
 
-### Burak Yildirim
+### Burak Yildirim 101233896
 
 * UML Class diagram
 * Traceability Matrix
@@ -54,6 +54,7 @@ Video going through the sequence diagrams: https://www.youtube.com/watch?v=nU5da
 * Calculation of Baseline
 * Sequence Diagram
 * Created the Neureset Demo Video
+* Wrote the desing decisions of Calculating Baseline and Band Values
 
 ## Files
 
