@@ -43,11 +43,11 @@ UMLDiagrams/StateDiagrams/StateDiagramController.png
 
 ## Requirements Traceability matrix
 
-UMLDiagrams/RequirementsTraceabilityMatrix.pdf
+UMLDiagrams/Traceability_Matrix.pdf
 
 ## Use Cases
 
-UMLDiagrams/UseCases.pdf
+UMLDiagrams/Use_Cases.pdf
 
 ## GUI
 
@@ -73,14 +73,14 @@ Battery.cpp
 EEGSite.cpp  
 NeuresetController.cpp  
 main.cpp  
-mainwindow.cpp
+mainwindow.cpp  
 
 ### Other Files
 
 mainwindow.ui  
-readMe.md
-Neureset.pro.user
-Neureset.pro
+readMe.md  
+Neureset.pro.user  
+Neureset.pro  
 
 ## Video
 <!-- Can be renamed -->
