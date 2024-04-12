@@ -51,3 +51,9 @@ LeeAnne King
 * Green, red and blue light for device status
 
 Burak Yildirim
+* UML Class diagram
+* Traceability Matrix
+* Collection EEG waveforms
+* Calculation of Baseline
+* Sequence Diagram
+* Created the Neureset Demo Video
