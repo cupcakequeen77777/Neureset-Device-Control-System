@@ -16,24 +16,27 @@ UMLDiagrams/SequenceDiagrams/normal_operation_treatment.png
 
 ### 2 - Therapy history viewing with PC
 
-UMLDiagrams/SequenceDiagrams/Therapy_history_viewing_with_PC.png
-![UMLDiagrams/SequenceDiagrams/Therapy_history_viewing_with_PC.png](UMLDiagrams/SequenceDiagrams/Therapy_history_viewing_with_PC.png)
+UMLDiagrams/SequenceDiagrams/session_history_viewing.png
+![UMLDiagrams/SequenceDiagrams/session_history_viewing.png](UMLDiagrams/SequenceDiagrams/session_history_viewing.png)
 
 ### 3 - Battery low response of the device
 
-UMLDiagrams/SequenceDiagrams/battery_low_response_of_the_device.png
-![UMLDiagrams/SequenceDiagrams/battery_low_response_of_the_device.png](UMLDiagrams/SequenceDiagrams/battery_low_response_of_the_device.png)
+UMLDiagrams/SequenceDiagrams/battery_low_response.jpg
+
+![UMLDiagrams/SequenceDiagrams/battery_low_response.jpg](UMLDiagrams/SequenceDiagrams/battery_low_response.jpg)
 
 ### 4 - Connection loss between electrodes and the device
 
-UMLDiagrams/SequenceDiagrams/connection_loss_between_electrodes_and_the_device.png
-![UMLDiagrams/SequenceDiagrams/connection_loss_between_electrodes_and_the_device.png](UMLDiagrams/SequenceDiagrams/connection_loss_between_electrodes_and_the_device.png)
+UMLDiagrams/SequenceDiagrams/connection_loss.jpg
+
+![UMLDiagrams/SequenceDiagrams/connection_loss.jpg](UMLDiagrams/SequenceDiagrams/connection_loss.jpg)
 
 ## State Diagrams
 
 ### State Diagram for
 
 UMLDiagrams/StateDiagrams/StateDiagram.png
+
 ![UMLDiagrams/StateDiagrams/StateDiagram.png](UMLDiagrams/StateDiagrams/StateDiagram.png)
 
 ### State Diagram for Controller
@@ -52,15 +55,19 @@ UMLDiagrams/StateDiagrams/StateDiagramController.png
 ## GUI
 
 UMLDiagrams/GUI1.jpg
+
 ![UMLDiagrams/GUI1.png](UMLDiagrams/GUI1.png)
 
 UMLDiagrams/GUI2.jpg
+
 ![UMLDiagrams/GUI2.png](UMLDiagrams/GUI2.png)
 
 UMLDiagrams/GUI3.jpg
+
 ![UMLDiagrams/GUI3.png](UMLDiagrams/GUI3.png)
 
 UMLDiagrams/GUI4.jpg
+
 ![UMLDiagrams/GUI4.jpg](UMLDiagrams/GUI4.jpg)
 
 ## Files
