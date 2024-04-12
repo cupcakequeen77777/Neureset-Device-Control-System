@@ -33,16 +33,16 @@ UMLDiagrams/SequenceDiagrams/connection_loss.jpg
 
 ## State Diagrams
 
-### State Diagram for
+### State Diagram for EEG Site
 
 UMLDiagrams/StateDiagrams/StateDiagram.png
 
-![UMLDiagrams/StateDiagrams/StateDiagram.png](UMLDiagrams/StateDiagrams/StateDiagram.png)
+![UMLDiagrams/StateDiagrams/EegSiteStateDiagram.png](UMLDiagrams/StateDiagrams/EegSiteStateDiagram.png)
 
 ### State Diagram for Controller
 
 UMLDiagrams/StateDiagrams/StateDiagramController.png
-![UMLDiagrams/StateDiagrams/StateDiagramController.png](UMLDiagrams/StateDiagrams/StateDiagramController.png)
+![UMLDiagrams/StateDiagrams/NeuresetControllerStateDiagram.png](UMLDiagrams/StateDiagrams/NeuresetControllerStateDiagram.png)
 
 ## Requirements Traceability matrix
 
@@ -51,6 +51,10 @@ UMLDiagrams/StateDiagrams/StateDiagramController.png
 ## Use Cases
 
 [Use_cases.pdf](Use_cases.pdf)
+
+## Design Decisions TODO
+
+[Design_Decisions.pdf](Design_Decisions.pdf)
 
 ## GUI
 
@@ -70,32 +74,5 @@ UMLDiagrams/GUI4.jpg
 
 ![UMLDiagrams/GUI4.jpg](UMLDiagrams/GUI4.jpg)
 
-## Files
-
-### Header Files
-
-Battery.h  
-EEGSite.h  
-NeuresetController.h  
-defs.h  
-mainwindow.h
-
-### cpp files
-
-Battery.cpp  
-EEGSite.cpp  
-NeuresetController.cpp  
-main.cpp  
-mainwindow.cpp  
-
-### Other Files
-
-mainwindow.ui  
-readMe.md  
-Neureset.pro.user  
-Neureset.pro  
-
 ## Video
-<!-- Can be renamed -->
-NeurosetDemo.mp4  
-<video controls src="video.mp4" title="Title"></video>
+https://www.youtube.com/watch?v=nU5daDI3iPI
