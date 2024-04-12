@@ -1,43 +1,27 @@
-# TeamProject
-Team Project Specification - Neureset: https://brightspace.carleton.ca/d2l/le/content/264065/viewContent/3616652/View
-
-Drive Folder for Documentation: https://drive.google.com/drive/folders/1bcjzkYDxltEFkZdXzf1aSsWD278qSMZN?usp=sharing
-
-Traceability Matrix: https://docs.google.com/document/d/1zKz3Lw6B_PB-xGRBwBwmRR5FGZcNQsOdRmp9Zpxba04/edit?usp=sharing
-
-UML Diagram ideas: https://docs.google.com/document/d/1H1BTiKu_DU6aSuwCK_lR6ixSCIjKJIhFIR7jx5ICksU/edit
-
-UMLClassDiagram: https://app.diagrams.net/#G1U_uGlqUB_pKur55CiLl19oXB0XhYVOi1#%7B%22pageId%22%3A%227F_M8fbziYKd2tRbxRzO%22%7D
+# TeamProject - Team 45
 
 Before running the code please install the QT Charts module by running `sudo apt install libqt5charts5-dev` in the terminal
 
-The sessionLog.txt file for exporting session logs is being saved to the Build folder, for example build-Neureset-Desktop-Debug/
+The sessionLog.txt file for exporting session logs is being saved to the Build folder, for example `build-Neureset-Desktop-Debug/`
 
-Your submission should contain a README file that has:
-
-Team members,
-What each member did, and
-Organization of the submission.
-
-## Team 45
-
-Knox Kan 101260592
+## Team Members and who did what
+### Knox Kan 101260592
 
 * Use cases
 * Sequence Diagram
 * Timer implementation
-* Tracibility matrix
+* Traceability matrix
 * Video shooting
 
-Emrehan Sagin
+### Emrehan Sagin
 
 * Use cases
 * State Diagrams
 * Battery implementation
-* Tracibility matrix
+* Traceability matrix
 * Documentation
 
-Sara Francis 101234656
+### Sara Francis 101234656
 
 * UML Class diagram
 * GUI design
@@ -45,7 +29,7 @@ Sara Francis 101234656
 * Graphical representation of EEG waveforms
 * Traceability Matrix
 
-LeeAnne King
+### LeeAnne King
 
 * UML Class diagram
 * GUI design
@@ -55,7 +39,7 @@ LeeAnne King
 * Green, red and blue light for device status
 * Documentation File
 
-Burak Yildirim
+### Burak Yildirim
 
 * UML Class diagram
 * Traceability Matrix
@@ -63,3 +47,28 @@ Burak Yildirim
 * Calculation of Baseline
 * Sequence Diagram
 * Created the Neureset Demo Video
+
+## Files
+
+### Header Files
+
+Battery.h  
+EEGSite.h  
+NeuresetController.h  
+defs.h  
+mainwindow.h
+
+### cpp files
+
+Battery.cpp  
+EEGSite.cpp  
+NeuresetController.cpp  
+main.cpp  
+mainwindow.cpp  
+
+### Other Files
+
+mainwindow.ui  
+readMe.md  
+Neureset.pro.user  
+Neureset.pro  
