@@ -15,6 +15,7 @@ Video going through the sequence diagrams: https://www.youtube.com/watch?v=nU5da
 * Sequence Diagram
 * Timer implementation
 * Traceability matrix
+* Documentation
 * Video shooting
 
 ### Emrehan Sagin
