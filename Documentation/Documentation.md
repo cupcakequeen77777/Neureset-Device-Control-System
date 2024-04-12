@@ -43,11 +43,11 @@ UMLDiagrams/StateDiagrams/StateDiagramController.png
 
 ## Requirements Traceability matrix
 
-[UMLDiagrams/Traceability_Matrix.pdf](UMLDiagrams/Traceability_Matrix.pdf)
+[Traceability_Matrix.pdf](Traceability_Matrix.pdf)
 
 ## Use Cases
 
-[UMLDiagrams/Use_Cases.pdf](UMLDiagrams/Use_Cases.pdf)
+[Use_Cases.pdf](Use_Cases.pdf)
 
 ## GUI
 
