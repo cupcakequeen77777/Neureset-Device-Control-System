@@ -61,7 +61,7 @@ UMLDiagrams/GUI3.jpg
 ![UMLDiagrams/GUI3.png](UMLDiagrams/GUI3.png)
 
 UMLDiagrams/GUI4.jpg
-![UMLDiagrams/GUI4.png](UMLDiagrams/GUI4.png)
+![UMLDiagrams/GUI4.jpg](UMLDiagrams/GUI4.jpg)
 
 ## Files
 
