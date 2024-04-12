@@ -57,6 +57,9 @@ UMLDiagrams/GUI1.jpg
 UMLDiagrams/GUI2.jpg
 ![UMLDiagrams/GUI2.png](UMLDiagrams/GUI2.png)
 
+UMLDiagrams/GUI3.jpg
+![UMLDiagrams/GUI3.png](UMLDiagrams/GUI3.png)
+
 ## Files
 
 ### Header Files
