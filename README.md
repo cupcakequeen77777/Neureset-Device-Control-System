@@ -11,7 +11,7 @@ UMLClassDiagram: https://app.diagrams.net/#G1U_uGlqUB_pKur55CiLl19oXB0XhYVOi1#%7
 
 Before running the code please install the QT Charts module by running `sudo apt install libqt5charts5-dev` in the terminal
 
-Add where file is being saved TODO:
+The sessionLog.txt file for exporting session logs is being saved to the Build folder, for example build-Neureset-Desktop-Debug/
 
 Your submission should contain a README file that has:
 
@@ -19,10 +19,10 @@ Team members,
 What each member did, and
 Organization of the submission.
 
-
-## Team 45:
+## Team 45
 
 Knox Kan 101260592
+
 * Use cases
 * Sequence Diagram
 * Timer implementation
@@ -30,6 +30,7 @@ Knox Kan 101260592
 * Video shooting
 
 Emrehan Sagin
+
 * Use cases
 * State Diagrams
 * Battery implementation
@@ -37,6 +38,7 @@ Emrehan Sagin
 * Documentation
 
 Sara Francis 101234656
+
 * UML Class diagram
 * GUI design
 * Treatment logic
@@ -44,6 +46,7 @@ Sara Francis 101234656
 * Traceability Matrix
 
 LeeAnne King
+
 * UML Class diagram
 * GUI design
 * Traceability Matrix
@@ -53,6 +56,7 @@ LeeAnne King
 * Documentation File
 
 Burak Yildirim
+
 * UML Class diagram
 * Traceability Matrix
 * Collection EEG waveforms
