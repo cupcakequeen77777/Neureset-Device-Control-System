@@ -25,7 +25,6 @@ Knox Kan 101260592
 * Sequence Diagram
 * Timer implementation
 * Tracibility matrix
-* Documentation
 * Video shooting
 
 Emrehan Sagin
