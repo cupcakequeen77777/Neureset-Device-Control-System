@@ -18,7 +18,7 @@ Video going through the sequence diagrams: https://www.youtube.com/watch?v=nU5da
 * Documentation
 * Video shooting
 
-### Emrehan Sagin
+### Emrehan Sagin 101223876
 
 * Use cases
 * State Diagrams
