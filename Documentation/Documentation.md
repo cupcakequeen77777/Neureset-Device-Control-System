@@ -9,40 +9,25 @@ UMLDiagrams/UMLClassDiagram.png
 
 ## Sequence Diagrams
 
-### 1
+### 1 - Normal operation of treatment with Neureset device
 
-UMLDiagrams/SequenceDiagrams/SequenceDiagram1.png
-![UMLDiagrams/SequenceDiagrams/SequenceDiagram1.png](UMLDiagrams/SequenceDiagrams/SequenceDiagram1.png)
+UMLDiagrams/SequenceDiagrams/normal_operation_treatment.png
+![UMLDiagrams/SequenceDiagrams/normal_operation_treatment.png](UMLDiagrams/SequenceDiagrams/normal_operation_treatment.png)
 
-### 2
+### 2 - Therapy history viewing with PC
 
-UMLDiagrams/SequenceDiagrams/SequenceDiagram2.png
-![UMLDiagrams/SequenceDiagrams/SequenceDiagram2.png](UMLDiagrams/SequenceDiagrams/SequenceDiagram2.png)
+UMLDiagrams/SequenceDiagrams/Therapy_history_viewing_with_PC.png
+![UMLDiagrams/SequenceDiagrams/Therapy_history_viewing_with_PC.png](UMLDiagrams/SequenceDiagrams/Therapy_history_viewing_with_PC.png)
 
-### 3
+### 3 - Battery low response of the device
 
-UMLDiagrams/SequenceDiagrams/SequenceDiagram3.png
-![UMLDiagrams/SequenceDiagrams/SequenceDiagram3.png](UMLDiagrams/SequenceDiagrams/SequenceDiagram3.png)
+UMLDiagrams/SequenceDiagrams/battery_low_response_of_the_device.png
+![UMLDiagrams/SequenceDiagrams/battery_low_response_of_the_device.png](UMLDiagrams/SequenceDiagrams/battery_low_response_of_the_device.png)
 
-### 4
+### 4 - Connection loss between electrodes and the device
 
-UMLDiagrams/SequenceDiagrams/SequenceDiagram4.png
-![UMLDiagrams/SequenceDiagrams/SequenceDiagram4.png](UMLDiagrams/SequenceDiagrams/SequenceDiagram4.png)
-
-### 5
-
-UMLDiagrams/SequenceDiagrams/SequenceDiagram4.png
-![UMLDiagrams/SequenceDiagrams/SequenceDiagram5.png](UMLDiagrams/SequenceDiagrams/SequenceDiagram5.png)
-
-### 6
-
-UMLDiagrams/SequenceDiagrams/SequenceDiagram6.png
-![UMLDiagrams/SequenceDiagrams/SequenceDiagram6.png](UMLDiagrams/SequenceDiagrams/SequenceDiagram6.png)
-
-### 7
-
-UMLDiagrams/SequenceDiagrams/SequenceDiagram7.png
-![UMLDiagrams/SequenceDiagrams/SequenceDiagram7.png](UMLDiagrams/SequenceDiagrams/SequenceDiagram7.png)
+UMLDiagrams/SequenceDiagrams/connection_loss_between_electrodes_and_the_device.png
+![UMLDiagrams/SequenceDiagrams/connection_loss_between_electrodes_and_the_device.png](UMLDiagrams/SequenceDiagrams/connection_loss_between_electrodes_and_the_device.png)
 
 ## State Diagrams
 
@@ -76,11 +61,17 @@ UMLDiagrams/GUI2.jpg
 
 ### Header Files
 
-defs.h
-mainWindow.h
+Battery.h  
+EEGSite.h  
+NeuresetController.h  
+defs.h  
+mainwindow.h
 
 ### cpp files
 
+Battery.cpp  
+EEGSite.cpp  
+NeuresetController.cpp  
 main.cpp  
 mainwindow.cpp
 
@@ -88,8 +79,10 @@ mainwindow.cpp
 
 mainwindow.ui  
 readMe.md
+Neureset.pro.user
+Neureset.pro
 
 ## Video
 <!-- Can be renamed -->
-video.mp4  
+NeurosetDemo.mp4  
 <video controls src="video.mp4" title="Title"></video>

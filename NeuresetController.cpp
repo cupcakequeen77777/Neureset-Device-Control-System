@@ -238,10 +238,11 @@ void NeuresetController::handleTreatmentRound() {
         treatmentRoundTimer->stop(); // Stop the timer if all rounds are completed
         qDebug() << "Treatment session completed";
 
-        // Increment the session count now that treatment is complete.
         for (int i=0; i< NUM_EEGSITES; ++i){
             sessionLogA[i][numberOfSessions] = eegSites[i]->getBaselineFrequency();
         }
+
+        // Increment the session count now that treatment is complete.
         numberOfSessions++;
 
         emit treatmentDelivered(true);
