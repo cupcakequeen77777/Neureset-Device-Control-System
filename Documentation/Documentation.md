@@ -47,7 +47,7 @@ UMLDiagrams/StateDiagrams/StateDiagramController.png
 
 ## Use Cases
 
-[Use_Cases.pdf](Use_Cases.pdf)
+[Use_cases.pdf](Use_cases.pdf)
 
 ## GUI
 
