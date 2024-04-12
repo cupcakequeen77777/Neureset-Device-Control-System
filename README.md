@@ -4,6 +4,8 @@ Before running the code please install the QT Charts module by running `sudo apt
 
 The sessionLog.txt file for exporting session logs is being saved to the Build folder, for example `build-Neureset-Desktop-Debug/`
 
+Documentation is in the "Documentation" folder and best viewed with the "Documentation.md" file either on GitHub or Vs Code.
+
 ## Team Members and who did what
 ### Knox Kan 101260592
 
