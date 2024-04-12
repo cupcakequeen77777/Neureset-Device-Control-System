@@ -50,6 +50,7 @@ LeeAnne King
 * Connection loss between electrodes and the device
 * Logging of treatment sessions
 * Green, red and blue light for device status
+* Documentation File
 
 Burak Yildirim
 * UML Class diagram
