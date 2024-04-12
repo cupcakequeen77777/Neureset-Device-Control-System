@@ -24,11 +24,6 @@ public:
     void resumeTimer();
     void stopTimer();
     void startNewSession(char);
-    void setBaseline();
-    void getAlphaFrequency();
-    void getBetaFrequency();
-    void getDeltaFrequency();
-    void getThetaFrequency();
     QString sessionLogToString(int);
     QString sessionLog();
     QChart* generateChart(int, char);
@@ -50,39 +45,33 @@ protected:
     NeuresetController();
 private:
     static NeuresetController* control;
+
     EEGSite* eegSites[NUM_EEGSITES];
 
-    //Frequency Data
-    int waveformData[60];
-    int alpha[60];
-    int beta[60];
-    int delta[60];
-    int theta[60];
-
-
-    QTimer* timer; //keep track treatment time
-    QElapsedTimer elapsedTime;
     bool isPaused;
-    qint64 pausedTime;
-    qint64 pauseOffset;
-    static constexpr qint64 treatmentDurationMs = 60000; // 1 minute (in ms)
-    QTimer* timerForPausing; //track if pausing over 5mins
+    bool isResumed = false;
+    bool isStarted; //to control the timer behaviour
 
     int numberOfSessions = 0;
+    int currentRound = 0; // Current treatment round
+    static constexpr int totalRounds = 4; // Total number of rounds
+
+    QString history;
+
     QDateTime sessionLogDT[NUM_EEGSITES];
     int sessionLogA[NUM_EEGSITES][MAX_NUM_SESSIONS];
     int sessionLogB[NUM_EEGSITES][MAX_NUM_SESSIONS];
-    QString history;
 
-    //timer for treatment.
-    QTimer* treatmentTimer; // Timer to manage treatment rounds
-    int currentRound = 0; // Current treatment round
-    static constexpr int totalRounds = 4; // Total number of rounds
-    bool isResumed = false;
-
-    //to control the timer behaviour
-    bool isStarted;
-
+    QTimer* timerForPausing; //track if pausing over 5mins
+    //timers for treatment.
+    QTimer* treatmentTimer; //keep track treatment time
+    QTimer* treatmentRoundTimer; // Timer to manage treatment rounds
+    QElapsedTimer elapsedTime;
+    
+    qint64 pausedTime;
+    qint64 pauseOffset;
+    static constexpr qint64 treatmentDurationMs = 60000; // 1 minute (in ms)
+    
 };
 
 #endif // NEURESETCONTROLLER_H

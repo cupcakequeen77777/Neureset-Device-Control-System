@@ -24,7 +24,7 @@ void Battery::stopBatteryConsumption() {
 }
 
 void Battery::consumePower() {
-    batteryLevel -= 5; // Decrease battery by 5 percent
+    batteryLevel -= 10; // Decrease battery by 10 percent
     if(batteryLevel <= 0) {
         batteryLevel = 0;
         emit batteryDepleted(); // Emit the batteryDepleted signal

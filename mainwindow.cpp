@@ -4,10 +4,7 @@
 
 #include <QtDebug>
 
-MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
-{
+MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow){
     ui->setupUi(this);
     ui->btn_off->hide();
     ui->btn_on->show();
@@ -93,14 +90,13 @@ void MainWindow::on_btn_connectSites_clicked(){
 
 
 void MainWindow::on_widget_menuOpts_itemActivated(QListWidgetItem *item){
-    qDebug ()<< "menuOpts_itemActivated" << item->text();
     if(item->text() == "TIME AND DATE"){
         ui->dateTimeEdit->show();
         ui->btn_setDate->show();
     }
     else{
-            ui->dateTimeEdit->hide();
-            ui->btn_setDate->hide();
+        ui->dateTimeEdit->hide();
+        ui->btn_setDate->hide();
     }
     if(item->text() == "NEW SESSION"){
         controller->startTimer();
@@ -124,7 +120,6 @@ void MainWindow::on_widget_menuOpts_itemActivated(QListWidgetItem *item){
 
 
 void MainWindow::on_btn_on_clicked(){
-    qDebug() << "You turned on the  machine";
     ui->btn_on->hide();
     ui->btn_off->show();
     ui->control->show();
@@ -138,7 +133,6 @@ void MainWindow::on_btn_on_clicked(){
 
 
 void MainWindow::on_btn_off_clicked(){
-    qDebug() << "You turned off the  machine";
     reset();
     ui->btn_off->hide();
     ui->btn_on->show();
@@ -149,13 +143,14 @@ void MainWindow::on_btn_off_clicked(){
 
     //stoped the timer when turning off the machine
     controller->stopTimer();
+
+    // stop the battery consumption timer
+    batteryInstance->stopBatteryConsumption();
+    qDebug() << "Battery consumption stopped.";
 }
 
 
 void MainWindow::on_btn_setDate_clicked(){
-    qDebug() << "The date is now: " << ui->dateTimeEdit->date();
-    qDebug() << "The time is now: " <<ui->dateTimeEdit->time();
-
     qDebug() << "The date time is now: " <<ui->dateTimeEdit->dateTime();
 
     ui->dateTimeEdit->hide();
@@ -169,12 +164,21 @@ void MainWindow::updateTreatmentTime(const QString& time) {
 
 void MainWindow::updateBatteryLevel(int level) {
     ui->battery->setValue(level);
-    //qDebug() << "Battery level updated to:" << level << "%";
+
+    if (level < 20) {
+        // Change the batteryLabel's appearance to indicate low battery
+        ui->batteryLabel->setStyleSheet("QLabel { color: white; background-color: red; }");
+        ui->batteryLabel->setText("Low Battery!");
+    } else {
+        // reset the batteryLabel appearance when the battery is not low
+        ui->batteryLabel->setStyleSheet("");
+        ui->batteryLabel->setText("");
+    }
 }
 
 void MainWindow::handleBatteryDepleted() {
     qDebug() << "Battery depleted. Application will now close.";
-    QApplication::quit();
+    on_btn_off_clicked();
 }
 
 void MainWindow::contactLost(bool x){
@@ -195,8 +199,7 @@ void MainWindow::contactLost(bool x){
 
 void MainWindow::treatmentDelivered(bool delivered){
     if(delivered){
-        ui->treatementSignal->setStyleSheet("background-color: #A9E6B3");
-        ui->contactSignal->setStyleSheet("background-color: #B8D6F5");
+        reset();
         history = controller->sessionLog();
         QString filename = "Session_Log.txt";
         QFile file(filename);
@@ -231,13 +234,14 @@ void MainWindow::updateProgressBar(int progress) {
 
 
 void MainWindow::on_btn_seeEEGWave_clicked(){
+    //get the requested band and eeg site and generate a chart
     char type = ui->band->currentText().toLower().toStdString().front();
     QChart *c = controller->generateChart(ui->eegSiteWave->value(), type);
 
+    //display the chart
     QChartView *chartView = new QChartView(c);
     chartView->setRenderHint(QPainter::Antialiasing);
     chartView->setMinimumSize(QSize(400, 300));
-    //opens chart in a new window
     chartView->show();
 }
 
