@@ -34,10 +34,12 @@ The sessionLog.txt file for exporting session logs is being saved to the Build f
 * UML Class diagram
 * GUI design
 * Traceability Matrix
-* Connection loss between electrodes and the device
-* Logging of treatment sessions
-* Green, red and blue light for device status
+* Connection loss between electrodes and the device - 1
+* Logging of treatment sessions - 2
+* Green, red and blue light for device status - 3
 * Documentation File
+* Design Decisions for 1, 2 and 3
+* Design Patterns
 
 ### Burak Yildirim
 
@@ -49,6 +51,8 @@ The sessionLog.txt file for exporting session logs is being saved to the Build f
 * Created the Neureset Demo Video
 
 ## Files
+
+Documentation is in the "Documentation" folder and best viewed with the "Documentation.md" file either on GitHub or Vs Code.
 
 ### Header Files
 
