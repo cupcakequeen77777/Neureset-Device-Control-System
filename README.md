@@ -6,6 +6,8 @@ The sessionLog.txt file for exporting session logs is being saved to the Build f
 
 Documentation is in the "Documentation" folder and best viewed with the "Documentation.md" file either on GitHub or Vs Code.
 
+Video going through the sequence diagrams: https://www.youtube.com/watch?v=nU5daDI3iPI 
+
 ## Team Members and who did what
 ### Knox Kan 101260592
 
