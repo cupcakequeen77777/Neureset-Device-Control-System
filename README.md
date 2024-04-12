@@ -20,7 +20,13 @@ Organization of the submission.
 
 ## Team 45:
 
-Knox Kan
+Knox Kan 101260592
+* Use cases
+* Sequence Diagram
+* Timer implementation
+* Tracibility matrix
+* Documentation
+* Video shooting
 
 Emrehan Sagin
 * Use cases
