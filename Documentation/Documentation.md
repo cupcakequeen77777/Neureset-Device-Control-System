@@ -52,7 +52,7 @@ UMLDiagrams/StateDiagrams/StateDiagramController.png
 
 [Use_cases.pdf](Use_cases.pdf)
 
-## Design Decisions TODO
+## Design Decisions
 
 [Design_Decisions.pdf](Design_Decisions.pdf)
 
