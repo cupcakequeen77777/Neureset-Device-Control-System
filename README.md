@@ -54,7 +54,7 @@ Video going through the sequence diagrams: https://www.youtube.com/watch?v=nU5da
 * Calculation of Baseline
 * Sequence Diagram
 * Created the Neureset Demo Video
-* Wrote the desing decisions of Calculating Baseline and Band Values
+* Write the design decisions for Calculating Baseline and Band Values.
 
 ## Files
 
