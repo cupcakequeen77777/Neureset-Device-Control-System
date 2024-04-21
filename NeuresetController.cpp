@@ -108,7 +108,7 @@ void NeuresetController::stopTimer() {
     }
 }
 
-//please confirms if the timer logic makes sense
+
 void NeuresetController::startNewSession(char type){
     qDebug() << "Starting new session";
     currentRound = 1; // Reset current round
@@ -117,7 +117,6 @@ void NeuresetController::startNewSession(char type){
         eegSites[i]->setBaseline(baseline);
         sessionLogB[i][numberOfSessions] = baseline;
     }
-    qDebug() << "Flash on"; // FIXME: remove once there is a delay so the lights flash
     emit treatmentDelivered(false);
     treatmentRoundTimer->start(); // Start the treatment rounds
 }
@@ -246,7 +245,6 @@ void NeuresetController::handleTreatmentRound() {
         numberOfSessions++;
 
         emit treatmentDelivered(true);
-        qDebug() << "Flash off"; // FIXME: remove once there is a delay so the lights flash
 
         return;
     }
