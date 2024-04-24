@@ -14,6 +14,7 @@ Video going through the sequence diagrams: https://www.youtube.com/watch?v=nU5da
 * Use cases
 * Sequence Diagram
 * Timer implementation
+* Progress bar implementation
 * Traceability matrix
 * Documentation
 * Video shooting
