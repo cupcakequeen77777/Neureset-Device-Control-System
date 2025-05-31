@@ -9,7 +9,7 @@ Documentation is in the "Documentation" folder and best viewed with the "Documen
 Video going through the sequence diagrams: https://www.youtube.com/watch?v=nU5daDI3iPI 
 
 ## Team Members and who did what
-### Knox Kan 101260592
+### Knox Kan
 
 * Use cases
 * Sequence Diagram
@@ -19,7 +19,7 @@ Video going through the sequence diagrams: https://www.youtube.com/watch?v=nU5da
 * Documentation
 * Video shooting
 
-### Emrehan Sagin 101223876
+### Emrehan Sagin
 
 * Use cases
 * State Diagrams
@@ -27,7 +27,7 @@ Video going through the sequence diagrams: https://www.youtube.com/watch?v=nU5da
 * Traceability matrix
 * Documentation
 
-### Sara Francis 101234656
+### Sara Francis
 
 * UML Class diagram
 * GUI design
