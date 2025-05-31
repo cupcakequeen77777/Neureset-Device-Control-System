@@ -47,7 +47,7 @@ Video going through the sequence diagrams: https://www.youtube.com/watch?v=nU5da
 * Design Decisions for 1, 2 and 3
 * Design Patterns
 
-### Burak Yildirim 101233896
+### Burak Yildirim
 
 * UML Class diagram
 * Traceability Matrix
